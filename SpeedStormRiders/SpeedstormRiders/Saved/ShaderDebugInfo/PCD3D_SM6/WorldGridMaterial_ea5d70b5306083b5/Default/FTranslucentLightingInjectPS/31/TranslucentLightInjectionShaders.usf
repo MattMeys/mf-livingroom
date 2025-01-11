@@ -1,0 +1,3830 @@
+#line 1 "__UE_FILENAME_SENTINEL__"
+precise float MakePrecise(in precise float v) { precise float pv = v; return pv; }
+precise float2 MakePrecise(in precise float2 v) { precise float2 pv = v; return pv; }
+precise float3 MakePrecise(in precise float3 v) { precise float3 pv = v; return pv; }
+precise float4 MakePrecise(in precise float4 v) { precise float4 pv = v; return pv; }
+bool select_internal(bool    c, bool a, bool b) { return bool (c   ? a.x : b.x); }
+bool2 select_internal(bool    c, bool a, bool2 b) { return bool2(c   ? a   : b.x, c   ? a   : b.y); }
+bool2 select_internal(bool    c, bool2 a, bool b) { return bool2(c   ? a.x : b  , c   ? a.y : b  ); }
+bool2 select_internal(bool    c, bool2 a, bool2 b) { return bool2(c   ? a.x : b.x, c   ? a.y : b.y); }
+bool2 select_internal(bool2   c, bool a, bool b) { return bool2(c.x ? a   : b  , c.y ? a   : b  ); }
+bool2 select_internal(bool2   c, bool a, bool2 b) { return bool2(c.x ? a   : b.x, c.y ? a   : b.y); }
+bool2 select_internal(bool2   c, bool2 a, bool b) { return bool2(c.x ? a.x : b  , c.y ? a.y : b  ); }
+bool2 select_internal(bool2   c, bool2 a, bool2 b) { return bool2(c.x ? a.x : b.x, c.y ? a.y : b.y); }
+bool3 select_internal(bool    c, bool a, bool3 b) { return bool3(c   ? a   : b.x, c   ? a   : b.y, c   ? a   : b.z); }
+bool3 select_internal(bool    c, bool3 a, bool b) { return bool3(c   ? a.x : b  , c   ? a.y : b  , c   ? a.z : b  ); }
+bool3 select_internal(bool    c, bool3 a, bool3 b) { return bool3(c   ? a.x : b.x, c   ? a.y : b.y, c   ? a.z : b.z); }
+bool3 select_internal(bool3   c, bool a, bool b) { return bool3(c.x ? a   : b  , c.y ? a   : b  , c.z ? a   : b  ); }
+bool3 select_internal(bool3   c, bool a, bool3 b) { return bool3(c.x ? a   : b.x, c.y ? a   : b.y, c.z ? a   : b.z); }
+bool3 select_internal(bool3   c, bool3 a, bool b) { return bool3(c.x ? a.x : b  , c.y ? a.y : b  , c.z ? a.z : b  ); }
+bool3 select_internal(bool3   c, bool3 a, bool3 b) { return bool3(c.x ? a.x : b.x, c.y ? a.y : b.y, c.z ? a.z : b.z); }
+bool4 select_internal(bool    c, bool a, bool4 b) { return bool4(c   ? a   : b.x, c   ? a   : b.y, c   ? a   : b.z, c   ? a   : b.w); }
+bool4 select_internal(bool    c, bool4 a, bool b) { return bool4(c   ? a.x : b  , c   ? a.y : b  , c   ? a.z : b  , c   ? a.w : b  ); }
+bool4 select_internal(bool    c, bool4 a, bool4 b) { return bool4(c   ? a.x : b.x, c   ? a.y : b.y, c   ? a.z : b.z, c   ? a.w : b.w); }
+bool4 select_internal(bool4   c, bool a, bool b) { return bool4(c.x ? a   : b  , c.y ? a   : b  , c.z ? a   : b  , c.w ? a   : b  ); }
+bool4 select_internal(bool4   c, bool a, bool4 b) { return bool4(c.x ? a   : b.x, c.y ? a   : b.y, c.z ? a   : b.z, c.w ? a   : b.w); }
+bool4 select_internal(bool4   c, bool4 a, bool b) { return bool4(c.x ? a.x : b  , c.y ? a.y : b  , c.z ? a.z : b  , c.w ? a.w : b  ); }
+bool4 select_internal(bool4   c, bool4 a, bool4 b) { return bool4(c.x ? a.x : b.x, c.y ? a.y : b.y, c.z ? a.z : b.z, c.w ? a.w : b.w); }
+int select_internal(bool    c, int a, int b) { return int (c   ? a.x : b.x); }
+int2 select_internal(bool    c, int a, int2 b) { return int2(c   ? a   : b.x, c   ? a   : b.y); }
+int2 select_internal(bool    c, int2 a, int b) { return int2(c   ? a.x : b  , c   ? a.y : b  ); }
+int2 select_internal(bool    c, int2 a, int2 b) { return int2(c   ? a.x : b.x, c   ? a.y : b.y); }
+int2 select_internal(bool2   c, int a, int b) { return int2(c.x ? a   : b  , c.y ? a   : b  ); }
+int2 select_internal(bool2   c, int a, int2 b) { return int2(c.x ? a   : b.x, c.y ? a   : b.y); }
+int2 select_internal(bool2   c, int2 a, int b) { return int2(c.x ? a.x : b  , c.y ? a.y : b  ); }
+int2 select_internal(bool2   c, int2 a, int2 b) { return int2(c.x ? a.x : b.x, c.y ? a.y : b.y); }
+int3 select_internal(bool    c, int a, int3 b) { return int3(c   ? a   : b.x, c   ? a   : b.y, c   ? a   : b.z); }
+int3 select_internal(bool    c, int3 a, int b) { return int3(c   ? a.x : b  , c   ? a.y : b  , c   ? a.z : b  ); }
+int3 select_internal(bool    c, int3 a, int3 b) { return int3(c   ? a.x : b.x, c   ? a.y : b.y, c   ? a.z : b.z); }
+int3 select_internal(bool3   c, int a, int b) { return int3(c.x ? a   : b  , c.y ? a   : b  , c.z ? a   : b  ); }
+int3 select_internal(bool3   c, int a, int3 b) { return int3(c.x ? a   : b.x, c.y ? a   : b.y, c.z ? a   : b.z); }
+int3 select_internal(bool3   c, int3 a, int b) { return int3(c.x ? a.x : b  , c.y ? a.y : b  , c.z ? a.z : b  ); }
+int3 select_internal(bool3   c, int3 a, int3 b) { return int3(c.x ? a.x : b.x, c.y ? a.y : b.y, c.z ? a.z : b.z); }
+int4 select_internal(bool    c, int a, int4 b) { return int4(c   ? a   : b.x, c   ? a   : b.y, c   ? a   : b.z, c   ? a   : b.w); }
+int4 select_internal(bool    c, int4 a, int b) { return int4(c   ? a.x : b  , c   ? a.y : b  , c   ? a.z : b  , c   ? a.w : b  ); }
+int4 select_internal(bool    c, int4 a, int4 b) { return int4(c   ? a.x : b.x, c   ? a.y : b.y, c   ? a.z : b.z, c   ? a.w : b.w); }
+int4 select_internal(bool4   c, int a, int b) { return int4(c.x ? a   : b  , c.y ? a   : b  , c.z ? a   : b  , c.w ? a   : b  ); }
+int4 select_internal(bool4   c, int a, int4 b) { return int4(c.x ? a   : b.x, c.y ? a   : b.y, c.z ? a   : b.z, c.w ? a   : b.w); }
+int4 select_internal(bool4   c, int4 a, int b) { return int4(c.x ? a.x : b  , c.y ? a.y : b  , c.z ? a.z : b  , c.w ? a.w : b  ); }
+int4 select_internal(bool4   c, int4 a, int4 b) { return int4(c.x ? a.x : b.x, c.y ? a.y : b.y, c.z ? a.z : b.z, c.w ? a.w : b.w); }
+float select_internal(bool    c, float a, float b) { return float (c   ? a.x : b.x); }
+float2 select_internal(bool    c, float a, float2 b) { return float2(c   ? a   : b.x, c   ? a   : b.y); }
+float2 select_internal(bool    c, float2 a, float b) { return float2(c   ? a.x : b  , c   ? a.y : b  ); }
+float2 select_internal(bool    c, float2 a, float2 b) { return float2(c   ? a.x : b.x, c   ? a.y : b.y); }
+float2 select_internal(bool2   c, float a, float b) { return float2(c.x ? a   : b  , c.y ? a   : b  ); }
+float2 select_internal(bool2   c, float a, float2 b) { return float2(c.x ? a   : b.x, c.y ? a   : b.y); }
+float2 select_internal(bool2   c, float2 a, float b) { return float2(c.x ? a.x : b  , c.y ? a.y : b  ); }
+float2 select_internal(bool2   c, float2 a, float2 b) { return float2(c.x ? a.x : b.x, c.y ? a.y : b.y); }
+float3 select_internal(bool    c, float a, float3 b) { return float3(c   ? a   : b.x, c   ? a   : b.y, c   ? a   : b.z); }
+float3 select_internal(bool    c, float3 a, float b) { return float3(c   ? a.x : b  , c   ? a.y : b  , c   ? a.z : b  ); }
+float3 select_internal(bool    c, float3 a, float3 b) { return float3(c   ? a.x : b.x, c   ? a.y : b.y, c   ? a.z : b.z); }
+float3 select_internal(bool3   c, float a, float b) { return float3(c.x ? a   : b  , c.y ? a   : b  , c.z ? a   : b  ); }
+float3 select_internal(bool3   c, float a, float3 b) { return float3(c.x ? a   : b.x, c.y ? a   : b.y, c.z ? a   : b.z); }
+float3 select_internal(bool3   c, float3 a, float b) { return float3(c.x ? a.x : b  , c.y ? a.y : b  , c.z ? a.z : b  ); }
+float3 select_internal(bool3   c, float3 a, float3 b) { return float3(c.x ? a.x : b.x, c.y ? a.y : b.y, c.z ? a.z : b.z); }
+float4 select_internal(bool    c, float a, float4 b) { return float4(c   ? a   : b.x, c   ? a   : b.y, c   ? a   : b.z, c   ? a   : b.w); }
+float4 select_internal(bool    c, float4 a, float b) { return float4(c   ? a.x : b  , c   ? a.y : b  , c   ? a.z : b  , c   ? a.w : b  ); }
+float4 select_internal(bool    c, float4 a, float4 b) { return float4(c   ? a.x : b.x, c   ? a.y : b.y, c   ? a.z : b.z, c   ? a.w : b.w); }
+float4 select_internal(bool4   c, float a, float b) { return float4(c.x ? a   : b  , c.y ? a   : b  , c.z ? a   : b  , c.w ? a   : b  ); }
+float4 select_internal(bool4   c, float a, float4 b) { return float4(c.x ? a   : b.x, c.y ? a   : b.y, c.z ? a   : b.z, c.w ? a   : b.w); }
+float4 select_internal(bool4   c, float4 a, float b) { return float4(c.x ? a.x : b  , c.y ? a.y : b  , c.z ? a.z : b  , c.w ? a.w : b  ); }
+float4 select_internal(bool4   c, float4 a, float4 b) { return float4(c.x ? a.x : b.x, c.y ? a.y : b.y, c.z ? a.z : b.z, c.w ? a.w : b.w); }
+bool  and_internal(bool  a, bool  b) { return bool(a && b); }
+bool2 and_internal(bool2 a, bool2 b) { return bool2(a.x && b.x, a.y && b.y); }
+bool3 and_internal(bool3 a, bool3 b) { return bool3(a.x && b.x, a.y && b.y, a.z && b.z); }
+bool4 and_internal(bool4 a, bool4 b) { return bool4(a.x && b.x, a.y && b.y, a.z && b.z, a.w && b.w); }
+const static float PI = 3.1415926535897932f;
+struct FDFScalar
+{
+	float High;
+	float Low;
+};
+FDFScalar MakeDFScalar(float High, float Low)
+{
+	FDFScalar Result;
+	Result.High = High;
+	Result.Low = Low;
+	return Result;
+}
+FDFScalar DFPromote(FDFScalar Value) { return Value; }
+FDFScalar DFPromote(float Value) { return MakeDFScalar(Value, (float)0); }
+float DFDemote(FDFScalar Value) { return Value.High + Value.Low; }
+float DFDemote(float Value) { return Value; }
+FDFScalar DFNegate(FDFScalar Value)
+{
+	return MakeDFScalar(-Value.High, -Value.Low);
+}
+FDFScalar DFTwoSum(float Lhs, float Rhs)
+{
+	const float S =   MakePrecise( ( Lhs ) + ( Rhs ) );
+	const float V =   MakePrecise( ( S ) - ( Lhs ) );
+	const float Q =   MakePrecise( ( S ) - ( V ) );
+	const float R =   MakePrecise( ( Lhs ) - ( Q ) );
+	const float T =   MakePrecise( ( Rhs ) - ( V ) );
+	const float Y =   MakePrecise( ( R ) + ( T ) );
+	return MakeDFScalar(S, Y);
+}
+FDFScalar DFFastTwoSum(float Lhs, float Rhs)
+{
+	const float S =   MakePrecise( ( Lhs ) + ( Rhs ) );
+	const float T =   MakePrecise( ( S ) - ( Lhs ) );
+	const float E =   MakePrecise( ( Rhs ) - ( T ) );
+	return MakeDFScalar(S, E);
+}
+FDFScalar DFFastAdd(float Lhs, float Rhs) { return DFTwoSum(Lhs, Rhs); }
+FDFScalar DFFastAdd(FDFScalar Lhs, FDFScalar Rhs)
+{
+	FDFScalar S = DFTwoSum(Lhs.High, Rhs.High);
+	S.Low += Lhs.Low + Rhs.Low;
+	S = DFFastTwoSum(S.High, S.Low);
+	return S;
+}
+FDFScalar DFFastAdd(FDFScalar Lhs, float Rhs)
+{
+	FDFScalar S = DFTwoSum(Lhs.High, Rhs);
+	S.Low += Lhs.Low;
+	S = DFFastTwoSum(S.High, S.Low);
+	return S;
+}
+FDFScalar DFFastAdd(float Lhs, FDFScalar Rhs) { return DFFastAdd(Rhs, Lhs); }
+FDFScalar DFFastSubtract(float Lhs, float Rhs) { return DFFastAdd(Lhs, -Rhs); }
+FDFScalar DFFastSubtract(FDFScalar Lhs, FDFScalar Rhs) { return DFFastAdd(Lhs, DFNegate(Rhs)); }
+FDFScalar DFFastSubtract(FDFScalar Lhs, float Rhs) { return DFFastAdd(Lhs, -Rhs); }
+FDFScalar DFFastSubtract(float Lhs, FDFScalar Rhs) { return DFFastAdd(Lhs, DFNegate(Rhs)); }
+float DFFastLocalSubtractDemote(FDFScalar Lhs, FDFScalar Rhs)
+{
+	const float High =   MakePrecise( ( Lhs.High ) - ( Rhs.High ) );
+	const float Low =   MakePrecise( ( Lhs.Low ) - ( Rhs.Low ) );
+	const float Sum =   MakePrecise( ( High ) + ( Low ) );
+	return Sum;
+}
+float DFFastLocalSubtractDemote(FDFScalar Lhs, float Rhs)
+{
+	const float High =   MakePrecise( ( Lhs.High ) - ( Rhs ) );
+	const float Sum =   MakePrecise( ( High ) + ( Lhs.Low ) );
+	return Sum;
+}
+float DFFastLocalSubtractDemote(float Lhs, FDFScalar Rhs)
+{
+	return DFFastLocalSubtractDemote(DFPromote(Lhs), Rhs);
+}
+FDFScalar DFTwoProduct(float Lhs, float Rhs)
+{
+	const float P = Lhs * Rhs;
+	const float E =   MakePrecise(  mad( ( Lhs ) , ( Rhs ) , ( -P ) ) );
+	return MakeDFScalar(P, E);
+}
+FDFScalar DFMultiply(float Lhs, float Rhs) { return DFTwoProduct(Lhs, Rhs); }
+FDFScalar DFMultiply(FDFScalar Lhs, FDFScalar Rhs)
+{
+	const FDFScalar P = DFTwoProduct(Lhs.High, Rhs.High);
+	float T =   MakePrecise( ( Lhs.High ) * ( Rhs.Low ) );
+	T =   MakePrecise(  mad( ( Lhs.Low ) , ( Rhs.High ) , ( T ) ) );
+	T =   MakePrecise( ( T ) + ( P.Low ) );
+	return DFFastTwoSum(P.High, T);
+}
+FDFScalar DFMultiply(FDFScalar Lhs, float Rhs)
+{
+	FDFScalar P = DFTwoProduct(Lhs.High, Rhs);
+	float T =   MakePrecise(  mad( ( Lhs.Low ) , ( Rhs ) , ( P.Low ) ) );
+	return DFFastTwoSum(P.High, T);
+}
+FDFScalar DFMultiply(float Lhs, FDFScalar Rhs) { return DFMultiply(Rhs, Lhs); }
+FDFScalar DFFastDivide(FDFScalar Lhs, FDFScalar Rhs);
+FDFScalar DFFastDivide(FDFScalar Lhs, FDFScalar Rhs)
+{
+	const float Th =   MakePrecise( ( Lhs.High ) / ( Rhs.High ) );
+	const FDFScalar R = DFMultiply(Rhs, Th);
+	const float Ph =   MakePrecise( ( Lhs.High ) - ( R.High ) );
+	const float Dl =   MakePrecise( ( Lhs.Low ) - ( R.Low ) );
+	const float D =   MakePrecise( ( Ph ) + ( Dl ) );
+	const float Tl =   MakePrecise( ( D ) / ( Rhs.High ) );
+	return DFFastTwoSum(Th, Tl);
+}
+FDFScalar DFFastDivide(FDFScalar Lhs, float Rhs)
+{
+	const float Th =   MakePrecise( ( Lhs.High ) / ( Rhs ) );
+	const FDFScalar R = DFTwoProduct(Rhs, Th);
+	const float Ph =   MakePrecise( ( Lhs.High ) - ( R.High ) );
+	const float Dl =   MakePrecise( ( Lhs.Low ) - ( R.Low ) );
+	const float D =   MakePrecise( ( Ph ) + ( Dl ) );
+	const float Tl =   MakePrecise( ( D ) / ( Rhs ) );
+	return DFFastTwoSum(Th, Tl);
+}
+FDFScalar DFFastDivide(float Lhs, FDFScalar Rhs) { return DFFastDivide(DFPromote(Lhs), Rhs); }
+FDFScalar DFFastDivide(float Lhs, float Rhs) { return DFFastDivide(DFPromote(Lhs), Rhs); }
+struct FDFVector2
+{
+	float2 High;
+	float2 Low;
+};
+FDFVector2 MakeDFVector2(float2 High, float2 Low)
+{
+	FDFVector2 Result;
+	Result.High = High;
+	Result.Low = Low;
+	return Result;
+}
+FDFVector2 DFPromote(FDFVector2 Value) { return Value; }
+FDFVector2 DFPromote(float2 Value) { return MakeDFVector2(Value, (float2)0); }
+float2 DFDemote(FDFVector2 Value) { return Value.High + Value.Low; }
+float2 DFDemote(float2 Value) { return Value; }
+FDFVector2 DFNegate(FDFVector2 Value)
+{
+	return MakeDFVector2(-Value.High, -Value.Low);
+}
+FDFVector2 DFTwoSum(float2 Lhs, float2 Rhs)
+{
+	const float2 S =   MakePrecise( ( Lhs ) + ( Rhs ) );
+	const float2 V =   MakePrecise( ( S ) - ( Lhs ) );
+	const float2 Q =   MakePrecise( ( S ) - ( V ) );
+	const float2 R =   MakePrecise( ( Lhs ) - ( Q ) );
+	const float2 T =   MakePrecise( ( Rhs ) - ( V ) );
+	const float2 Y =   MakePrecise( ( R ) + ( T ) );
+	return MakeDFVector2(S, Y);
+}
+FDFVector2 DFFastTwoSum(float2 Lhs, float2 Rhs)
+{
+	const float2 S =   MakePrecise( ( Lhs ) + ( Rhs ) );
+	const float2 T =   MakePrecise( ( S ) - ( Lhs ) );
+	const float2 E =   MakePrecise( ( Rhs ) - ( T ) );
+	return MakeDFVector2(S, E);
+}
+FDFVector2 DFFastAdd(float2 Lhs, float2 Rhs) { return DFTwoSum(Lhs, Rhs); }
+FDFVector2 DFFastAdd(FDFVector2 Lhs, FDFVector2 Rhs)
+{
+	FDFVector2 S = DFTwoSum(Lhs.High, Rhs.High);
+	S.Low += Lhs.Low + Rhs.Low;
+	S = DFFastTwoSum(S.High, S.Low);
+	return S;
+}
+FDFVector2 DFFastAdd(FDFVector2 Lhs, float2 Rhs)
+{
+	FDFVector2 S = DFTwoSum(Lhs.High, Rhs);
+	S.Low += Lhs.Low;
+	S = DFFastTwoSum(S.High, S.Low);
+	return S;
+}
+FDFVector2 DFFastAdd(float2 Lhs, FDFVector2 Rhs) { return DFFastAdd(Rhs, Lhs); }
+FDFVector2 DFFastSubtract(float2 Lhs, float2 Rhs) { return DFFastAdd(Lhs, -Rhs); }
+FDFVector2 DFFastSubtract(FDFVector2 Lhs, FDFVector2 Rhs) { return DFFastAdd(Lhs, DFNegate(Rhs)); }
+FDFVector2 DFFastSubtract(FDFVector2 Lhs, float2 Rhs) { return DFFastAdd(Lhs, -Rhs); }
+FDFVector2 DFFastSubtract(float2 Lhs, FDFVector2 Rhs) { return DFFastAdd(Lhs, DFNegate(Rhs)); }
+float2 DFFastLocalSubtractDemote(FDFVector2 Lhs, FDFVector2 Rhs)
+{
+	const float2 High =   MakePrecise( ( Lhs.High ) - ( Rhs.High ) );
+	const float2 Low =   MakePrecise( ( Lhs.Low ) - ( Rhs.Low ) );
+	const float2 Sum =   MakePrecise( ( High ) + ( Low ) );
+	return Sum;
+}
+float2 DFFastLocalSubtractDemote(FDFVector2 Lhs, float2 Rhs)
+{
+	const float2 High =   MakePrecise( ( Lhs.High ) - ( Rhs ) );
+	const float2 Sum =   MakePrecise( ( High ) + ( Lhs.Low ) );
+	return Sum;
+}
+float2 DFFastLocalSubtractDemote(float2 Lhs, FDFVector2 Rhs)
+{
+	return DFFastLocalSubtractDemote(DFPromote(Lhs), Rhs);
+}
+FDFVector2 DFTwoProduct(float2 Lhs, float2 Rhs)
+{
+	const float2 P = Lhs * Rhs;
+	const float2 E =   MakePrecise(  mad( ( Lhs ) , ( Rhs ) , ( -P ) ) );
+	return MakeDFVector2(P, E);
+}
+FDFVector2 DFMultiply(float2 Lhs, float2 Rhs) { return DFTwoProduct(Lhs, Rhs); }
+FDFVector2 DFMultiply(FDFVector2 Lhs, FDFVector2 Rhs)
+{
+	const FDFVector2 P = DFTwoProduct(Lhs.High, Rhs.High);
+	float2 T =   MakePrecise( ( Lhs.High ) * ( Rhs.Low ) );
+	T =   MakePrecise(  mad( ( Lhs.Low ) , ( Rhs.High ) , ( T ) ) );
+	T =   MakePrecise( ( T ) + ( P.Low ) );
+	return DFFastTwoSum(P.High, T);
+}
+FDFVector2 DFMultiply(FDFVector2 Lhs, float2 Rhs)
+{
+	FDFVector2 P = DFTwoProduct(Lhs.High, Rhs);
+	float2 T =   MakePrecise(  mad( ( Lhs.Low ) , ( Rhs ) , ( P.Low ) ) );
+	return DFFastTwoSum(P.High, T);
+}
+FDFVector2 DFMultiply(float2 Lhs, FDFVector2 Rhs) { return DFMultiply(Rhs, Lhs); }
+FDFVector2 DFFastDivide(FDFVector2 Lhs, FDFVector2 Rhs);
+FDFVector2 DFFastDivide(FDFVector2 Lhs, FDFVector2 Rhs)
+{
+	const float2 Th =   MakePrecise( ( Lhs.High ) / ( Rhs.High ) );
+	const FDFVector2 R = DFMultiply(Rhs, Th);
+	const float2 Ph =   MakePrecise( ( Lhs.High ) - ( R.High ) );
+	const float2 Dl =   MakePrecise( ( Lhs.Low ) - ( R.Low ) );
+	const float2 D =   MakePrecise( ( Ph ) + ( Dl ) );
+	const float2 Tl =   MakePrecise( ( D ) / ( Rhs.High ) );
+	return DFFastTwoSum(Th, Tl);
+}
+FDFVector2 DFFastDivide(FDFVector2 Lhs, float2 Rhs)
+{
+	const float2 Th =   MakePrecise( ( Lhs.High ) / ( Rhs ) );
+	const FDFVector2 R = DFTwoProduct(Rhs, Th);
+	const float2 Ph =   MakePrecise( ( Lhs.High ) - ( R.High ) );
+	const float2 Dl =   MakePrecise( ( Lhs.Low ) - ( R.Low ) );
+	const float2 D =   MakePrecise( ( Ph ) + ( Dl ) );
+	const float2 Tl =   MakePrecise( ( D ) / ( Rhs ) );
+	return DFFastTwoSum(Th, Tl);
+}
+FDFVector2 DFFastDivide(float2 Lhs, FDFVector2 Rhs) { return DFFastDivide(DFPromote(Lhs), Rhs); }
+FDFVector2 DFFastDivide(float2 Lhs, float2 Rhs) { return DFFastDivide(DFPromote(Lhs), Rhs); }
+FDFVector2 DFBroadcast2(FDFScalar V)
+{
+	const float2 High = V.High;
+	const float2 Low = V.Low;
+	return MakeDFVector2(High, Low);
+}
+float2 DFBroadcast2(float V)
+{
+	const float2 Single = V;
+	return Single;
+}
+FDFVector2  DFFastAdd (FDFScalar Lhs, FDFVector2 Rhs) { return DFFastAdd (DFBroadcast2(Lhs), Rhs); }
+FDFVector2  DFFastAdd (float Lhs, FDFVector2 Rhs) { return DFFastAdd (DFBroadcast2(Lhs), Rhs); }
+FDFVector2  DFFastAdd (FDFScalar Lhs, float2 Rhs) { return DFFastAdd (DFBroadcast2(Lhs), Rhs); }
+FDFVector2  DFFastAdd (float Lhs, float2 Rhs) { return DFFastAdd (DFBroadcast2(Lhs), Rhs); }
+FDFVector2  DFFastAdd (FDFVector2 Lhs, FDFScalar Rhs) { return DFFastAdd (Lhs, DFBroadcast2(Rhs)); }
+FDFVector2  DFFastAdd (FDFVector2 Lhs, float Rhs)     { return DFFastAdd (Lhs, DFBroadcast2(Rhs)); }
+FDFVector2  DFFastAdd (float2 Lhs, FDFScalar Rhs) { return DFFastAdd (Lhs, DFBroadcast2(Rhs)); }
+FDFVector2  DFFastAdd (float2 Lhs, float Rhs) { return DFFastAdd (Lhs, DFBroadcast2(Rhs)); }
+FDFVector2  DFFastSubtract (FDFScalar Lhs, FDFVector2 Rhs) { return DFFastSubtract (DFBroadcast2(Lhs), Rhs); }
+FDFVector2  DFFastSubtract (float Lhs, FDFVector2 Rhs) { return DFFastSubtract (DFBroadcast2(Lhs), Rhs); }
+FDFVector2  DFFastSubtract (FDFScalar Lhs, float2 Rhs) { return DFFastSubtract (DFBroadcast2(Lhs), Rhs); }
+FDFVector2  DFFastSubtract (float Lhs, float2 Rhs) { return DFFastSubtract (DFBroadcast2(Lhs), Rhs); }
+FDFVector2  DFFastSubtract (FDFVector2 Lhs, FDFScalar Rhs) { return DFFastSubtract (Lhs, DFBroadcast2(Rhs)); }
+FDFVector2  DFFastSubtract (FDFVector2 Lhs, float Rhs)     { return DFFastSubtract (Lhs, DFBroadcast2(Rhs)); }
+FDFVector2  DFFastSubtract (float2 Lhs, FDFScalar Rhs) { return DFFastSubtract (Lhs, DFBroadcast2(Rhs)); }
+FDFVector2  DFFastSubtract (float2 Lhs, float Rhs) { return DFFastSubtract (Lhs, DFBroadcast2(Rhs)); }
+FDFVector2  DFMultiply (FDFScalar Lhs, FDFVector2 Rhs) { return DFMultiply (DFBroadcast2(Lhs), Rhs); }
+FDFVector2  DFMultiply (float Lhs, FDFVector2 Rhs) { return DFMultiply (DFBroadcast2(Lhs), Rhs); }
+FDFVector2  DFMultiply (FDFScalar Lhs, float2 Rhs) { return DFMultiply (DFBroadcast2(Lhs), Rhs); }
+FDFVector2  DFMultiply (float Lhs, float2 Rhs) { return DFMultiply (DFBroadcast2(Lhs), Rhs); }
+FDFVector2  DFMultiply (FDFVector2 Lhs, FDFScalar Rhs) { return DFMultiply (Lhs, DFBroadcast2(Rhs)); }
+FDFVector2  DFMultiply (FDFVector2 Lhs, float Rhs)     { return DFMultiply (Lhs, DFBroadcast2(Rhs)); }
+FDFVector2  DFMultiply (float2 Lhs, FDFScalar Rhs) { return DFMultiply (Lhs, DFBroadcast2(Rhs)); }
+FDFVector2  DFMultiply (float2 Lhs, float Rhs) { return DFMultiply (Lhs, DFBroadcast2(Rhs)); }
+FDFVector2  DFFastDivide (FDFScalar Lhs, FDFVector2 Rhs) { return DFFastDivide (DFBroadcast2(Lhs), Rhs); }
+FDFVector2  DFFastDivide (float Lhs, FDFVector2 Rhs) { return DFFastDivide (DFBroadcast2(Lhs), Rhs); }
+FDFVector2  DFFastDivide (FDFScalar Lhs, float2 Rhs) { return DFFastDivide (DFBroadcast2(Lhs), Rhs); }
+FDFVector2  DFFastDivide (float Lhs, float2 Rhs) { return DFFastDivide (DFBroadcast2(Lhs), Rhs); }
+FDFVector2  DFFastDivide (FDFVector2 Lhs, FDFScalar Rhs) { return DFFastDivide (Lhs, DFBroadcast2(Rhs)); }
+FDFVector2  DFFastDivide (FDFVector2 Lhs, float Rhs)     { return DFFastDivide (Lhs, DFBroadcast2(Rhs)); }
+FDFVector2  DFFastDivide (float2 Lhs, FDFScalar Rhs) { return DFFastDivide (Lhs, DFBroadcast2(Rhs)); }
+FDFVector2  DFFastDivide (float2 Lhs, float Rhs) { return DFFastDivide (Lhs, DFBroadcast2(Rhs)); }
+struct FDFVector3
+{
+	float3 High;
+	float3 Low;
+};
+FDFVector3 MakeDFVector3(float3 High, float3 Low)
+{
+	FDFVector3 Result;
+	Result.High = High;
+	Result.Low = Low;
+	return Result;
+}
+FDFVector3 DFPromote(FDFVector3 Value) { return Value; }
+FDFVector3 DFPromote(float3 Value) { return MakeDFVector3(Value, (float3)0); }
+float3 DFDemote(FDFVector3 Value) { return Value.High + Value.Low; }
+float3 DFDemote(float3 Value) { return Value; }
+FDFVector3 DFNegate(FDFVector3 Value)
+{
+	return MakeDFVector3(-Value.High, -Value.Low);
+}
+FDFVector3 DFTwoSum(float3 Lhs, float3 Rhs)
+{
+	const float3 S =   MakePrecise( ( Lhs ) + ( Rhs ) );
+	const float3 V =   MakePrecise( ( S ) - ( Lhs ) );
+	const float3 Q =   MakePrecise( ( S ) - ( V ) );
+	const float3 R =   MakePrecise( ( Lhs ) - ( Q ) );
+	const float3 T =   MakePrecise( ( Rhs ) - ( V ) );
+	const float3 Y =   MakePrecise( ( R ) + ( T ) );
+	return MakeDFVector3(S, Y);
+}
+FDFVector3 DFFastTwoSum(float3 Lhs, float3 Rhs)
+{
+	const float3 S =   MakePrecise( ( Lhs ) + ( Rhs ) );
+	const float3 T =   MakePrecise( ( S ) - ( Lhs ) );
+	const float3 E =   MakePrecise( ( Rhs ) - ( T ) );
+	return MakeDFVector3(S, E);
+}
+FDFVector3 DFFastAdd(float3 Lhs, float3 Rhs) { return DFTwoSum(Lhs, Rhs); }
+FDFVector3 DFFastAdd(FDFVector3 Lhs, FDFVector3 Rhs)
+{
+	FDFVector3 S = DFTwoSum(Lhs.High, Rhs.High);
+	S.Low += Lhs.Low + Rhs.Low;
+	S = DFFastTwoSum(S.High, S.Low);
+	return S;
+}
+FDFVector3 DFFastAdd(FDFVector3 Lhs, float3 Rhs)
+{
+	FDFVector3 S = DFTwoSum(Lhs.High, Rhs);
+	S.Low += Lhs.Low;
+	S = DFFastTwoSum(S.High, S.Low);
+	return S;
+}
+FDFVector3 DFFastAdd(float3 Lhs, FDFVector3 Rhs) { return DFFastAdd(Rhs, Lhs); }
+FDFVector3 DFFastSubtract(float3 Lhs, float3 Rhs) { return DFFastAdd(Lhs, -Rhs); }
+FDFVector3 DFFastSubtract(FDFVector3 Lhs, FDFVector3 Rhs) { return DFFastAdd(Lhs, DFNegate(Rhs)); }
+FDFVector3 DFFastSubtract(FDFVector3 Lhs, float3 Rhs) { return DFFastAdd(Lhs, -Rhs); }
+FDFVector3 DFFastSubtract(float3 Lhs, FDFVector3 Rhs) { return DFFastAdd(Lhs, DFNegate(Rhs)); }
+float3 DFFastLocalSubtractDemote(FDFVector3 Lhs, FDFVector3 Rhs)
+{
+	const float3 High =   MakePrecise( ( Lhs.High ) - ( Rhs.High ) );
+	const float3 Low =   MakePrecise( ( Lhs.Low ) - ( Rhs.Low ) );
+	const float3 Sum =   MakePrecise( ( High ) + ( Low ) );
+	return Sum;
+}
+float3 DFFastLocalSubtractDemote(FDFVector3 Lhs, float3 Rhs)
+{
+	const float3 High =   MakePrecise( ( Lhs.High ) - ( Rhs ) );
+	const float3 Sum =   MakePrecise( ( High ) + ( Lhs.Low ) );
+	return Sum;
+}
+float3 DFFastLocalSubtractDemote(float3 Lhs, FDFVector3 Rhs)
+{
+	return DFFastLocalSubtractDemote(DFPromote(Lhs), Rhs);
+}
+FDFVector3 DFTwoProduct(float3 Lhs, float3 Rhs)
+{
+	const float3 P = Lhs * Rhs;
+	const float3 E =   MakePrecise(  mad( ( Lhs ) , ( Rhs ) , ( -P ) ) );
+	return MakeDFVector3(P, E);
+}
+FDFVector3 DFMultiply(float3 Lhs, float3 Rhs) { return DFTwoProduct(Lhs, Rhs); }
+FDFVector3 DFMultiply(FDFVector3 Lhs, FDFVector3 Rhs)
+{
+	const FDFVector3 P = DFTwoProduct(Lhs.High, Rhs.High);
+	float3 T =   MakePrecise( ( Lhs.High ) * ( Rhs.Low ) );
+	T =   MakePrecise(  mad( ( Lhs.Low ) , ( Rhs.High ) , ( T ) ) );
+	T =   MakePrecise( ( T ) + ( P.Low ) );
+	return DFFastTwoSum(P.High, T);
+}
+FDFVector3 DFMultiply(FDFVector3 Lhs, float3 Rhs)
+{
+	FDFVector3 P = DFTwoProduct(Lhs.High, Rhs);
+	float3 T =   MakePrecise(  mad( ( Lhs.Low ) , ( Rhs ) , ( P.Low ) ) );
+	return DFFastTwoSum(P.High, T);
+}
+FDFVector3 DFMultiply(float3 Lhs, FDFVector3 Rhs) { return DFMultiply(Rhs, Lhs); }
+FDFVector3 DFFastDivide(FDFVector3 Lhs, FDFVector3 Rhs);
+FDFVector3 DFFastDivide(FDFVector3 Lhs, FDFVector3 Rhs)
+{
+	const float3 Th =   MakePrecise( ( Lhs.High ) / ( Rhs.High ) );
+	const FDFVector3 R = DFMultiply(Rhs, Th);
+	const float3 Ph =   MakePrecise( ( Lhs.High ) - ( R.High ) );
+	const float3 Dl =   MakePrecise( ( Lhs.Low ) - ( R.Low ) );
+	const float3 D =   MakePrecise( ( Ph ) + ( Dl ) );
+	const float3 Tl =   MakePrecise( ( D ) / ( Rhs.High ) );
+	return DFFastTwoSum(Th, Tl);
+}
+FDFVector3 DFFastDivide(FDFVector3 Lhs, float3 Rhs)
+{
+	const float3 Th =   MakePrecise( ( Lhs.High ) / ( Rhs ) );
+	const FDFVector3 R = DFTwoProduct(Rhs, Th);
+	const float3 Ph =   MakePrecise( ( Lhs.High ) - ( R.High ) );
+	const float3 Dl =   MakePrecise( ( Lhs.Low ) - ( R.Low ) );
+	const float3 D =   MakePrecise( ( Ph ) + ( Dl ) );
+	const float3 Tl =   MakePrecise( ( D ) / ( Rhs ) );
+	return DFFastTwoSum(Th, Tl);
+}
+FDFVector3 DFFastDivide(float3 Lhs, FDFVector3 Rhs) { return DFFastDivide(DFPromote(Lhs), Rhs); }
+FDFVector3 DFFastDivide(float3 Lhs, float3 Rhs) { return DFFastDivide(DFPromote(Lhs), Rhs); }
+FDFVector3 DFBroadcast3(FDFScalar V)
+{
+	const float3 High = V.High;
+	const float3 Low = V.Low;
+	return MakeDFVector3(High, Low);
+}
+float3 DFBroadcast3(float V)
+{
+	const float3 Single = V;
+	return Single;
+}
+FDFVector3  DFFastAdd (FDFScalar Lhs, FDFVector3 Rhs) { return DFFastAdd (DFBroadcast3(Lhs), Rhs); }
+FDFVector3  DFFastAdd (float Lhs, FDFVector3 Rhs) { return DFFastAdd (DFBroadcast3(Lhs), Rhs); }
+FDFVector3  DFFastAdd (FDFScalar Lhs, float3 Rhs) { return DFFastAdd (DFBroadcast3(Lhs), Rhs); }
+FDFVector3  DFFastAdd (float Lhs, float3 Rhs) { return DFFastAdd (DFBroadcast3(Lhs), Rhs); }
+FDFVector3  DFFastAdd (FDFVector3 Lhs, FDFScalar Rhs) { return DFFastAdd (Lhs, DFBroadcast3(Rhs)); }
+FDFVector3  DFFastAdd (FDFVector3 Lhs, float Rhs)     { return DFFastAdd (Lhs, DFBroadcast3(Rhs)); }
+FDFVector3  DFFastAdd (float3 Lhs, FDFScalar Rhs) { return DFFastAdd (Lhs, DFBroadcast3(Rhs)); }
+FDFVector3  DFFastAdd (float3 Lhs, float Rhs) { return DFFastAdd (Lhs, DFBroadcast3(Rhs)); }
+FDFVector3  DFFastSubtract (FDFScalar Lhs, FDFVector3 Rhs) { return DFFastSubtract (DFBroadcast3(Lhs), Rhs); }
+FDFVector3  DFFastSubtract (float Lhs, FDFVector3 Rhs) { return DFFastSubtract (DFBroadcast3(Lhs), Rhs); }
+FDFVector3  DFFastSubtract (FDFScalar Lhs, float3 Rhs) { return DFFastSubtract (DFBroadcast3(Lhs), Rhs); }
+FDFVector3  DFFastSubtract (float Lhs, float3 Rhs) { return DFFastSubtract (DFBroadcast3(Lhs), Rhs); }
+FDFVector3  DFFastSubtract (FDFVector3 Lhs, FDFScalar Rhs) { return DFFastSubtract (Lhs, DFBroadcast3(Rhs)); }
+FDFVector3  DFFastSubtract (FDFVector3 Lhs, float Rhs)     { return DFFastSubtract (Lhs, DFBroadcast3(Rhs)); }
+FDFVector3  DFFastSubtract (float3 Lhs, FDFScalar Rhs) { return DFFastSubtract (Lhs, DFBroadcast3(Rhs)); }
+FDFVector3  DFFastSubtract (float3 Lhs, float Rhs) { return DFFastSubtract (Lhs, DFBroadcast3(Rhs)); }
+FDFVector3  DFMultiply (FDFScalar Lhs, FDFVector3 Rhs) { return DFMultiply (DFBroadcast3(Lhs), Rhs); }
+FDFVector3  DFMultiply (float Lhs, FDFVector3 Rhs) { return DFMultiply (DFBroadcast3(Lhs), Rhs); }
+FDFVector3  DFMultiply (FDFScalar Lhs, float3 Rhs) { return DFMultiply (DFBroadcast3(Lhs), Rhs); }
+FDFVector3  DFMultiply (float Lhs, float3 Rhs) { return DFMultiply (DFBroadcast3(Lhs), Rhs); }
+FDFVector3  DFMultiply (FDFVector3 Lhs, FDFScalar Rhs) { return DFMultiply (Lhs, DFBroadcast3(Rhs)); }
+FDFVector3  DFMultiply (FDFVector3 Lhs, float Rhs)     { return DFMultiply (Lhs, DFBroadcast3(Rhs)); }
+FDFVector3  DFMultiply (float3 Lhs, FDFScalar Rhs) { return DFMultiply (Lhs, DFBroadcast3(Rhs)); }
+FDFVector3  DFMultiply (float3 Lhs, float Rhs) { return DFMultiply (Lhs, DFBroadcast3(Rhs)); }
+FDFVector3  DFFastDivide (FDFScalar Lhs, FDFVector3 Rhs) { return DFFastDivide (DFBroadcast3(Lhs), Rhs); }
+FDFVector3  DFFastDivide (float Lhs, FDFVector3 Rhs) { return DFFastDivide (DFBroadcast3(Lhs), Rhs); }
+FDFVector3  DFFastDivide (FDFScalar Lhs, float3 Rhs) { return DFFastDivide (DFBroadcast3(Lhs), Rhs); }
+FDFVector3  DFFastDivide (float Lhs, float3 Rhs) { return DFFastDivide (DFBroadcast3(Lhs), Rhs); }
+FDFVector3  DFFastDivide (FDFVector3 Lhs, FDFScalar Rhs) { return DFFastDivide (Lhs, DFBroadcast3(Rhs)); }
+FDFVector3  DFFastDivide (FDFVector3 Lhs, float Rhs)     { return DFFastDivide (Lhs, DFBroadcast3(Rhs)); }
+FDFVector3  DFFastDivide (float3 Lhs, FDFScalar Rhs) { return DFFastDivide (Lhs, DFBroadcast3(Rhs)); }
+FDFVector3  DFFastDivide (float3 Lhs, float Rhs) { return DFFastDivide (Lhs, DFBroadcast3(Rhs)); }
+struct FDFVector4
+{
+	float4 High;
+	float4 Low;
+};
+FDFVector4 MakeDFVector4(float4 High, float4 Low)
+{
+	FDFVector4 Result;
+	Result.High = High;
+	Result.Low = Low;
+	return Result;
+}
+FDFVector4 DFPromote(FDFVector4 Value) { return Value; }
+FDFVector4 DFPromote(float4 Value) { return MakeDFVector4(Value, (float4)0); }
+float4 DFDemote(FDFVector4 Value) { return Value.High + Value.Low; }
+float4 DFDemote(float4 Value) { return Value; }
+FDFVector4 DFNegate(FDFVector4 Value)
+{
+	return MakeDFVector4(-Value.High, -Value.Low);
+}
+FDFVector4 DFTwoSum(float4 Lhs, float4 Rhs)
+{
+	const float4 S =   MakePrecise( ( Lhs ) + ( Rhs ) );
+	const float4 V =   MakePrecise( ( S ) - ( Lhs ) );
+	const float4 Q =   MakePrecise( ( S ) - ( V ) );
+	const float4 R =   MakePrecise( ( Lhs ) - ( Q ) );
+	const float4 T =   MakePrecise( ( Rhs ) - ( V ) );
+	const float4 Y =   MakePrecise( ( R ) + ( T ) );
+	return MakeDFVector4(S, Y);
+}
+FDFVector4 DFFastTwoSum(float4 Lhs, float4 Rhs)
+{
+	const float4 S =   MakePrecise( ( Lhs ) + ( Rhs ) );
+	const float4 T =   MakePrecise( ( S ) - ( Lhs ) );
+	const float4 E =   MakePrecise( ( Rhs ) - ( T ) );
+	return MakeDFVector4(S, E);
+}
+FDFVector4 DFFastAdd(float4 Lhs, float4 Rhs) { return DFTwoSum(Lhs, Rhs); }
+FDFVector4 DFFastAdd(FDFVector4 Lhs, FDFVector4 Rhs)
+{
+	FDFVector4 S = DFTwoSum(Lhs.High, Rhs.High);
+	S.Low += Lhs.Low + Rhs.Low;
+	S = DFFastTwoSum(S.High, S.Low);
+	return S;
+}
+FDFVector4 DFFastAdd(FDFVector4 Lhs, float4 Rhs)
+{
+	FDFVector4 S = DFTwoSum(Lhs.High, Rhs);
+	S.Low += Lhs.Low;
+	S = DFFastTwoSum(S.High, S.Low);
+	return S;
+}
+FDFVector4 DFFastAdd(float4 Lhs, FDFVector4 Rhs) { return DFFastAdd(Rhs, Lhs); }
+FDFVector4 DFFastSubtract(float4 Lhs, float4 Rhs) { return DFFastAdd(Lhs, -Rhs); }
+FDFVector4 DFFastSubtract(FDFVector4 Lhs, FDFVector4 Rhs) { return DFFastAdd(Lhs, DFNegate(Rhs)); }
+FDFVector4 DFFastSubtract(FDFVector4 Lhs, float4 Rhs) { return DFFastAdd(Lhs, -Rhs); }
+FDFVector4 DFFastSubtract(float4 Lhs, FDFVector4 Rhs) { return DFFastAdd(Lhs, DFNegate(Rhs)); }
+float4 DFFastLocalSubtractDemote(FDFVector4 Lhs, FDFVector4 Rhs)
+{
+	const float4 High =   MakePrecise( ( Lhs.High ) - ( Rhs.High ) );
+	const float4 Low =   MakePrecise( ( Lhs.Low ) - ( Rhs.Low ) );
+	const float4 Sum =   MakePrecise( ( High ) + ( Low ) );
+	return Sum;
+}
+float4 DFFastLocalSubtractDemote(FDFVector4 Lhs, float4 Rhs)
+{
+	const float4 High =   MakePrecise( ( Lhs.High ) - ( Rhs ) );
+	const float4 Sum =   MakePrecise( ( High ) + ( Lhs.Low ) );
+	return Sum;
+}
+float4 DFFastLocalSubtractDemote(float4 Lhs, FDFVector4 Rhs)
+{
+	return DFFastLocalSubtractDemote(DFPromote(Lhs), Rhs);
+}
+FDFVector4 DFTwoProduct(float4 Lhs, float4 Rhs)
+{
+	const float4 P = Lhs * Rhs;
+	const float4 E =   MakePrecise(  mad( ( Lhs ) , ( Rhs ) , ( -P ) ) );
+	return MakeDFVector4(P, E);
+}
+FDFVector4 DFMultiply(float4 Lhs, float4 Rhs) { return DFTwoProduct(Lhs, Rhs); }
+FDFVector4 DFMultiply(FDFVector4 Lhs, FDFVector4 Rhs)
+{
+	const FDFVector4 P = DFTwoProduct(Lhs.High, Rhs.High);
+	float4 T =   MakePrecise( ( Lhs.High ) * ( Rhs.Low ) );
+	T =   MakePrecise(  mad( ( Lhs.Low ) , ( Rhs.High ) , ( T ) ) );
+	T =   MakePrecise( ( T ) + ( P.Low ) );
+	return DFFastTwoSum(P.High, T);
+}
+FDFVector4 DFMultiply(FDFVector4 Lhs, float4 Rhs)
+{
+	FDFVector4 P = DFTwoProduct(Lhs.High, Rhs);
+	float4 T =   MakePrecise(  mad( ( Lhs.Low ) , ( Rhs ) , ( P.Low ) ) );
+	return DFFastTwoSum(P.High, T);
+}
+FDFVector4 DFMultiply(float4 Lhs, FDFVector4 Rhs) { return DFMultiply(Rhs, Lhs); }
+FDFVector4 DFFastDivide(FDFVector4 Lhs, FDFVector4 Rhs);
+FDFVector4 DFFastDivide(FDFVector4 Lhs, FDFVector4 Rhs)
+{
+	const float4 Th =   MakePrecise( ( Lhs.High ) / ( Rhs.High ) );
+	const FDFVector4 R = DFMultiply(Rhs, Th);
+	const float4 Ph =   MakePrecise( ( Lhs.High ) - ( R.High ) );
+	const float4 Dl =   MakePrecise( ( Lhs.Low ) - ( R.Low ) );
+	const float4 D =   MakePrecise( ( Ph ) + ( Dl ) );
+	const float4 Tl =   MakePrecise( ( D ) / ( Rhs.High ) );
+	return DFFastTwoSum(Th, Tl);
+}
+FDFVector4 DFFastDivide(FDFVector4 Lhs, float4 Rhs)
+{
+	const float4 Th =   MakePrecise( ( Lhs.High ) / ( Rhs ) );
+	const FDFVector4 R = DFTwoProduct(Rhs, Th);
+	const float4 Ph =   MakePrecise( ( Lhs.High ) - ( R.High ) );
+	const float4 Dl =   MakePrecise( ( Lhs.Low ) - ( R.Low ) );
+	const float4 D =   MakePrecise( ( Ph ) + ( Dl ) );
+	const float4 Tl =   MakePrecise( ( D ) / ( Rhs ) );
+	return DFFastTwoSum(Th, Tl);
+}
+FDFVector4 DFFastDivide(float4 Lhs, FDFVector4 Rhs) { return DFFastDivide(DFPromote(Lhs), Rhs); }
+FDFVector4 DFFastDivide(float4 Lhs, float4 Rhs) { return DFFastDivide(DFPromote(Lhs), Rhs); }
+FDFVector4 DFBroadcast4(FDFScalar V)
+{
+	const float4 High = V.High;
+	const float4 Low = V.Low;
+	return MakeDFVector4(High, Low);
+}
+float4 DFBroadcast4(float V)
+{
+	const float4 Single = V;
+	return Single;
+}
+FDFVector4  DFFastAdd (FDFScalar Lhs, FDFVector4 Rhs) { return DFFastAdd (DFBroadcast4(Lhs), Rhs); }
+FDFVector4  DFFastAdd (float Lhs, FDFVector4 Rhs) { return DFFastAdd (DFBroadcast4(Lhs), Rhs); }
+FDFVector4  DFFastAdd (FDFScalar Lhs, float4 Rhs) { return DFFastAdd (DFBroadcast4(Lhs), Rhs); }
+FDFVector4  DFFastAdd (float Lhs, float4 Rhs) { return DFFastAdd (DFBroadcast4(Lhs), Rhs); }
+FDFVector4  DFFastAdd (FDFVector4 Lhs, FDFScalar Rhs) { return DFFastAdd (Lhs, DFBroadcast4(Rhs)); }
+FDFVector4  DFFastAdd (FDFVector4 Lhs, float Rhs)     { return DFFastAdd (Lhs, DFBroadcast4(Rhs)); }
+FDFVector4  DFFastAdd (float4 Lhs, FDFScalar Rhs) { return DFFastAdd (Lhs, DFBroadcast4(Rhs)); }
+FDFVector4  DFFastAdd (float4 Lhs, float Rhs) { return DFFastAdd (Lhs, DFBroadcast4(Rhs)); }
+FDFVector4  DFFastSubtract (FDFScalar Lhs, FDFVector4 Rhs) { return DFFastSubtract (DFBroadcast4(Lhs), Rhs); }
+FDFVector4  DFFastSubtract (float Lhs, FDFVector4 Rhs) { return DFFastSubtract (DFBroadcast4(Lhs), Rhs); }
+FDFVector4  DFFastSubtract (FDFScalar Lhs, float4 Rhs) { return DFFastSubtract (DFBroadcast4(Lhs), Rhs); }
+FDFVector4  DFFastSubtract (float Lhs, float4 Rhs) { return DFFastSubtract (DFBroadcast4(Lhs), Rhs); }
+FDFVector4  DFFastSubtract (FDFVector4 Lhs, FDFScalar Rhs) { return DFFastSubtract (Lhs, DFBroadcast4(Rhs)); }
+FDFVector4  DFFastSubtract (FDFVector4 Lhs, float Rhs)     { return DFFastSubtract (Lhs, DFBroadcast4(Rhs)); }
+FDFVector4  DFFastSubtract (float4 Lhs, FDFScalar Rhs) { return DFFastSubtract (Lhs, DFBroadcast4(Rhs)); }
+FDFVector4  DFFastSubtract (float4 Lhs, float Rhs) { return DFFastSubtract (Lhs, DFBroadcast4(Rhs)); }
+FDFVector4  DFMultiply (FDFScalar Lhs, FDFVector4 Rhs) { return DFMultiply (DFBroadcast4(Lhs), Rhs); }
+FDFVector4  DFMultiply (float Lhs, FDFVector4 Rhs) { return DFMultiply (DFBroadcast4(Lhs), Rhs); }
+FDFVector4  DFMultiply (FDFScalar Lhs, float4 Rhs) { return DFMultiply (DFBroadcast4(Lhs), Rhs); }
+FDFVector4  DFMultiply (float Lhs, float4 Rhs) { return DFMultiply (DFBroadcast4(Lhs), Rhs); }
+FDFVector4  DFMultiply (FDFVector4 Lhs, FDFScalar Rhs) { return DFMultiply (Lhs, DFBroadcast4(Rhs)); }
+FDFVector4  DFMultiply (FDFVector4 Lhs, float Rhs)     { return DFMultiply (Lhs, DFBroadcast4(Rhs)); }
+FDFVector4  DFMultiply (float4 Lhs, FDFScalar Rhs) { return DFMultiply (Lhs, DFBroadcast4(Rhs)); }
+FDFVector4  DFMultiply (float4 Lhs, float Rhs) { return DFMultiply (Lhs, DFBroadcast4(Rhs)); }
+FDFVector4  DFFastDivide (FDFScalar Lhs, FDFVector4 Rhs) { return DFFastDivide (DFBroadcast4(Lhs), Rhs); }
+FDFVector4  DFFastDivide (float Lhs, FDFVector4 Rhs) { return DFFastDivide (DFBroadcast4(Lhs), Rhs); }
+FDFVector4  DFFastDivide (FDFScalar Lhs, float4 Rhs) { return DFFastDivide (DFBroadcast4(Lhs), Rhs); }
+FDFVector4  DFFastDivide (float Lhs, float4 Rhs) { return DFFastDivide (DFBroadcast4(Lhs), Rhs); }
+FDFVector4  DFFastDivide (FDFVector4 Lhs, FDFScalar Rhs) { return DFFastDivide (Lhs, DFBroadcast4(Rhs)); }
+FDFVector4  DFFastDivide (FDFVector4 Lhs, float Rhs)     { return DFFastDivide (Lhs, DFBroadcast4(Rhs)); }
+FDFVector4  DFFastDivide (float4 Lhs, FDFScalar Rhs) { return DFFastDivide (Lhs, DFBroadcast4(Rhs)); }
+FDFVector4  DFFastDivide (float4 Lhs, float Rhs) { return DFFastDivide (Lhs, DFBroadcast4(Rhs)); }
+struct FDFMatrix
+{
+	float4x4 M;
+	float3 PostTranslation; 
+};
+float4x4 Make4x3Matrix(float4x4 M)
+{
+	float4x4 Result;
+	Result[0] = float4(M[0].xyz, 0.0f);
+	Result[1] = float4(M[1].xyz, 0.0f);
+	Result[2] = float4(M[2].xyz, 0.0f);
+	Result[3] = float4(M[3].xyz, 1.0f);
+	return Result;
+}
+float4x4 MakeTranslationMatrix(float3 Offset)
+{
+	float4x4 Result;
+	Result[0] = float4(1.0f, 0.0f, 0.0f, 0.0f);
+	Result[1] = float4(0.0f, 1.0f, 0.0f, 0.0f);
+	Result[2] = float4(0.0f, 0.0f, 1.0f, 0.0f);
+	Result[3] = float4(Offset, 1.0f);
+	return Result;
+}
+FDFMatrix MakeDFMatrix4x3(float3 PostTranslation, float4x4 InMatrix)
+{
+	FDFMatrix Result;
+	Result.PostTranslation = PostTranslation;
+	Result.M = Make4x3Matrix(InMatrix);
+	return Result;
+}
+FDFMatrix MakeDFMatrix(float3 PostTranslation, float4x4 InMatrix)
+{
+	FDFMatrix Result;
+	Result.PostTranslation = PostTranslation;
+	Result.M = InMatrix;
+	return Result;
+}
+struct FDFInverseMatrix
+{
+	float4x4 M;
+	float3 PreTranslation; 
+	int Dummy; 
+};
+FDFInverseMatrix MakeDFInverseMatrix(float3 PreTranslation, float4x4 InMatrix)
+{
+	FDFInverseMatrix Result;
+	Result.PreTranslation = PreTranslation;
+	Result.M = InMatrix;
+	Result.Dummy = 0;
+	return Result;
+}
+FDFInverseMatrix MakeDFInverseMatrix4x3(float3 PreTranslation, float4x4 InMatrix)
+{
+	FDFInverseMatrix Result;
+	Result.PreTranslation = PreTranslation;
+	Result.M = Make4x3Matrix(InMatrix);
+	Result.Dummy = 0;
+	return Result;
+}
+FDFVector3 DFMultiply(float3 Vector, FDFMatrix InMatrix)
+{
+	float4 Result = mul(float4(Vector, 1), InMatrix.M);
+	FDFVector3 V = DFTwoSum(InMatrix.PostTranslation, Result.xyz);
+	return V;
+}
+FDFVector4 DFMultiply(float4 Vector, FDFMatrix InMatrix)
+{
+	float4 Result = mul(Vector, InMatrix.M);
+	FDFVector4 V = DFTwoSum(float4(InMatrix.PostTranslation, 0), Result);
+	return V;
+}
+FDFInverseMatrix DFMultiply(FDFInverseMatrix Lhs, float4x4 Rhs)
+{
+	float4x4 M = mul(Lhs.M, Rhs);
+	float3 PreTranslation = Lhs.PreTranslation;
+	return MakeDFInverseMatrix(PreTranslation, M);
+}
+FDFMatrix DFMultiply(float4x4 Lhs, FDFMatrix Rhs)
+{
+	float4x4 M = mul(Lhs, Rhs.M);
+	float3 PostTranslation = Rhs.PostTranslation;
+	return MakeDFMatrix(PostTranslation, M);
+}
+float4x4 MultiplyTranslation(float4x4 M, float3 Translation)
+{
+	float4x4 Result = M;
+	Result[3].xyz += Translation;
+	return Result;
+}
+float4x4 MultiplyTranslation(float3 Translation, float4x4 M)
+{
+	return mul(MakeTranslationMatrix(Translation), M);
+}
+FDFMatrix DFPromote(FDFMatrix Value) { return Value; }
+FDFMatrix  DFPromote(float4x4 Value) { return MakeDFMatrix((float3)0, Value); }
+float4x4 DFDemote(FDFMatrix V)
+{
+	return MultiplyTranslation(V.M, V.PostTranslation);
+}
+float4x4 DFDemote(float4x4 V)
+{
+	return V;
+}
+float4x4 DFDemote(FDFInverseMatrix V)
+{
+	return MultiplyTranslation(-V.PreTranslation, V.M);
+}
+struct FLWCScalar
+{
+	float Tile;
+	float Offset;
+	int Dummy; 
+};
+struct FLWCVector2
+{
+	float2 Tile;
+	float2 Offset;
+	int Dummy; 
+};
+struct FLWCVector3
+{
+	float3 Tile;
+	float3 Offset;
+	int Dummy; 
+};
+struct FLWCVector4
+{
+	float4 Tile;
+	float4 Offset;
+	int Dummy; 
+};
+struct FLWCMatrix
+{
+	float4x4 M;
+	float3 Tile; 
+	int2 Dummy; 
+};
+struct FLWCInverseMatrix
+{
+	float4x4 M;
+	float3 Tile; 
+	int3 Dummy; 
+};
+FLWCScalar MakeLWCScalar(float Tile, float Offset)
+{
+	FLWCScalar Result;
+	 ( Result ).Tile = ( Tile );
+	Result.Offset = Offset;
+	Result.Dummy = 0;
+	return Result;
+}
+FLWCVector2 MakeLWCVector2(float2 Tile, float2 Offset)
+{
+	FLWCVector2 Result;
+	 ( Result ).Tile = ( Tile );
+	Result.Offset = Offset;
+	Result.Dummy = 0;
+	return Result;
+}
+FLWCVector3 MakeLWCVector3(float3 Tile, float3 Offset)
+{
+	FLWCVector3 Result;
+	 ( Result ).Tile = ( Tile );
+	Result.Offset = Offset;
+	Result.Dummy = 0;
+	return Result;
+}
+FLWCVector4 MakeLWCVector4(float4 Tile, float4 Offset)
+{
+	FLWCVector4 Result;
+	 ( Result ).Tile = ( Tile );
+	Result.Offset = Offset;
+	Result.Dummy = 0;
+	return Result;
+}
+FLWCVector4 MakeLWCVector4(float3 Tile, float4 Offset)
+{
+	return MakeLWCVector4(float4(Tile, 0), Offset);
+}
+FLWCVector4 MakeLWCVector4(FLWCVector3 XYZ, float W)
+{
+	return MakeLWCVector4( (( XYZ ).Tile), float4(XYZ.Offset, W));
+}
+FLWCMatrix MakeLWCMatrix(float3 Tile, float4x4 InMatrix)
+{
+	FLWCMatrix Result;
+	 ( Result ).Tile = ( Tile );
+	Result.M = InMatrix;
+	Result.Dummy = 0;
+	return Result;
+}
+FLWCInverseMatrix MakeLWCInverseMatrix(float3 Tile, float4x4 InMatrix)
+{
+	FLWCInverseMatrix Result;
+	 ( Result ).Tile = ( -Tile );
+	Result.M = InMatrix;
+	Result.Dummy = 0;
+	return Result;
+}
+FLWCScalar LWCSubtract(FLWCScalar Lhs, FLWCScalar Rhs) { return MakeLWCScalar( (( Lhs ).Tile) -  (( Rhs ).Tile), Lhs.Offset - Rhs.Offset); }
+FLWCScalar LWCSubtract(float Lhs, FLWCScalar Rhs) { return MakeLWCScalar(- (( Rhs ).Tile), Lhs - Rhs.Offset); }
+FLWCScalar LWCSubtract(FLWCScalar Lhs, float Rhs) { return MakeLWCScalar( (( Lhs ).Tile), Lhs.Offset - Rhs); }
+FLWCVector2 LWCSubtract(FLWCVector2 Lhs, FLWCVector2 Rhs) { return MakeLWCVector2( (( Lhs ).Tile) -  (( Rhs ).Tile), Lhs.Offset - Rhs.Offset); }
+FLWCVector2 LWCSubtract(float2 Lhs, FLWCVector2 Rhs) { return MakeLWCVector2(- (( Rhs ).Tile), Lhs - Rhs.Offset); }
+FLWCVector2 LWCSubtract(FLWCVector2 Lhs, float2 Rhs) { return MakeLWCVector2( (( Lhs ).Tile), Lhs.Offset - Rhs); }
+FLWCVector3 LWCSubtract(FLWCVector3 Lhs, FLWCVector3 Rhs) { return MakeLWCVector3( (( Lhs ).Tile) -  (( Rhs ).Tile), Lhs.Offset - Rhs.Offset); }
+FLWCVector3 LWCSubtract(float3 Lhs, FLWCVector3 Rhs) { return MakeLWCVector3(- (( Rhs ).Tile), Lhs - Rhs.Offset); }
+FLWCVector3 LWCSubtract(FLWCVector3 Lhs, float3 Rhs) { return MakeLWCVector3( (( Lhs ).Tile), Lhs.Offset - Rhs); }
+FLWCVector4 LWCSubtract(FLWCVector4 Lhs, FLWCVector4 Rhs) { return MakeLWCVector4( (( Lhs ).Tile) -  (( Rhs ).Tile), Lhs.Offset - Rhs.Offset); }
+FLWCVector4 LWCSubtract(float4 Lhs, FLWCVector4 Rhs) { return MakeLWCVector4(- (( Rhs ).Tile), Lhs - Rhs.Offset); }
+FLWCVector4 LWCSubtract(FLWCVector4 Lhs, float4 Rhs) { return MakeLWCVector4( (( Lhs ).Tile), Lhs.Offset - Rhs); }
+FLWCScalar DFToTileOffset( FDFScalar In)																								{ float Tile =  MakePrecise( round(In.High / 2097152.00f) ); float Offset =   MakePrecise( (   MakePrecise(  mad( ( Tile ) , ( -2097152.00f ) , ( In.High ) ) ) ) + ( In.Low ) );																																								return MakeLWCScalar (Tile, Offset);																						}
+FLWCVector2 DFToTileOffset( FDFVector2 In)																								{ float2 Tile =  MakePrecise( round(In.High / 2097152.00f) ); float2 Offset =   MakePrecise( (   MakePrecise(  mad( ( Tile ) , ( -2097152.00f ) , ( In.High ) ) ) ) + ( In.Low ) );																																								return MakeLWCVector2 (Tile, Offset);																						}
+FLWCVector3 DFToTileOffset( FDFVector3 In)																								{ float3 Tile =  MakePrecise( round(In.High / 2097152.00f) ); float3 Offset =   MakePrecise( (   MakePrecise(  mad( ( Tile ) , ( -2097152.00f ) , ( In.High ) ) ) ) + ( In.Low ) );																																								return MakeLWCVector3 (Tile, Offset);																						}
+FLWCVector4 DFToTileOffset( FDFVector4 In)																								{ float4 Tile =  MakePrecise( round(In.High / 2097152.00f) ); float4 Offset =   MakePrecise( (   MakePrecise(  mad( ( Tile ) , ( -2097152.00f ) , ( In.High ) ) ) ) + ( In.Low ) );																																								return MakeLWCVector4 (Tile, Offset);																						}
+FLWCScalar DFFastToTileOffset( FDFScalar In)																							{ float Tile = In.High * (1 / 2097152.00f); float Offset = In.Low; 																																																									return MakeLWCScalar (Tile, Offset);																						}
+FLWCVector2 DFFastToTileOffset( FDFVector2 In)																							{ float2 Tile = In.High * (1 / 2097152.00f); float2 Offset = In.Low; 																																																									return MakeLWCVector2 (Tile, Offset);																						}
+FLWCVector3 DFFastToTileOffset( FDFVector3 In)																							{ float3 Tile = In.High * (1 / 2097152.00f); float3 Offset = In.Low; 																																																									return MakeLWCVector3 (Tile, Offset);																						}
+FLWCVector4 DFFastToTileOffset( FDFVector4 In)																							{ float4 Tile = In.High * (1 / 2097152.00f); float4 Offset = In.Low; 																																																									return MakeLWCVector4 (Tile, Offset);																						}
+FLWCMatrix DFToTileOffset(FDFMatrix In)
+{
+	FLWCVector3 PosHigh = DFToTileOffset(MakeDFVector3(In.PostTranslation, 0));
+	float4x4 M = MultiplyTranslation(In.M, PosHigh.Offset);
+	float3 Tile = PosHigh.Tile;
+	return MakeLWCMatrix(Tile, M);
+}
+FLWCMatrix DFFastToTileOffset(FDFMatrix In)
+{
+	float4x4 M = In.M;
+	float3 Tile = In.PostTranslation / 2097152.00f;
+	return MakeLWCMatrix(Tile, M);
+}
+FLWCInverseMatrix DFToTileOffset(FDFInverseMatrix In)
+{
+	FLWCVector3 PosHigh = DFToTileOffset(MakeDFVector3(In.PreTranslation, 0));
+	float4x4 M = MultiplyTranslation(-PosHigh.Offset, In.M);
+	float3 Tile = PosHigh.Tile;
+	return MakeLWCInverseMatrix(Tile, M);
+}
+FLWCInverseMatrix DFFastToTileOffset(FDFInverseMatrix In)
+{
+	float4x4 M = In.M;
+	float3 Tile = In.PreTranslation / 2097152.00f;
+	return MakeLWCInverseMatrix(Tile, M);
+}
+FDFScalar DFFromTileOffset(FLWCScalar In)
+{
+	float TileOffset = In.Tile * 2097152.00f;
+	return DFFastTwoSum(TileOffset, In.Offset);
+}
+FDFVector2 DFFromTileOffset(FLWCVector2 In)
+{
+	float2 TileOffset = In.Tile * 2097152.00f;
+	return DFFastTwoSum(TileOffset, In.Offset);
+}
+FDFVector3 DFFromTileOffset(FLWCVector3 In)
+{
+	float3 TileOffset = In.Tile * 2097152.00f;
+	return DFFastTwoSum(TileOffset, In.Offset);
+}
+FDFVector4 DFFromTileOffset(FLWCVector4 In)
+{
+	float4 TileOffset = In.Tile * 2097152.00f;
+	return DFFastTwoSum(TileOffset, In.Offset);
+}
+FDFMatrix DFFromTileOffset(FLWCMatrix In)
+{
+	float4x4 M = In.M;
+	float3 PostTranslation = In.Tile * 2097152.00f;
+	return MakeDFMatrix(PostTranslation, M);
+}
+FDFInverseMatrix DFFromTileOffset(FLWCInverseMatrix In)
+{
+	float4x4 M = In.M;
+	float3 PreTranslation = -In.Tile * 2097152.00f;
+	return MakeDFInverseMatrix(PreTranslation, M);
+}
+struct FViewConstants {
+	 float4x4    TranslatedWorldToClip ;
+	 float4x4    RelativeWorldToClip ;
+	 float4x4    ClipToRelativeWorld ;
+	 float4x4    TranslatedWorldToView ;
+	 float4x4    ViewToTranslatedWorld ;
+	 float4x4    TranslatedWorldToCameraView ;
+	 float4x4    CameraViewToTranslatedWorld ;
+	 float4x4    ViewToClip ;
+	 float4x4    ViewToClipNoAA ;
+	 float4x4    ClipToView ;
+	 float4x4    ClipToTranslatedWorld ;
+	 float4x4    SVPositionToTranslatedWorld ;
+	 float4x4    ScreenToRelativeWorld ;
+	 float4x4    ScreenToTranslatedWorld ;
+	 float4x4    MobileMultiviewShadowTransform ;
+	 float3    ViewOriginHigh ;
+	 float    Padding972 ;
+	 float3    ViewForward ;
+	 float    Padding988 ;
+	 float3    ViewUp ;
+	 float    Padding1004 ;
+	 float3    ViewRight ;
+	 float    Padding1020 ;
+	 float3    HMDViewNoRollUp ;
+	 float    Padding1036 ;
+	 float3    HMDViewNoRollRight ;
+	 float    Padding1052 ;
+	 float4    InvDeviceZToWorldZTransform ;
+	 float4    ScreenPositionScaleBias ;
+	 float3    ViewOriginLow ;
+	 float    Padding1100 ;
+	 float3    TranslatedWorldCameraOrigin ;
+	 float    Padding1116 ;
+	 float3    WorldViewOriginHigh ;
+	 float    Padding1132 ;
+	 float3    WorldViewOriginLow ;
+	 float    Padding1148 ;
+	 float3    PreViewTranslationHigh ;
+	 float    Padding1164 ;
+	 float3    PreViewTranslationLow ;
+	 float    Padding1180 ;
+	 float4x4    PrevViewToClip ;
+	 float4x4    PrevClipToView ;
+	 float4x4    PrevTranslatedWorldToClip ;
+	 float4x4    PrevTranslatedWorldToView ;
+	 float4x4    PrevViewToTranslatedWorld ;
+	 float4x4    PrevTranslatedWorldToCameraView ;
+	 float4x4    PrevCameraViewToTranslatedWorld ;
+	 float3    PrevTranslatedWorldCameraOrigin ;
+	 float    Padding1644 ;
+	 float3    PrevWorldCameraOriginHigh ;
+	 float    Padding1660 ;
+	 float3    PrevWorldCameraOriginLow ;
+	 float    Padding1676 ;
+	 float3    PrevWorldViewOriginHigh ;
+	 float    Padding1692 ;
+	 float3    PrevWorldViewOriginLow ;
+	 float    Padding1708 ;
+	 float3    PrevPreViewTranslationHigh ;
+	 float    Padding1724 ;
+	 float3    PrevPreViewTranslationLow ;
+	 float    Padding1740 ;
+	 float3    ViewTilePosition ;
+	 float    Padding1756 ;
+	 float3    RelativeWorldCameraOriginTO ;
+	 float    Padding1772 ;
+	 float3    RelativeWorldViewOriginTO ;
+	 float    Padding1788 ;
+	 float3    RelativePreViewTranslationTO ;
+	 float    Padding1804 ;
+	 float3    PrevRelativeWorldCameraOriginTO ;
+	 float    Padding1820 ;
+	 float3    PrevRelativeWorldViewOriginTO ;
+	 float    Padding1836 ;
+	 float3    RelativePrevPreViewTranslationTO ;
+	 float    Padding1852 ;
+	 float4x4    PrevClipToRelativeWorld ;
+	 float4x4    PrevScreenToTranslatedWorld ;
+	 float4x4    ClipToPrevClip ;
+	 float4x4    ClipToPrevClipWithAA ;
+	 float4    TemporalAAJitter ;
+	 float4    GlobalClippingPlane ;
+	 float2    FieldOfViewWideAngles ;
+	 float2    PrevFieldOfViewWideAngles ;
+	 float4    ViewRectMin ;
+	 float4    ViewSizeAndInvSize ;
+	 uint4    ViewRectMinAndSize ;
+	 float4    LightProbeSizeRatioAndInvSizeRatio ;
+	 float4    BufferSizeAndInvSize ;
+	 float4    BufferBilinearUVMinMax ;
+	 float4    ScreenToViewSpace ;
+	 float2    BufferToSceneTextureScale ;
+	 float2    ResolutionFractionAndInv ;
+	 int    NumSceneColorMSAASamples ;
+	 float    ProjectionDepthThicknessScale ;
+	 float    PreExposure ;
+	 float    OneOverPreExposure ;
+	 float4    DiffuseOverrideParameter ;
+	 float4    SpecularOverrideParameter ;
+	 float4    NormalOverrideParameter ;
+	 float2    RoughnessOverrideParameter ;
+	 float    PrevFrameGameTime ;
+	 float    PrevFrameRealTime ;
+	 float    OutOfBoundsMask ;
+	 float    Padding2372 ;
+	 float    Padding2376 ;
+	 float    Padding2380 ;
+	 float3    WorldCameraMovementSinceLastFrame ;
+	 float    CullingSign ;
+	 float    NearPlane ;
+	 float    GameTime ;
+	 float    RealTime ;
+	 float    DeltaTime ;
+	 float    MaterialTextureMipBias ;
+	 float    MaterialTextureDerivativeMultiply ;
+	 uint    Random ;
+	 uint    FrameNumber ;
+	 uint    FrameCounter ;
+	 uint    StateFrameIndexMod8 ;
+	 uint    StateFrameIndex ;
+	 uint    DebugViewModeMask ;
+	 uint    WorldIsPaused ;
+	 float    CameraCut ;
+	 float    UnlitViewmodeMask ;
+	 float    Padding2460 ;
+	 float4    DirectionalLightColor ;
+	 float3    DirectionalLightDirection ;
+	 float    Padding2492 ;
+	 float4    TranslucencyLightingVolumeMin[2] ;
+	 float4    TranslucencyLightingVolumeInvSize[2] ;
+	 float4    TemporalAAParams ;
+	 float4    CircleDOFParams ;
+	 float    DepthOfFieldSensorWidth ;
+	 float    DepthOfFieldFocalDistance ;
+	 float    DepthOfFieldScale ;
+	 float    DepthOfFieldFocalLength ;
+	 float    DepthOfFieldFocalRegion ;
+	 float    DepthOfFieldNearTransitionRegion ;
+	 float    DepthOfFieldFarTransitionRegion ;
+	 float    MotionBlurNormalizedToPixel ;
+	 float    GeneralPurposeTweak ;
+	 float    GeneralPurposeTweak2 ;
+	 float    DemosaicVposOffset ;
+	 float    DecalDepthBias ;
+	 float3    IndirectLightingColorScale ;
+	 float    Padding2652 ;
+	 float3    PrecomputedIndirectLightingColorScale ;
+	 float    Padding2668 ;
+	 float3    PrecomputedIndirectSpecularColorScale ;
+	 float    Padding2684 ;
+	 float4    AtmosphereLightDirection[2] ;
+	 float4    AtmosphereLightIlluminanceOnGroundPostTransmittance[2] ;
+	 float4    AtmosphereLightIlluminanceOuterSpace[2] ;
+	 float4    AtmosphereLightDiscLuminance[2] ;
+	 float4    AtmosphereLightDiscCosHalfApexAngle_PPTrans[2] ;
+	 float4    SkyViewLutSizeAndInvSize ;
+	 float3    SkyCameraTranslatedWorldOrigin ;
+	 float    Padding2876 ;
+	 float4    SkyPlanetTranslatedWorldCenterAndViewHeight ;
+	 float4x4    SkyViewLutReferential ;
+	 float4    SkyAtmosphereSkyLuminanceFactor ;
+	 float    SkyAtmospherePresentInScene ;
+	 float    SkyAtmosphereHeightFogContribution ;
+	 float    SkyAtmosphereBottomRadiusKm ;
+	 float    SkyAtmosphereTopRadiusKm ;
+	 float4    SkyAtmosphereCameraAerialPerspectiveVolumeSizeAndInvSize ;
+	 float    SkyAtmosphereAerialPerspectiveStartDepthKm ;
+	 float    SkyAtmosphereCameraAerialPerspectiveVolumeDepthResolution ;
+	 float    SkyAtmosphereCameraAerialPerspectiveVolumeDepthResolutionInv ;
+	 float    SkyAtmosphereCameraAerialPerspectiveVolumeDepthSliceLengthKm ;
+	 float    SkyAtmosphereCameraAerialPerspectiveVolumeDepthSliceLengthKmInv ;
+	 float    SkyAtmosphereApplyCameraAerialPerspectiveVolume ;
+	 float    Padding3032 ;
+	 float    Padding3036 ;
+	 float3    NormalCurvatureToRoughnessScaleBias ;
+	 float    RenderingReflectionCaptureMask ;
+	 float    RealTimeReflectionCapture ;
+	 float    RealTimeReflectionCapturePreExposure ;
+	 float    Padding3064 ;
+	 float    Padding3068 ;
+	 float4    AmbientCubemapTint ;
+	 float    AmbientCubemapIntensity ;
+	 float    SkyLightApplyPrecomputedBentNormalShadowingFlag ;
+	 float    SkyLightAffectReflectionFlag ;
+	 float    SkyLightAffectGlobalIlluminationFlag ;
+	 float4    SkyLightColor ;
+	 float    SkyLightVolumetricScatteringIntensity ;
+	 float    Padding3124 ;
+	 float    Padding3128 ;
+	 float    Padding3132 ;
+	 float4    MobileSkyIrradianceEnvironmentMap[8] ;
+	 float    MobilePreviewMode ;
+	 float    HMDEyePaddingOffset ;
+	 float    ReflectionCubemapMaxMip ;
+	 float    ShowDecalsMask ;
+	 uint    DistanceFieldAOSpecularOcclusionMode ;
+	 float    IndirectCapsuleSelfShadowingIntensity ;
+	 float    Padding3288 ;
+	 float    Padding3292 ;
+	 float3    ReflectionEnvironmentRoughnessMixingScaleBiasAndLargestWeight ;
+	 int    StereoPassIndex ;
+	 float4    GlobalVolumeTranslatedCenterAndExtent[6] ;
+	 float4    GlobalVolumeTranslatedWorldToUVAddAndMul[6] ;
+	 float4    GlobalDistanceFieldMipTranslatedWorldToUVScale[6] ;
+	 float4    GlobalDistanceFieldMipTranslatedWorldToUVBias[6] ;
+	 float    GlobalDistanceFieldMipFactor ;
+	 float    GlobalDistanceFieldMipTransition ;
+	 int    GlobalDistanceFieldClipmapSizeInPages ;
+	 int    Padding3708 ;
+	 float3    GlobalDistanceFieldInvPageAtlasSize ;
+	 float    Padding3724 ;
+	 float3    GlobalDistanceFieldInvCoverageAtlasSize ;
+	 float    GlobalVolumeDimension ;
+	 float    GlobalVolumeTexelSize ;
+	 float    MaxGlobalDFAOConeDistance ;
+	 uint    NumGlobalSDFClipmaps ;
+	 float    CoveredExpandSurfaceScale ;
+	 float    NotCoveredExpandSurfaceScale ;
+	 float    NotCoveredMinStepScale ;
+	 float    DitheredTransparencyStepThreshold ;
+	 float    DitheredTransparencyTraceThreshold ;
+	 int2    CursorPosition ;
+	 float    bCheckerboardSubsurfaceProfileRendering ;
+	 float    Padding3788 ;
+	 float3    VolumetricFogInvGridSize ;
+	 float    Padding3804 ;
+	 float3    VolumetricFogGridZParams ;
+	 float    Padding3820 ;
+	 float2    VolumetricFogSVPosToVolumeUV ;
+	 float2    VolumetricFogViewGridUVToPrevViewRectUV ;
+	 float2    VolumetricFogPrevViewGridRectUVToResourceUV ;
+	 float2    VolumetricFogPrevUVMax ;
+	 float2    VolumetricFogPrevUVMaxForTemporalBlend ;
+	 float2    VolumetricFogScreenToResourceUV ;
+	 float2    VolumetricFogUVMax ;
+	 float    VolumetricFogMaxDistance ;
+	 float    Padding3884 ;
+	 float3    VolumetricLightmapWorldToUVScale ;
+	 float    Padding3900 ;
+	 float3    VolumetricLightmapWorldToUVAdd ;
+	 float    Padding3916 ;
+	 float3    VolumetricLightmapIndirectionTextureSize ;
+	 float    VolumetricLightmapBrickSize ;
+	 float3    VolumetricLightmapBrickTexelSize ;
+	 float    IndirectLightingCacheShowFlag ;
+	 float    EyeToPixelSpreadAngle ;
+	 float    Padding3956 ;
+	 float    Padding3960 ;
+	 float    Padding3964 ;
+	 float4    XRPassthroughCameraUVs[2] ;
+	 float    GlobalVirtualTextureMipBias ;
+	 uint    VirtualTextureFeedbackShift ;
+	 uint    VirtualTextureFeedbackMask ;
+	 uint    VirtualTextureFeedbackStride ;
+	 uint    VirtualTextureFeedbackJitterOffset ;
+	 uint    VirtualTextureFeedbackSampleOffset ;
+	 uint    Padding4024 ;
+	 uint    Padding4028 ;
+	 float4    RuntimeVirtualTextureMipLevel ;
+	 float2    RuntimeVirtualTexturePackHeight ;
+	 float    Padding4056 ;
+	 float    Padding4060 ;
+	 float4    RuntimeVirtualTextureDebugParams ;
+	 int    FarShadowStaticMeshLODBias ;
+	 float    MinRoughness ;
+	 float    Padding4088 ;
+	 float    Padding4092 ;
+	 float4    HairRenderInfo ;
+	 uint    EnableSkyLight ;
+	 uint    HairRenderInfoBits ;
+	 uint    HairComponents ;
+	 float    bSubsurfacePostprocessEnabled ;
+	 float4    SSProfilesTextureSizeAndInvSize ;
+	 float4    SSProfilesPreIntegratedTextureSizeAndInvSize ;
+	 float4    SpecularProfileTextureSizeAndInvSize ;
+	 float3    PhysicsFieldClipmapCenter ;
+	 float    PhysicsFieldClipmapDistance ;
+	 int    PhysicsFieldClipmapResolution ;
+	 int    PhysicsFieldClipmapExponent ;
+	 int    PhysicsFieldClipmapCount ;
+	 int    PhysicsFieldTargetCount ;
+	 int4    PhysicsFieldTargets[32] ;
+	 uint    GPUSceneViewId ;
+	 float    ViewResolutionFraction ;
+	 float    SubSurfaceColorAsTransmittanceAtDistanceInMeters ;
+	 float    Padding4732 ;
+	 float4    TanAndInvTanHalfFOV ;
+	 float4    PrevTanAndInvTanHalfFOV ;
+	 float2    WorldDepthToPixelWorldRadius ;
+	 float    Padding4776 ;
+	 float    Padding4780 ;
+	 float4    ScreenRayLengthMultiplier ;
+	 float4    GlintLUTParameters0 ;
+	 float4    GlintLUTParameters1 ;
+	 int4    EnvironmentComponentsFlags ;
+	 uint    BindlessSampler_MaterialTextureBilinearWrapedSampler ;
+	 uint    Padding4852 ;
+	 uint    BindlessSampler_MaterialTextureBilinearClampedSampler ;
+	 uint    Padding4860 ;
+	 uint    BindlessSRV_VolumetricLightmapIndirectionTexture ;
+	 uint    Padding4868 ;
+	 uint    BindlessSRV_VolumetricLightmapBrickAmbientVector ;
+	 uint    Padding4876 ;
+	 uint    BindlessSRV_VolumetricLightmapBrickSHCoefficients0 ;
+	 uint    Padding4884 ;
+	 uint    BindlessSRV_VolumetricLightmapBrickSHCoefficients1 ;
+	 uint    Padding4892 ;
+	 uint    BindlessSRV_VolumetricLightmapBrickSHCoefficients2 ;
+	 uint    Padding4900 ;
+	 uint    BindlessSRV_VolumetricLightmapBrickSHCoefficients3 ;
+	 uint    Padding4908 ;
+	 uint    BindlessSRV_VolumetricLightmapBrickSHCoefficients4 ;
+	 uint    Padding4916 ;
+	 uint    BindlessSRV_VolumetricLightmapBrickSHCoefficients5 ;
+	 uint    Padding4924 ;
+	 uint    BindlessSRV_SkyBentNormalBrickTexture ;
+	 uint    Padding4932 ;
+	 uint    BindlessSRV_DirectionalLightShadowingBrickTexture ;
+	 uint    Padding4940 ;
+	 uint    BindlessSampler_VolumetricLightmapBrickAmbientVectorSampler ;
+	 uint    Padding4948 ;
+	 uint    BindlessSampler_VolumetricLightmapTextureSampler0 ;
+	 uint    Padding4956 ;
+	 uint    BindlessSampler_VolumetricLightmapTextureSampler1 ;
+	 uint    Padding4964 ;
+	 uint    BindlessSampler_VolumetricLightmapTextureSampler2 ;
+	 uint    Padding4972 ;
+	 uint    BindlessSampler_VolumetricLightmapTextureSampler3 ;
+	 uint    Padding4980 ;
+	 uint    BindlessSampler_VolumetricLightmapTextureSampler4 ;
+	 uint    Padding4988 ;
+	 uint    BindlessSampler_VolumetricLightmapTextureSampler5 ;
+	 uint    Padding4996 ;
+	 uint    BindlessSampler_SkyBentNormalTextureSampler ;
+	 uint    Padding5004 ;
+	 uint    BindlessSampler_DirectionalLightShadowingTextureSampler ;
+	 uint    Padding5012 ;
+	 uint    BindlessSRV_GlobalDistanceFieldPageAtlasTexture ;
+	 uint    Padding5020 ;
+	 uint    BindlessSRV_GlobalDistanceFieldCoverageAtlasTexture ;
+	 uint    Padding5028 ;
+	 uint    BindlessSRV_GlobalDistanceFieldPageTableTexture ;
+	 uint    Padding5036 ;
+	 uint    BindlessSRV_GlobalDistanceFieldMipTexture ;
+	 uint    Padding5044 ;
+	 uint    BindlessSampler_GlobalDistanceFieldPageAtlasTextureSampler ;
+	 uint    Padding5052 ;
+	 uint    BindlessSampler_GlobalDistanceFieldCoverageAtlasTextureSampler ;
+	 uint    Padding5060 ;
+	 uint    BindlessSampler_GlobalDistanceFieldMipTextureSampler ;
+	 uint    Padding5068 ;
+	 uint    BindlessSRV_AtmosphereTransmittanceTexture ;
+	 uint    Padding5076 ;
+	 uint    BindlessSampler_AtmosphereTransmittanceTextureSampler ;
+	 uint    Padding5084 ;
+	 uint    BindlessSRV_AtmosphereIrradianceTexture ;
+	 uint    Padding5092 ;
+	 uint    BindlessSampler_AtmosphereIrradianceTextureSampler ;
+	 uint    Padding5100 ;
+	 uint    BindlessSRV_AtmosphereInscatterTexture ;
+	 uint    Padding5108 ;
+	 uint    BindlessSampler_AtmosphereInscatterTextureSampler ;
+	 uint    Padding5116 ;
+	 uint    BindlessSRV_PerlinNoiseGradientTexture ;
+	 uint    Padding5124 ;
+	 uint    BindlessSampler_PerlinNoiseGradientTextureSampler ;
+	 uint    Padding5132 ;
+	 uint    BindlessSRV_PerlinNoise3DTexture ;
+	 uint    Padding5140 ;
+	 uint    BindlessSampler_PerlinNoise3DTextureSampler ;
+	 uint    Padding5148 ;
+	 uint    BindlessSRV_SobolSamplingTexture ;
+	 uint    Padding5156 ;
+	 uint    BindlessSampler_SharedPointWrappedSampler ;
+	 uint    Padding5164 ;
+	 uint    BindlessSampler_SharedPointClampedSampler ;
+	 uint    Padding5172 ;
+	 uint    BindlessSampler_SharedBilinearWrappedSampler ;
+	 uint    Padding5180 ;
+	 uint    BindlessSampler_SharedBilinearClampedSampler ;
+	 uint    Padding5188 ;
+	 uint    BindlessSampler_SharedBilinearAnisoClampedSampler ;
+	 uint    Padding5196 ;
+	 uint    BindlessSampler_SharedTrilinearWrappedSampler ;
+	 uint    Padding5204 ;
+	 uint    BindlessSampler_SharedTrilinearClampedSampler ;
+	 uint    Padding5212 ;
+	 uint    BindlessSRV_PreIntegratedBRDF ;
+	 uint    Padding5220 ;
+	 uint    BindlessSampler_PreIntegratedBRDFSampler ;
+	 uint    Padding5228 ;
+	 uint    BindlessSRV_SkyIrradianceEnvironmentMap ;
+	 uint    Padding5236 ;
+	 uint    BindlessSRV_TransmittanceLutTexture ;
+	 uint    Padding5244 ;
+	 uint    BindlessSampler_TransmittanceLutTextureSampler ;
+	 uint    Padding5252 ;
+	 uint    BindlessSRV_SkyViewLutTexture ;
+	 uint    Padding5260 ;
+	 uint    BindlessSampler_SkyViewLutTextureSampler ;
+	 uint    Padding5268 ;
+	 uint    BindlessSRV_DistantSkyLightLutTexture ;
+	 uint    Padding5276 ;
+	 uint    BindlessSampler_DistantSkyLightLutTextureSampler ;
+	 uint    Padding5284 ;
+	 uint    BindlessSRV_CameraAerialPerspectiveVolume ;
+	 uint    Padding5292 ;
+	 uint    BindlessSampler_CameraAerialPerspectiveVolumeSampler ;
+	 uint    Padding5300 ;
+	 uint    BindlessSRV_CameraAerialPerspectiveVolumeMieOnly ;
+	 uint    Padding5308 ;
+	 uint    BindlessSampler_CameraAerialPerspectiveVolumeMieOnlySampler ;
+	 uint    Padding5316 ;
+	 uint    BindlessSRV_CameraAerialPerspectiveVolumeRayOnly ;
+	 uint    Padding5324 ;
+	 uint    BindlessSampler_CameraAerialPerspectiveVolumeRayOnlySampler ;
+	 uint    Padding5332 ;
+	 uint    BindlessSRV_HairScatteringLUTTexture ;
+	 uint    Padding5340 ;
+	 uint    BindlessSampler_HairScatteringLUTSampler ;
+	 uint    Padding5348 ;
+	 uint    BindlessSRV_GGXLTCMatTexture ;
+	 uint    Padding5356 ;
+	 uint    BindlessSampler_GGXLTCMatSampler ;
+	 uint    Padding5364 ;
+	 uint    BindlessSRV_GGXLTCAmpTexture ;
+	 uint    Padding5372 ;
+	 uint    BindlessSampler_GGXLTCAmpSampler ;
+	 uint    Padding5380 ;
+	 uint    BindlessSRV_SheenLTCTexture ;
+	 uint    Padding5388 ;
+	 uint    BindlessSampler_SheenLTCSampler ;
+	 uint    Padding5396 ;
+	 uint    bShadingEnergyConservation ;
+	 uint    bShadingEnergyPreservation ;
+	 uint    BindlessSRV_ShadingEnergyGGXSpecTexture ;
+	 uint    Padding5412 ;
+	 uint    BindlessSRV_ShadingEnergyGGXGlassTexture ;
+	 uint    Padding5420 ;
+	 uint    BindlessSRV_ShadingEnergyClothSpecTexture ;
+	 uint    Padding5428 ;
+	 uint    BindlessSRV_ShadingEnergyDiffuseTexture ;
+	 uint    Padding5436 ;
+	 uint    BindlessSampler_ShadingEnergySampler ;
+	 uint    Padding5444 ;
+	 uint    BindlessSRV_GlintTexture ;
+	 uint    Padding5452 ;
+	 uint    BindlessSampler_GlintSampler ;
+	 uint    Padding5460 ;
+	 uint    BindlessSRV_SimpleVolumeTexture ;
+	 uint    Padding5468 ;
+	 uint    BindlessSampler_SimpleVolumeTextureSampler ;
+	 uint    Padding5476 ;
+	 uint    BindlessSRV_SimpleVolumeEnvTexture ;
+	 uint    Padding5484 ;
+	 uint    BindlessSampler_SimpleVolumeEnvTextureSampler ;
+	 uint    Padding5492 ;
+	 uint    BindlessSRV_SSProfilesTexture ;
+	 uint    Padding5500 ;
+	 uint    BindlessSampler_SSProfilesSampler ;
+	 uint    Padding5508 ;
+	 uint    BindlessSampler_SSProfilesTransmissionSampler ;
+	 uint    Padding5516 ;
+	 uint    BindlessSRV_SSProfilesPreIntegratedTexture ;
+	 uint    Padding5524 ;
+	 uint    BindlessSampler_SSProfilesPreIntegratedSampler ;
+	 uint    Padding5532 ;
+	 uint    BindlessSRV_SpecularProfileTexture ;
+	 uint    Padding5540 ;
+	 uint    BindlessSampler_SpecularProfileSampler ;
+	 uint    Padding5548 ;
+	 uint    BindlessSRV_WaterIndirection ;
+	 uint    Padding5556 ;
+	 uint    BindlessSRV_WaterData ;
+	 uint    Padding5564 ;
+	 float4    RectLightAtlasSizeAndInvSize ;
+	 float    RectLightAtlasMaxMipLevel ;
+	 float    Padding5588 ;
+	 uint    BindlessSRV_RectLightAtlasTexture ;
+	 uint    Padding5596 ;
+	 uint    BindlessSampler_RectLightAtlasSampler ;
+	 uint    Padding5604 ;
+	 uint    Padding5608 ;
+	 uint    Padding5612 ;
+	 float4    IESAtlasSizeAndInvSize ;
+	 uint    BindlessSRV_IESAtlasTexture ;
+	 uint    Padding5636 ;
+	 uint    BindlessSampler_IESAtlasSampler ;
+	 uint    Padding5644 ;
+	 uint    BindlessSampler_LandscapeWeightmapSampler ;
+	 uint    Padding5652 ;
+	 uint    BindlessSRV_LandscapeIndirection ;
+	 uint    Padding5660 ;
+	 uint    BindlessSRV_LandscapePerComponentData ;
+	 uint    Padding5668 ;
+	 uint    BindlessUAV_VTFeedbackBuffer ;
+	 uint    Padding5676 ;
+	 uint    BindlessSRV_PhysicsFieldClipmapBuffer ;
+	 uint    Padding5684 ;
+	 uint    Padding5688 ;
+	 uint    Padding5692 ;
+	 float3    TLASPreViewTranslationHigh ;
+	 float    Padding5708 ;
+	 float3    TLASPreViewTranslationLow ;
+ };
+ConstantBuffer<FViewConstants> View;
+struct FPrimitiveConstants {
+	 uint    Flags ;
+	 uint    InstanceSceneDataOffset ;
+	 uint    NumInstanceSceneDataEntries ;
+	 int    SingleCaptureIndex ;
+	 float3    PositionHigh ;
+	 uint    PrimitiveComponentId ;
+	 float4x4    LocalToRelativeWorld ;
+	 float4x4    RelativeWorldToLocal ;
+	 float4x4    PreviousLocalToRelativeWorld ;
+	 float4x4    PreviousRelativeWorldToLocal ;
+	 float4x4    WorldToPreviousWorld ;
+	 float3    InvNonUniformScale ;
+	 float    ObjectBoundsX ;
+	 float4    ObjectWorldPositionHighAndRadius ;
+	 float3    ObjectWorldPositionLow ;
+	 float    MinMaterialDisplacement ;
+	 float3    ActorWorldPositionHigh ;
+	 float    MaxMaterialDisplacement ;
+	 float3    ActorWorldPositionLow ;
+	 uint    LightmapUVIndex ;
+	 float3    ObjectOrientation ;
+	 uint    LightmapDataIndex ;
+	 float4    NonUniformScale ;
+	 float3    PreSkinnedLocalBoundsMin ;
+	 uint    NaniteResourceID ;
+	 float3    PreSkinnedLocalBoundsMax ;
+	 uint    NaniteHierarchyOffset ;
+	 float3    LocalObjectBoundsMin ;
+	 float    ObjectBoundsY ;
+	 float3    LocalObjectBoundsMax ;
+	 float    ObjectBoundsZ ;
+	 float3    InstanceLocalBoundsCenter ;
+	 uint    InstancePayloadDataOffset ;
+	 float3    InstanceLocalBoundsExtent ;
+	 uint    InstancePayloadDataStride ;
+	 uint    InstancePayloadExtensionSize ;
+	 uint    Padding564 ;
+	 float2    WireframeAndPrimitiveColor ;
+	 uint    PackedNaniteFlags ;
+	 int    PersistentPrimitiveIndex ;
+	 float2    InstanceDrawDistanceMinMaxSquared ;
+	 float    InstanceWPODisableDistanceSquared ;
+	 uint    NaniteRayTracingDataOffset ;
+	 float    MaxWPOExtent ;
+	 uint    CustomStencilValueAndMask ;
+	 uint    VisibilityFlags ;
+	 uint    Padding612 ;
+	 uint    Padding616 ;
+	 uint    Padding620 ;
+	 float4    CustomPrimitiveData[9] ;
+ };
+ConstantBuffer<FPrimitiveConstants> Primitive;
+struct FDeferredLightUniformsConstants {
+	 float4    ShadowMapChannelMask ;
+	 float2    DistanceFadeMAD ;
+	 float    ContactShadowLength ;
+	 float    ContactShadowCastingIntensity ;
+	 float    ContactShadowNonCastingIntensity ;
+	 float    VolumetricScatteringIntensity ;
+	 uint    ShadowedBits ;
+	 uint    LightingChannelMask ;
+	 float3    TranslatedWorldPosition ;
+	 float    InvRadius ;
+	 float3    Color ;
+	 float    FalloffExponent ;
+	 float3    Direction ;
+	 float    SpecularScale ;
+	 float3    Tangent ;
+	 float    SourceRadius ;
+	 float2    SpotAngles ;
+	 float    SoftSourceRadius ;
+	 float    SourceLength ;
+	 float    RectLightBarnCosAngle ;
+	 float    RectLightBarnLength ;
+	 float2    RectLightAtlasUVOffset ;
+	 float2    RectLightAtlasUVScale ;
+	 float    RectLightAtlasMaxLevel ;
+	 float    IESAtlasIndex ;
+	 uint    LightFunctionAtlasLightIndex ;
+ };
+ConstantBuffer<FDeferredLightUniformsConstants> DeferredLightUniforms;
+struct FVirtualShadowMapConstants {
+	 uint    NumFullShadowMaps ;
+	 uint    NumSinglePageShadowMaps ;
+	 uint    MaxPhysicalPages ;
+	 uint    NumShadowMapSlots ;
+	 uint    StaticCachedArrayIndex ;
+	 uint    PhysicalPageRowMask ;
+	 uint    PhysicalPageRowShift ;
+	 uint    PackedShadowMaskMaxLightCount ;
+	 float4    RecPhysicalPoolSize ;
+	 int2    PhysicalPoolSize ;
+	 int2    PhysicalPoolSizePages ;
+	 uint    bExcludeNonNaniteFromCoarsePages ;
+	 float    CoarsePagePixelThresholdDynamic ;
+	 float    CoarsePagePixelThresholdStatic ;
+	 float    CoarsePagePixelThresholdDynamicNanite ;
+	 uint    SceneFrameNumber ;
+	 uint    bClipmapGreedyLevelSelection ;
+	 float    GlobalResolutionLodBias ;
+	 float    Padding92 ;
+	 uint    BindlessSRV_ProjectionData ;
+	 uint    Padding100 ;
+	 uint    BindlessSRV_PageTable ;
+	 uint    Padding108 ;
+	 uint    BindlessSRV_PageFlags ;
+	 uint    Padding116 ;
+	 uint    BindlessSRV_PageRectBounds ;
+	 uint    Padding124 ;
+	 uint    BindlessSRV_PhysicalPagePool ;
+	 uint    Padding132 ;
+	 uint    BindlessSRV_CachePrimitiveAsDynamic ;
+	 uint    Padding140 ;
+	 uint    BindlessSRV_LightGridData ;
+	 uint    Padding148 ;
+	 uint    BindlessSRV_NumCulledLightsGrid ;
+ };
+ConstantBuffer<FVirtualShadowMapConstants> VirtualShadowMap;
+ByteAddressBuffer  VirtualShadowMap_ProjectionData;
+StructuredBuffer<uint>  VirtualShadowMap_PageTable;
+Texture2DArray<uint>  VirtualShadowMap_PhysicalPagePool;
+struct FAVSMConstants {
+	 float4x4    TranslatedWorldToShadow[6] ;
+	 float3    TranslatedWorldOrigin ;
+	 float    Padding396 ;
+	 float4    TranslatedWorldPlane ;
+	 int2    Resolution ;
+	 int    NumShadowMatrices ;
+	 int    MaxSampleCount ;
+	 int    bIsEmpty ;
+	 int    bIsDirectionalLight ;
+	 uint    BindlessSRV_LinkedListBuffer ;
+	 uint    Padding444 ;
+	 uint    BindlessSRV_IndirectionBuffer ;
+	 uint    Padding452 ;
+	 uint    BindlessSRV_SampleBuffer ;
+ };
+ConstantBuffer<FAVSMConstants> AVSM;
+StructuredBuffer<uint2>  AVSM_IndirectionBuffer;
+StructuredBuffer<uint>  AVSM_SampleBuffer;
+struct FMaterialConstants {
+	 float4    PreshaderBuffer[1] ;
+	 uint    BindlessSRV_Texture2D_0 ;
+	 uint    Padding20 ;
+	 uint    BindlessSampler_Texture2D_0Sampler ;
+	 uint    Padding28 ;
+	 uint    BindlessSRV_Texture2D_1 ;
+	 uint    Padding36 ;
+	 uint    BindlessSampler_Texture2D_1Sampler ;
+	 uint    Padding44 ;
+	 uint    BindlessSampler_Wrap_WorldGroupSettings ;
+	 uint    Padding52 ;
+	 uint    BindlessSampler_Clamp_WorldGroupSettings ;
+ };
+ConstantBuffer<FMaterialConstants> Material;
+Texture2D  Material_Texture2D_0;
+SamplerState  Material_Texture2D_0Sampler;
+Texture2D  Material_Texture2D_1;
+SamplerState  Material_Texture2D_1Sampler;
+struct ViewStateTileOffsetData
+{
+	FLWCVector3 WorldCameraOrigin;
+	FLWCVector3 WorldViewOrigin;
+	FLWCVector3 PrevWorldCameraOrigin;
+	FLWCVector3 PrevWorldViewOrigin;
+	FLWCVector3 PreViewTranslation;
+	FLWCVector3 PrevPreViewTranslation;
+};
+struct ViewState
+{
+	float4x4 TranslatedWorldToClip;
+	float4x4 RelativeWorldToClip;
+	float4x4 ClipToRelativeWorld;
+	float4x4 TranslatedWorldToView;
+	float4x4 ViewToTranslatedWorld;
+	float4x4 TranslatedWorldToCameraView;
+	float4x4 CameraViewToTranslatedWorld;
+	float4x4 ViewToClip;
+	float4x4 ViewToClipNoAA;
+	float4x4 ClipToView;
+	float4x4 ClipToTranslatedWorld;
+	float4x4 SVPositionToTranslatedWorld;
+	float4x4 ScreenToRelativeWorld;
+	float4x4 ScreenToTranslatedWorld;
+	float4x4 MobileMultiviewShadowTransform;
+	float3 ViewOriginHigh;
+	float3 ViewForward;
+	float3 ViewUp;
+	float3 ViewRight;
+	float3 HMDViewNoRollUp;
+	float3 HMDViewNoRollRight;
+	float4 InvDeviceZToWorldZTransform;
+	float4 ScreenPositionScaleBias;
+	float3 ViewOriginLow;
+	float3 TranslatedWorldCameraOrigin;
+	float3 WorldViewOriginHigh;
+	float3 WorldViewOriginLow;
+	float3 PreViewTranslationHigh;
+	float3 PreViewTranslationLow;
+	float4x4 PrevViewToClip;
+	float4x4 PrevClipToView;
+	float4x4 PrevTranslatedWorldToClip;
+	float4x4 PrevTranslatedWorldToView;
+	float4x4 PrevViewToTranslatedWorld;
+	float4x4 PrevTranslatedWorldToCameraView;
+	float4x4 PrevCameraViewToTranslatedWorld;
+	float3 PrevTranslatedWorldCameraOrigin;
+	float3 PrevWorldCameraOriginHigh;
+	float3 PrevWorldCameraOriginLow;
+	float3 PrevWorldViewOriginHigh;
+	float3 PrevWorldViewOriginLow;
+	float3 PrevPreViewTranslationHigh;
+	float3 PrevPreViewTranslationLow;
+	float3 ViewTilePosition;
+	float3 RelativeWorldCameraOriginTO;
+	float3 RelativeWorldViewOriginTO;
+	float3 RelativePreViewTranslationTO;
+	float3 PrevRelativeWorldCameraOriginTO;
+	float3 PrevRelativeWorldViewOriginTO;
+	float3 RelativePrevPreViewTranslationTO;
+	float4x4 PrevClipToRelativeWorld;
+	float4x4 PrevScreenToTranslatedWorld;
+	float4x4 ClipToPrevClip;
+	float4x4 ClipToPrevClipWithAA;
+	float4 TemporalAAJitter;
+	float4 GlobalClippingPlane;
+	float2 FieldOfViewWideAngles;
+	float2 PrevFieldOfViewWideAngles;
+	float4 ViewRectMin;
+	float4 ViewSizeAndInvSize;
+	uint4 ViewRectMinAndSize;
+	float4 LightProbeSizeRatioAndInvSizeRatio;
+	float4 BufferSizeAndInvSize;
+	float4 BufferBilinearUVMinMax;
+	float4 ScreenToViewSpace;
+	float2 BufferToSceneTextureScale;
+	float2 ResolutionFractionAndInv;
+	int NumSceneColorMSAASamples;
+	float ProjectionDepthThicknessScale;
+	float PreExposure;
+	float OneOverPreExposure;
+	float4 DiffuseOverrideParameter;
+	float4 SpecularOverrideParameter;
+	float4 NormalOverrideParameter;
+	float2 RoughnessOverrideParameter;
+	float PrevFrameGameTime;
+	float PrevFrameRealTime;
+	float OutOfBoundsMask;
+	float3 WorldCameraMovementSinceLastFrame;
+	float CullingSign;
+	float NearPlane;
+	float GameTime;
+	float RealTime;
+	float DeltaTime;
+	float MaterialTextureMipBias;
+	float MaterialTextureDerivativeMultiply;
+	uint Random;
+	uint FrameNumber;
+	uint FrameCounter;
+	uint StateFrameIndexMod8;
+	uint StateFrameIndex;
+	uint DebugViewModeMask;
+	uint WorldIsPaused;
+	float CameraCut;
+	float UnlitViewmodeMask;
+	float4 DirectionalLightColor;
+	float3 DirectionalLightDirection;
+	float4 TranslucencyLightingVolumeMin[2];
+	float4 TranslucencyLightingVolumeInvSize[2];
+	float4 TemporalAAParams;
+	float4 CircleDOFParams;
+	float DepthOfFieldSensorWidth;
+	float DepthOfFieldFocalDistance;
+	float DepthOfFieldScale;
+	float DepthOfFieldFocalLength;
+	float DepthOfFieldFocalRegion;
+	float DepthOfFieldNearTransitionRegion;
+	float DepthOfFieldFarTransitionRegion;
+	float MotionBlurNormalizedToPixel;
+	float GeneralPurposeTweak;
+	float GeneralPurposeTweak2;
+	float DemosaicVposOffset;
+	float DecalDepthBias;
+	float3 IndirectLightingColorScale;
+	float3 PrecomputedIndirectLightingColorScale;
+	float3 PrecomputedIndirectSpecularColorScale;
+	float4 AtmosphereLightDirection[2];
+	float4 AtmosphereLightIlluminanceOnGroundPostTransmittance[2];
+	float4 AtmosphereLightIlluminanceOuterSpace[2];
+	float4 AtmosphereLightDiscLuminance[2];
+	float4 AtmosphereLightDiscCosHalfApexAngle_PPTrans[2];
+	float4 SkyViewLutSizeAndInvSize;
+	float3 SkyCameraTranslatedWorldOrigin;
+	float4 SkyPlanetTranslatedWorldCenterAndViewHeight;
+	float4x4 SkyViewLutReferential;
+	float4 SkyAtmosphereSkyLuminanceFactor;
+	float SkyAtmospherePresentInScene;
+	float SkyAtmosphereHeightFogContribution;
+	float SkyAtmosphereBottomRadiusKm;
+	float SkyAtmosphereTopRadiusKm;
+	float4 SkyAtmosphereCameraAerialPerspectiveVolumeSizeAndInvSize;
+	float SkyAtmosphereAerialPerspectiveStartDepthKm;
+	float SkyAtmosphereCameraAerialPerspectiveVolumeDepthResolution;
+	float SkyAtmosphereCameraAerialPerspectiveVolumeDepthResolutionInv;
+	float SkyAtmosphereCameraAerialPerspectiveVolumeDepthSliceLengthKm;
+	float SkyAtmosphereCameraAerialPerspectiveVolumeDepthSliceLengthKmInv;
+	float SkyAtmosphereApplyCameraAerialPerspectiveVolume;
+	float3 NormalCurvatureToRoughnessScaleBias;
+	float RenderingReflectionCaptureMask;
+	float RealTimeReflectionCapture;
+	float RealTimeReflectionCapturePreExposure;
+	float4 AmbientCubemapTint;
+	float AmbientCubemapIntensity;
+	float SkyLightApplyPrecomputedBentNormalShadowingFlag;
+	float SkyLightAffectReflectionFlag;
+	float SkyLightAffectGlobalIlluminationFlag;
+	float4 SkyLightColor;
+	float SkyLightVolumetricScatteringIntensity;
+	float4 MobileSkyIrradianceEnvironmentMap[8];
+	float MobilePreviewMode;
+	float HMDEyePaddingOffset;
+	float ReflectionCubemapMaxMip;
+	float ShowDecalsMask;
+	uint DistanceFieldAOSpecularOcclusionMode;
+	float IndirectCapsuleSelfShadowingIntensity;
+	float3 ReflectionEnvironmentRoughnessMixingScaleBiasAndLargestWeight;
+	int StereoPassIndex;
+	float4 GlobalVolumeTranslatedCenterAndExtent[6];
+	float4 GlobalVolumeTranslatedWorldToUVAddAndMul[6];
+	float4 GlobalDistanceFieldMipTranslatedWorldToUVScale[6];
+	float4 GlobalDistanceFieldMipTranslatedWorldToUVBias[6];
+	float GlobalDistanceFieldMipFactor;
+	float GlobalDistanceFieldMipTransition;
+	int GlobalDistanceFieldClipmapSizeInPages;
+	float3 GlobalDistanceFieldInvPageAtlasSize;
+	float3 GlobalDistanceFieldInvCoverageAtlasSize;
+	float GlobalVolumeDimension;
+	float GlobalVolumeTexelSize;
+	float MaxGlobalDFAOConeDistance;
+	uint NumGlobalSDFClipmaps;
+	float CoveredExpandSurfaceScale;
+	float NotCoveredExpandSurfaceScale;
+	float NotCoveredMinStepScale;
+	float DitheredTransparencyStepThreshold;
+	float DitheredTransparencyTraceThreshold;
+	int2 CursorPosition;
+	float bCheckerboardSubsurfaceProfileRendering;
+	float3 VolumetricFogInvGridSize;
+	float3 VolumetricFogGridZParams;
+	float2 VolumetricFogSVPosToVolumeUV;
+	float2 VolumetricFogViewGridUVToPrevViewRectUV;
+	float2 VolumetricFogPrevViewGridRectUVToResourceUV;
+	float2 VolumetricFogPrevUVMax;
+	float2 VolumetricFogPrevUVMaxForTemporalBlend;
+	float2 VolumetricFogScreenToResourceUV;
+	float2 VolumetricFogUVMax;
+	float VolumetricFogMaxDistance;
+	float3 VolumetricLightmapWorldToUVScale;
+	float3 VolumetricLightmapWorldToUVAdd;
+	float3 VolumetricLightmapIndirectionTextureSize;
+	float VolumetricLightmapBrickSize;
+	float3 VolumetricLightmapBrickTexelSize;
+	float IndirectLightingCacheShowFlag;
+	float EyeToPixelSpreadAngle;
+	float4 XRPassthroughCameraUVs[2];
+	float GlobalVirtualTextureMipBias;
+	uint VirtualTextureFeedbackShift;
+	uint VirtualTextureFeedbackMask;
+	uint VirtualTextureFeedbackStride;
+	uint VirtualTextureFeedbackJitterOffset;
+	uint VirtualTextureFeedbackSampleOffset;
+	float4 RuntimeVirtualTextureMipLevel;
+	float2 RuntimeVirtualTexturePackHeight;
+	float4 RuntimeVirtualTextureDebugParams;
+	int FarShadowStaticMeshLODBias;
+	float MinRoughness;
+	float4 HairRenderInfo;
+	uint EnableSkyLight;
+	uint HairRenderInfoBits;
+	uint HairComponents;
+	float bSubsurfacePostprocessEnabled;
+	float4 SSProfilesTextureSizeAndInvSize;
+	float4 SSProfilesPreIntegratedTextureSizeAndInvSize;
+	float4 SpecularProfileTextureSizeAndInvSize;
+	float3 PhysicsFieldClipmapCenter;
+	float PhysicsFieldClipmapDistance;
+	int PhysicsFieldClipmapResolution;
+	int PhysicsFieldClipmapExponent;
+	int PhysicsFieldClipmapCount;
+	int PhysicsFieldTargetCount;
+	int4 PhysicsFieldTargets[32];
+	uint GPUSceneViewId;
+	float ViewResolutionFraction;
+	float SubSurfaceColorAsTransmittanceAtDistanceInMeters;
+	float4 TanAndInvTanHalfFOV;
+	float4 PrevTanAndInvTanHalfFOV;
+	float2 WorldDepthToPixelWorldRadius;
+	float4 ScreenRayLengthMultiplier;
+	float4 GlintLUTParameters0;
+	float4 GlintLUTParameters1;
+	int4 EnvironmentComponentsFlags;
+	FDFInverseMatrix WorldToClip;
+	FDFMatrix ClipToWorld;
+	FDFMatrix ScreenToWorld;
+	FDFMatrix PrevClipToWorld;
+	FDFVector3 WorldCameraOrigin;
+	FDFVector3 WorldViewOrigin;
+	FDFVector3 PrevWorldCameraOrigin;
+	FDFVector3 PrevWorldViewOrigin;
+	FDFVector3 PreViewTranslation;
+	FDFVector3 PrevPreViewTranslation;
+	ViewStateTileOffsetData TileOffset;
+};
+void FinalizeViewState(inout ViewState InOutView);
+ViewState GetPrimaryView()
+{
+	ViewState Result;
+	Result.TranslatedWorldToClip = View.TranslatedWorldToClip;
+	Result.RelativeWorldToClip = View.RelativeWorldToClip;
+	Result.ClipToRelativeWorld = View.ClipToRelativeWorld;
+	Result.TranslatedWorldToView = View.TranslatedWorldToView;
+	Result.ViewToTranslatedWorld = View.ViewToTranslatedWorld;
+	Result.TranslatedWorldToCameraView = View.TranslatedWorldToCameraView;
+	Result.CameraViewToTranslatedWorld = View.CameraViewToTranslatedWorld;
+	Result.ViewToClip = View.ViewToClip;
+	Result.ViewToClipNoAA = View.ViewToClipNoAA;
+	Result.ClipToView = View.ClipToView;
+	Result.ClipToTranslatedWorld = View.ClipToTranslatedWorld;
+	Result.SVPositionToTranslatedWorld = View.SVPositionToTranslatedWorld;
+	Result.ScreenToRelativeWorld = View.ScreenToRelativeWorld;
+	Result.ScreenToTranslatedWorld = View.ScreenToTranslatedWorld;
+	Result.MobileMultiviewShadowTransform = View.MobileMultiviewShadowTransform;
+	Result.ViewOriginHigh = View.ViewOriginHigh;
+	Result.ViewForward = View.ViewForward;
+	Result.ViewUp = View.ViewUp;
+	Result.ViewRight = View.ViewRight;
+	Result.HMDViewNoRollUp = View.HMDViewNoRollUp;
+	Result.HMDViewNoRollRight = View.HMDViewNoRollRight;
+	Result.InvDeviceZToWorldZTransform = View.InvDeviceZToWorldZTransform;
+	Result.ScreenPositionScaleBias = View.ScreenPositionScaleBias;
+	Result.ViewOriginLow = View.ViewOriginLow;
+	Result.TranslatedWorldCameraOrigin = View.TranslatedWorldCameraOrigin;
+	Result.WorldViewOriginHigh = View.WorldViewOriginHigh;
+	Result.WorldViewOriginLow = View.WorldViewOriginLow;
+	Result.PreViewTranslationHigh = View.PreViewTranslationHigh;
+	Result.PreViewTranslationLow = View.PreViewTranslationLow;
+	Result.PrevViewToClip = View.PrevViewToClip;
+	Result.PrevClipToView = View.PrevClipToView;
+	Result.PrevTranslatedWorldToClip = View.PrevTranslatedWorldToClip;
+	Result.PrevTranslatedWorldToView = View.PrevTranslatedWorldToView;
+	Result.PrevViewToTranslatedWorld = View.PrevViewToTranslatedWorld;
+	Result.PrevTranslatedWorldToCameraView = View.PrevTranslatedWorldToCameraView;
+	Result.PrevCameraViewToTranslatedWorld = View.PrevCameraViewToTranslatedWorld;
+	Result.PrevTranslatedWorldCameraOrigin = View.PrevTranslatedWorldCameraOrigin;
+	Result.PrevWorldCameraOriginHigh = View.PrevWorldCameraOriginHigh;
+	Result.PrevWorldCameraOriginLow = View.PrevWorldCameraOriginLow;
+	Result.PrevWorldViewOriginHigh = View.PrevWorldViewOriginHigh;
+	Result.PrevWorldViewOriginLow = View.PrevWorldViewOriginLow;
+	Result.PrevPreViewTranslationHigh = View.PrevPreViewTranslationHigh;
+	Result.PrevPreViewTranslationLow = View.PrevPreViewTranslationLow;
+	Result.ViewTilePosition = View.ViewTilePosition;
+	Result.RelativeWorldCameraOriginTO = View.RelativeWorldCameraOriginTO;
+	Result.RelativeWorldViewOriginTO = View.RelativeWorldViewOriginTO;
+	Result.RelativePreViewTranslationTO = View.RelativePreViewTranslationTO;
+	Result.PrevRelativeWorldCameraOriginTO = View.PrevRelativeWorldCameraOriginTO;
+	Result.PrevRelativeWorldViewOriginTO = View.PrevRelativeWorldViewOriginTO;
+	Result.RelativePrevPreViewTranslationTO = View.RelativePrevPreViewTranslationTO;
+	Result.PrevClipToRelativeWorld = View.PrevClipToRelativeWorld;
+	Result.PrevScreenToTranslatedWorld = View.PrevScreenToTranslatedWorld;
+	Result.ClipToPrevClip = View.ClipToPrevClip;
+	Result.ClipToPrevClipWithAA = View.ClipToPrevClipWithAA;
+	Result.TemporalAAJitter = View.TemporalAAJitter;
+	Result.GlobalClippingPlane = View.GlobalClippingPlane;
+	Result.FieldOfViewWideAngles = View.FieldOfViewWideAngles;
+	Result.PrevFieldOfViewWideAngles = View.PrevFieldOfViewWideAngles;
+	Result.ViewRectMin = View.ViewRectMin;
+	Result.ViewSizeAndInvSize = View.ViewSizeAndInvSize;
+	Result.ViewRectMinAndSize = View.ViewRectMinAndSize;
+	Result.LightProbeSizeRatioAndInvSizeRatio = View.LightProbeSizeRatioAndInvSizeRatio;
+	Result.BufferSizeAndInvSize = View.BufferSizeAndInvSize;
+	Result.BufferBilinearUVMinMax = View.BufferBilinearUVMinMax;
+	Result.ScreenToViewSpace = View.ScreenToViewSpace;
+	Result.BufferToSceneTextureScale = View.BufferToSceneTextureScale;
+	Result.ResolutionFractionAndInv = View.ResolutionFractionAndInv;
+	Result.NumSceneColorMSAASamples = View.NumSceneColorMSAASamples;
+	Result.ProjectionDepthThicknessScale = View.ProjectionDepthThicknessScale;
+	Result.PreExposure = View.PreExposure;
+	Result.OneOverPreExposure = View.OneOverPreExposure;
+	Result.DiffuseOverrideParameter = View.DiffuseOverrideParameter;
+	Result.SpecularOverrideParameter = View.SpecularOverrideParameter;
+	Result.NormalOverrideParameter = View.NormalOverrideParameter;
+	Result.RoughnessOverrideParameter = View.RoughnessOverrideParameter;
+	Result.PrevFrameGameTime = View.PrevFrameGameTime;
+	Result.PrevFrameRealTime = View.PrevFrameRealTime;
+	Result.OutOfBoundsMask = View.OutOfBoundsMask;
+	Result.WorldCameraMovementSinceLastFrame = View.WorldCameraMovementSinceLastFrame;
+	Result.CullingSign = View.CullingSign;
+	Result.NearPlane = View.NearPlane;
+	Result.GameTime = View.GameTime;
+	Result.RealTime = View.RealTime;
+	Result.DeltaTime = View.DeltaTime;
+	Result.MaterialTextureMipBias = View.MaterialTextureMipBias;
+	Result.MaterialTextureDerivativeMultiply = View.MaterialTextureDerivativeMultiply;
+	Result.Random = View.Random;
+	Result.FrameNumber = View.FrameNumber;
+	Result.FrameCounter = View.FrameCounter;
+	Result.StateFrameIndexMod8 = View.StateFrameIndexMod8;
+	Result.StateFrameIndex = View.StateFrameIndex;
+	Result.DebugViewModeMask = View.DebugViewModeMask;
+	Result.WorldIsPaused = View.WorldIsPaused;
+	Result.CameraCut = View.CameraCut;
+	Result.UnlitViewmodeMask = View.UnlitViewmodeMask;
+	Result.DirectionalLightColor = View.DirectionalLightColor;
+	Result.DirectionalLightDirection = View.DirectionalLightDirection;
+	Result.TranslucencyLightingVolumeMin = View.TranslucencyLightingVolumeMin;
+	Result.TranslucencyLightingVolumeInvSize = View.TranslucencyLightingVolumeInvSize;
+	Result.TemporalAAParams = View.TemporalAAParams;
+	Result.CircleDOFParams = View.CircleDOFParams;
+	Result.DepthOfFieldSensorWidth = View.DepthOfFieldSensorWidth;
+	Result.DepthOfFieldFocalDistance = View.DepthOfFieldFocalDistance;
+	Result.DepthOfFieldScale = View.DepthOfFieldScale;
+	Result.DepthOfFieldFocalLength = View.DepthOfFieldFocalLength;
+	Result.DepthOfFieldFocalRegion = View.DepthOfFieldFocalRegion;
+	Result.DepthOfFieldNearTransitionRegion = View.DepthOfFieldNearTransitionRegion;
+	Result.DepthOfFieldFarTransitionRegion = View.DepthOfFieldFarTransitionRegion;
+	Result.MotionBlurNormalizedToPixel = View.MotionBlurNormalizedToPixel;
+	Result.GeneralPurposeTweak = View.GeneralPurposeTweak;
+	Result.GeneralPurposeTweak2 = View.GeneralPurposeTweak2;
+	Result.DemosaicVposOffset = View.DemosaicVposOffset;
+	Result.DecalDepthBias = View.DecalDepthBias;
+	Result.IndirectLightingColorScale = View.IndirectLightingColorScale;
+	Result.PrecomputedIndirectLightingColorScale = View.PrecomputedIndirectLightingColorScale;
+	Result.PrecomputedIndirectSpecularColorScale = View.PrecomputedIndirectSpecularColorScale;
+	Result.AtmosphereLightDirection = View.AtmosphereLightDirection;
+	Result.AtmosphereLightIlluminanceOnGroundPostTransmittance = View.AtmosphereLightIlluminanceOnGroundPostTransmittance;
+	Result.AtmosphereLightIlluminanceOuterSpace = View.AtmosphereLightIlluminanceOuterSpace;
+	Result.AtmosphereLightDiscLuminance = View.AtmosphereLightDiscLuminance;
+	Result.AtmosphereLightDiscCosHalfApexAngle_PPTrans = View.AtmosphereLightDiscCosHalfApexAngle_PPTrans;
+	Result.SkyViewLutSizeAndInvSize = View.SkyViewLutSizeAndInvSize;
+	Result.SkyCameraTranslatedWorldOrigin = View.SkyCameraTranslatedWorldOrigin;
+	Result.SkyPlanetTranslatedWorldCenterAndViewHeight = View.SkyPlanetTranslatedWorldCenterAndViewHeight;
+	Result.SkyViewLutReferential = View.SkyViewLutReferential;
+	Result.SkyAtmosphereSkyLuminanceFactor = View.SkyAtmosphereSkyLuminanceFactor;
+	Result.SkyAtmospherePresentInScene = View.SkyAtmospherePresentInScene;
+	Result.SkyAtmosphereHeightFogContribution = View.SkyAtmosphereHeightFogContribution;
+	Result.SkyAtmosphereBottomRadiusKm = View.SkyAtmosphereBottomRadiusKm;
+	Result.SkyAtmosphereTopRadiusKm = View.SkyAtmosphereTopRadiusKm;
+	Result.SkyAtmosphereCameraAerialPerspectiveVolumeSizeAndInvSize = View.SkyAtmosphereCameraAerialPerspectiveVolumeSizeAndInvSize;
+	Result.SkyAtmosphereAerialPerspectiveStartDepthKm = View.SkyAtmosphereAerialPerspectiveStartDepthKm;
+	Result.SkyAtmosphereCameraAerialPerspectiveVolumeDepthResolution = View.SkyAtmosphereCameraAerialPerspectiveVolumeDepthResolution;
+	Result.SkyAtmosphereCameraAerialPerspectiveVolumeDepthResolutionInv = View.SkyAtmosphereCameraAerialPerspectiveVolumeDepthResolutionInv;
+	Result.SkyAtmosphereCameraAerialPerspectiveVolumeDepthSliceLengthKm = View.SkyAtmosphereCameraAerialPerspectiveVolumeDepthSliceLengthKm;
+	Result.SkyAtmosphereCameraAerialPerspectiveVolumeDepthSliceLengthKmInv = View.SkyAtmosphereCameraAerialPerspectiveVolumeDepthSliceLengthKmInv;
+	Result.SkyAtmosphereApplyCameraAerialPerspectiveVolume = View.SkyAtmosphereApplyCameraAerialPerspectiveVolume;
+	Result.NormalCurvatureToRoughnessScaleBias = View.NormalCurvatureToRoughnessScaleBias;
+	Result.RenderingReflectionCaptureMask = View.RenderingReflectionCaptureMask;
+	Result.RealTimeReflectionCapture = View.RealTimeReflectionCapture;
+	Result.RealTimeReflectionCapturePreExposure = View.RealTimeReflectionCapturePreExposure;
+	Result.AmbientCubemapTint = View.AmbientCubemapTint;
+	Result.AmbientCubemapIntensity = View.AmbientCubemapIntensity;
+	Result.SkyLightApplyPrecomputedBentNormalShadowingFlag = View.SkyLightApplyPrecomputedBentNormalShadowingFlag;
+	Result.SkyLightAffectReflectionFlag = View.SkyLightAffectReflectionFlag;
+	Result.SkyLightAffectGlobalIlluminationFlag = View.SkyLightAffectGlobalIlluminationFlag;
+	Result.SkyLightColor = View.SkyLightColor;
+	Result.SkyLightVolumetricScatteringIntensity = View.SkyLightVolumetricScatteringIntensity;
+	Result.MobileSkyIrradianceEnvironmentMap = View.MobileSkyIrradianceEnvironmentMap;
+	Result.MobilePreviewMode = View.MobilePreviewMode;
+	Result.HMDEyePaddingOffset = View.HMDEyePaddingOffset;
+	Result.ReflectionCubemapMaxMip = View.ReflectionCubemapMaxMip;
+	Result.ShowDecalsMask = View.ShowDecalsMask;
+	Result.DistanceFieldAOSpecularOcclusionMode = View.DistanceFieldAOSpecularOcclusionMode;
+	Result.IndirectCapsuleSelfShadowingIntensity = View.IndirectCapsuleSelfShadowingIntensity;
+	Result.ReflectionEnvironmentRoughnessMixingScaleBiasAndLargestWeight = View.ReflectionEnvironmentRoughnessMixingScaleBiasAndLargestWeight;
+	Result.StereoPassIndex = View.StereoPassIndex;
+	Result.GlobalVolumeTranslatedCenterAndExtent = View.GlobalVolumeTranslatedCenterAndExtent;
+	Result.GlobalVolumeTranslatedWorldToUVAddAndMul = View.GlobalVolumeTranslatedWorldToUVAddAndMul;
+	Result.GlobalDistanceFieldMipTranslatedWorldToUVScale = View.GlobalDistanceFieldMipTranslatedWorldToUVScale;
+	Result.GlobalDistanceFieldMipTranslatedWorldToUVBias = View.GlobalDistanceFieldMipTranslatedWorldToUVBias;
+	Result.GlobalDistanceFieldMipFactor = View.GlobalDistanceFieldMipFactor;
+	Result.GlobalDistanceFieldMipTransition = View.GlobalDistanceFieldMipTransition;
+	Result.GlobalDistanceFieldClipmapSizeInPages = View.GlobalDistanceFieldClipmapSizeInPages;
+	Result.GlobalDistanceFieldInvPageAtlasSize = View.GlobalDistanceFieldInvPageAtlasSize;
+	Result.GlobalDistanceFieldInvCoverageAtlasSize = View.GlobalDistanceFieldInvCoverageAtlasSize;
+	Result.GlobalVolumeDimension = View.GlobalVolumeDimension;
+	Result.GlobalVolumeTexelSize = View.GlobalVolumeTexelSize;
+	Result.MaxGlobalDFAOConeDistance = View.MaxGlobalDFAOConeDistance;
+	Result.NumGlobalSDFClipmaps = View.NumGlobalSDFClipmaps;
+	Result.CoveredExpandSurfaceScale = View.CoveredExpandSurfaceScale;
+	Result.NotCoveredExpandSurfaceScale = View.NotCoveredExpandSurfaceScale;
+	Result.NotCoveredMinStepScale = View.NotCoveredMinStepScale;
+	Result.DitheredTransparencyStepThreshold = View.DitheredTransparencyStepThreshold;
+	Result.DitheredTransparencyTraceThreshold = View.DitheredTransparencyTraceThreshold;
+	Result.CursorPosition = View.CursorPosition;
+	Result.bCheckerboardSubsurfaceProfileRendering = View.bCheckerboardSubsurfaceProfileRendering;
+	Result.VolumetricFogInvGridSize = View.VolumetricFogInvGridSize;
+	Result.VolumetricFogGridZParams = View.VolumetricFogGridZParams;
+	Result.VolumetricFogSVPosToVolumeUV = View.VolumetricFogSVPosToVolumeUV;
+	Result.VolumetricFogViewGridUVToPrevViewRectUV = View.VolumetricFogViewGridUVToPrevViewRectUV;
+	Result.VolumetricFogPrevViewGridRectUVToResourceUV = View.VolumetricFogPrevViewGridRectUVToResourceUV;
+	Result.VolumetricFogPrevUVMax = View.VolumetricFogPrevUVMax;
+	Result.VolumetricFogPrevUVMaxForTemporalBlend = View.VolumetricFogPrevUVMaxForTemporalBlend;
+	Result.VolumetricFogScreenToResourceUV = View.VolumetricFogScreenToResourceUV;
+	Result.VolumetricFogUVMax = View.VolumetricFogUVMax;
+	Result.VolumetricFogMaxDistance = View.VolumetricFogMaxDistance;
+	Result.VolumetricLightmapWorldToUVScale = View.VolumetricLightmapWorldToUVScale;
+	Result.VolumetricLightmapWorldToUVAdd = View.VolumetricLightmapWorldToUVAdd;
+	Result.VolumetricLightmapIndirectionTextureSize = View.VolumetricLightmapIndirectionTextureSize;
+	Result.VolumetricLightmapBrickSize = View.VolumetricLightmapBrickSize;
+	Result.VolumetricLightmapBrickTexelSize = View.VolumetricLightmapBrickTexelSize;
+	Result.IndirectLightingCacheShowFlag = View.IndirectLightingCacheShowFlag;
+	Result.EyeToPixelSpreadAngle = View.EyeToPixelSpreadAngle;
+	Result.XRPassthroughCameraUVs = View.XRPassthroughCameraUVs;
+	Result.GlobalVirtualTextureMipBias = View.GlobalVirtualTextureMipBias;
+	Result.VirtualTextureFeedbackShift = View.VirtualTextureFeedbackShift;
+	Result.VirtualTextureFeedbackMask = View.VirtualTextureFeedbackMask;
+	Result.VirtualTextureFeedbackStride = View.VirtualTextureFeedbackStride;
+	Result.VirtualTextureFeedbackJitterOffset = View.VirtualTextureFeedbackJitterOffset;
+	Result.VirtualTextureFeedbackSampleOffset = View.VirtualTextureFeedbackSampleOffset;
+	Result.RuntimeVirtualTextureMipLevel = View.RuntimeVirtualTextureMipLevel;
+	Result.RuntimeVirtualTexturePackHeight = View.RuntimeVirtualTexturePackHeight;
+	Result.RuntimeVirtualTextureDebugParams = View.RuntimeVirtualTextureDebugParams;
+	Result.FarShadowStaticMeshLODBias = View.FarShadowStaticMeshLODBias;
+	Result.MinRoughness = View.MinRoughness;
+	Result.HairRenderInfo = View.HairRenderInfo;
+	Result.EnableSkyLight = View.EnableSkyLight;
+	Result.HairRenderInfoBits = View.HairRenderInfoBits;
+	Result.HairComponents = View.HairComponents;
+	Result.bSubsurfacePostprocessEnabled = View.bSubsurfacePostprocessEnabled;
+	Result.SSProfilesTextureSizeAndInvSize = View.SSProfilesTextureSizeAndInvSize;
+	Result.SSProfilesPreIntegratedTextureSizeAndInvSize = View.SSProfilesPreIntegratedTextureSizeAndInvSize;
+	Result.SpecularProfileTextureSizeAndInvSize = View.SpecularProfileTextureSizeAndInvSize;
+	Result.PhysicsFieldClipmapCenter = View.PhysicsFieldClipmapCenter;
+	Result.PhysicsFieldClipmapDistance = View.PhysicsFieldClipmapDistance;
+	Result.PhysicsFieldClipmapResolution = View.PhysicsFieldClipmapResolution;
+	Result.PhysicsFieldClipmapExponent = View.PhysicsFieldClipmapExponent;
+	Result.PhysicsFieldClipmapCount = View.PhysicsFieldClipmapCount;
+	Result.PhysicsFieldTargetCount = View.PhysicsFieldTargetCount;
+	Result.PhysicsFieldTargets = View.PhysicsFieldTargets;
+	Result.GPUSceneViewId = View.GPUSceneViewId;
+	Result.ViewResolutionFraction = View.ViewResolutionFraction;
+	Result.SubSurfaceColorAsTransmittanceAtDistanceInMeters = View.SubSurfaceColorAsTransmittanceAtDistanceInMeters;
+	Result.TanAndInvTanHalfFOV = View.TanAndInvTanHalfFOV;
+	Result.PrevTanAndInvTanHalfFOV = View.PrevTanAndInvTanHalfFOV;
+	Result.WorldDepthToPixelWorldRadius = View.WorldDepthToPixelWorldRadius;
+	Result.ScreenRayLengthMultiplier = View.ScreenRayLengthMultiplier;
+	Result.GlintLUTParameters0 = View.GlintLUTParameters0;
+	Result.GlintLUTParameters1 = View.GlintLUTParameters1;
+	Result.EnvironmentComponentsFlags = View.EnvironmentComponentsFlags;
+	FinalizeViewState(Result);
+	return Result;
+}
+void FinalizeViewState(inout ViewState InOutView)
+{
+	InOutView.WorldToClip = MakeDFInverseMatrix(InOutView.ViewOriginHigh, InOutView.RelativeWorldToClip);
+	InOutView.ClipToWorld = MakeDFMatrix(InOutView.ViewOriginHigh, InOutView.ClipToRelativeWorld);
+	InOutView.ScreenToWorld = MakeDFMatrix(InOutView.ViewOriginHigh, InOutView.ScreenToRelativeWorld);
+	InOutView.PrevClipToWorld = MakeDFMatrix(InOutView.ViewOriginHigh, InOutView.PrevClipToRelativeWorld);
+	InOutView.WorldCameraOrigin = MakeDFVector3(InOutView.ViewOriginHigh, InOutView.ViewOriginLow);
+	InOutView.WorldViewOrigin = MakeDFVector3(InOutView.WorldViewOriginHigh, InOutView.WorldViewOriginLow);
+	InOutView.PrevWorldCameraOrigin = MakeDFVector3(InOutView.PrevWorldCameraOriginHigh, InOutView.PrevWorldCameraOriginLow);
+	InOutView.PrevWorldViewOrigin = MakeDFVector3(InOutView.PrevWorldViewOriginHigh, InOutView.PrevWorldViewOriginLow);
+	InOutView.PreViewTranslation = MakeDFVector3(InOutView.PreViewTranslationHigh, InOutView.PreViewTranslationLow);
+	InOutView.PrevPreViewTranslation = MakeDFVector3(InOutView.PrevPreViewTranslationHigh, InOutView.PrevPreViewTranslationLow);
+	InOutView.TileOffset.WorldCameraOrigin = MakeLWCVector3(InOutView.ViewTilePosition, InOutView.RelativeWorldCameraOriginTO);
+	InOutView.TileOffset.WorldViewOrigin = MakeLWCVector3(InOutView.ViewTilePosition, InOutView.RelativeWorldViewOriginTO);
+	InOutView.TileOffset.PrevWorldCameraOrigin = MakeLWCVector3(InOutView.ViewTilePosition, InOutView.PrevRelativeWorldCameraOriginTO);
+	InOutView.TileOffset.PrevWorldViewOrigin = MakeLWCVector3(InOutView.ViewTilePosition, InOutView.PrevRelativeWorldViewOriginTO);
+	InOutView.TileOffset.PreViewTranslation = MakeLWCVector3(-InOutView.ViewTilePosition, InOutView.RelativePreViewTranslationTO);
+	InOutView.TileOffset.PrevPreViewTranslation = MakeLWCVector3(-InOutView.ViewTilePosition, InOutView.RelativePrevPreViewTranslationTO);
+}
+static ViewState ResolvedView = (ViewState)0.0f;
+float4 Texture2DSampleLevel(Texture2D Tex, SamplerState Sampler, float2 UV, float Mip)
+{
+	return Tex.SampleLevel(Sampler, UV, Mip);
+}
+float4 Texture2DSampleBias(Texture2D Tex, SamplerState Sampler, float2 UV, float MipBias)
+{
+	return Tex.SampleBias(Sampler, UV, MipBias);
+}
+float FastExp( float x) { return exp2(1.442695f * x); }
+float2 FastExp( float2 x) { return exp2(1.442695f * x); }
+float3 FastExp( float3 x) { return exp2(1.442695f * x); }
+float4 FastExp( float4 x) { return exp2(1.442695f * x); }
+float Square( float x )
+{
+	return x*x;
+}
+float2 Square( float2 x )
+{
+	return x*x;
+}
+float3 Square( float3 x )
+{
+	return x*x;
+}
+float4 Square( float4 x )
+{
+	return x*x;
+}
+float Pow2( float x )
+{
+	return x*x;
+}
+float2 Pow2( float2 x )
+{
+	return x*x;
+}
+float3 Pow2( float3 x )
+{
+	return x*x;
+}
+float4 Pow2( float4 x )
+{
+	return x*x;
+}
+float ConvertFromDeviceZ(float DeviceZ)
+{
+	return DeviceZ * View.InvDeviceZToWorldZTransform[0] + View.InvDeviceZToWorldZTransform[1] + 1.0f / (DeviceZ * View.InvDeviceZToWorldZTransform[2] - View.InvDeviceZToWorldZTransform[3]);
+}
+float4 UnpackNormalMap( float4 TextureSample )
+{
+		float2 NormalXY = TextureSample.rg;
+	NormalXY = NormalXY * float2(2.0f,2.0f) - float2(1.0f,1.0f);
+	float NormalZ = sqrt( saturate( 1.0f - dot( NormalXY, NormalXY ) ) );
+	return float4( NormalXY.xy, NormalZ, 1.0f );
+}
+float3 TransformTangentVectorToWorld(float3x3 TangentToWorld, float3 InTangentVector)
+{
+	return mul(InTangentVector, TangentToWorld);
+}
+float GetBoxPushout(float3 Normal,float3 Extent)
+{
+	return dot(abs(Normal * Extent), float3(1.0f, 1.0f, 1.0f));
+}
+struct FScreenVertexOutput
+{
+	noperspective float2 UV : TEXCOORD0;
+	float4 Position : SV_POSITION;
+};
+struct FWriteToSliceGeometryOutput
+{
+	FScreenVertexOutput Vertex;
+	uint LayerIndex : SV_RenderTargetArrayIndex;
+};
+struct FTwoBandSHVector
+{
+	float4 V;
+};
+struct FTwoBandSHVectorRGB
+{
+	FTwoBandSHVector R;
+	FTwoBandSHVector G;
+	FTwoBandSHVector B;
+};
+FTwoBandSHVectorRGB MulSH(FTwoBandSHVectorRGB A, float Scalar)
+{
+	FTwoBandSHVectorRGB Result;
+	Result.R.V = A.R.V * Scalar;
+	Result.G.V = A.G.V * Scalar;
+	Result.B.V = A.B.V * Scalar;
+	return Result;
+}
+FTwoBandSHVectorRGB MulSH(FTwoBandSHVector A, float3 Color)
+{
+	FTwoBandSHVectorRGB Result;
+	Result.R.V = A.V * Color.r;
+	Result.G.V = A.V * Color.g;
+	Result.B.V = A.V * Color.b;
+	return Result;
+}
+FTwoBandSHVector MulSH(FTwoBandSHVector A, float Scalar)
+{
+	FTwoBandSHVector Result;
+	Result.V = A.V * Scalar;
+	return Result;
+}
+FTwoBandSHVector SHBasisFunction(float3 InputVector)
+{
+	FTwoBandSHVector Result;
+	Result.V.x = 0.282095f; 
+	Result.V.y = -0.488603f * InputVector.y;
+	Result.V.z = 0.488603f * InputVector.z;
+	Result.V.w = -0.488603f * InputVector.x;
+	return Result;
+}
+FLWCScalar DFToWS(FDFScalar In) { return DFToTileOffset(In); }
+FLWCScalar DFFastToWS(FDFScalar In) { return DFFastToTileOffset(In); }
+FLWCVector2 DFToWS(FDFVector2 In) { return DFToTileOffset(In); }
+FLWCVector2 DFFastToWS(FDFVector2 In) { return DFFastToTileOffset(In); }
+FLWCVector3 DFToWS(FDFVector3 In) { return DFToTileOffset(In); }
+FLWCVector3 DFFastToWS(FDFVector3 In) { return DFFastToTileOffset(In); }
+FLWCVector4 DFToWS(FDFVector4 In) { return DFToTileOffset(In); }
+FLWCVector4 DFFastToWS(FDFVector4 In) { return DFFastToTileOffset(In); }
+FLWCMatrix DFToWS(FDFMatrix In) { return DFToTileOffset(In); }
+FLWCMatrix DFFastToWS(FDFMatrix In) { return DFFastToTileOffset(In); }
+FLWCInverseMatrix DFToWS(FDFInverseMatrix In) { return DFToTileOffset(In); }
+FLWCInverseMatrix DFFastToWS(FDFInverseMatrix In) { return DFFastToTileOffset(In); }
+float DFToWS( float In) { return In; }
+float2 DFToWS( float2 In) { return In; }
+float3 DFToWS( float3 In) { return In; }
+float4 DFToWS( float4 In) { return In; }
+float3x3 GetTangentBasis( float3 TangentZ )
+{
+	const float Sign = TangentZ.z >= 0 ? 1 : -1;
+	const float a = -rcp( Sign + TangentZ.z );
+	const float b = TangentZ.x * TangentZ.y * a;
+	float3 TangentX = { 1 + Sign * a * Pow2( TangentZ.x ), Sign * b, -Sign * TangentZ.x };
+	float3 TangentY = { b,  Sign + a * Pow2( TangentZ.y ), -TangentZ.y };
+	return float3x3( TangentX, TangentY, TangentZ );
+}
+float3 TangentToWorld( float3 Vec, float3 TangentZ )
+{
+	return mul( Vec, GetTangentBasis( TangentZ ) );
+}
+struct FPrimitiveSceneData
+{
+	uint		Flags;
+	uint		VisibilityFlags;
+	int			InstanceSceneDataOffset; 
+	int			NumInstanceSceneDataEntries;
+	int			PersistentPrimitiveIndex;
+	uint		SingleCaptureIndex; 
+	float3		PositionHigh;
+	uint		PrimitiveComponentId; 
+	FDFMatrix	LocalToWorld;
+	FDFInverseMatrix WorldToLocal;
+	FDFMatrix	PreviousLocalToWorld;
+	FDFInverseMatrix PreviousWorldToLocal;
+	float4x4	WorldToPreviousWorld; 
+	float3		InvNonUniformScale;
+	float		ObjectBoundsX;
+	FDFVector3	ObjectWorldPosition;
+	FDFVector3	ActorWorldPosition;
+	float		MinMaterialDisplacement;
+	float		MaxMaterialDisplacement;
+	FLWCVector3	ObjectWorldPositionTO;
+	FLWCVector3	ActorWorldPositionTO;
+	float		ObjectRadius;
+	uint		LightmapUVIndex;   
+	float3		ObjectOrientation; 
+	uint		LightmapDataIndex; 
+	float4		NonUniformScale;
+	float3		PreSkinnedLocalBoundsMin;
+	uint		NaniteResourceID;
+	float3		PreSkinnedLocalBoundsMax;
+	uint		NaniteHierarchyOffset;
+	float3		LocalObjectBoundsMin;
+	float		ObjectBoundsY;
+	float3		LocalObjectBoundsMax;
+	float		ObjectBoundsZ;
+	uint		InstancePayloadDataOffset;
+	uint		InstancePayloadDataStride;
+	uint		InstancePayloadExtensionSize;
+	float3		InstanceLocalBoundsCenter;
+	float3		InstanceLocalBoundsExtent;
+	float3		WireframeColor; 
+	float3		PrimitiveColor; 
+	uint		PackedNaniteFlags;
+	float2 		InstanceDrawDistanceMinMaxSquared;
+	float		InstanceWPODisableDistanceSquared;
+	uint		NaniteRayTracingDataOffset;
+	float		MaxWPOExtent;
+	uint		CustomStencilValueAndMask;
+	float4		CustomPrimitiveData[9u]; 
+};
+float3 UnpackColorRGB24(float PackedColorFloat)
+{
+	uint PackedColor = asuint(PackedColorFloat);
+	return float3
+	(
+		float((PackedColor >> 24u) & 0xFF),
+		float((PackedColor >> 16u) & 0xFF),
+		float((PackedColor >>  8u) & 0xFF)
+	) * (1.0f / 255.0f);
+}
+FPrimitiveSceneData GetPrimitiveDataFromUniformBuffer()
+{
+	FPrimitiveSceneData PrimitiveData;
+	PrimitiveData.Flags								= Primitive.Flags;
+	PrimitiveData.VisibilityFlags					= Primitive.VisibilityFlags;
+	PrimitiveData.InstanceSceneDataOffset			= Primitive.InstanceSceneDataOffset;
+	PrimitiveData.NumInstanceSceneDataEntries		= Primitive.NumInstanceSceneDataEntries;
+	PrimitiveData.SingleCaptureIndex				= Primitive.SingleCaptureIndex;
+	PrimitiveData.PositionHigh						= Primitive.PositionHigh;
+	PrimitiveData.PrimitiveComponentId				= Primitive.PrimitiveComponentId;
+	PrimitiveData.LocalToWorld						= MakeDFMatrix4x3(Primitive.PositionHigh, Primitive.LocalToRelativeWorld);
+	PrimitiveData.WorldToLocal						= MakeDFInverseMatrix4x3(Primitive.PositionHigh, Primitive.RelativeWorldToLocal);
+	PrimitiveData.PreviousLocalToWorld				= MakeDFMatrix4x3(Primitive.PositionHigh, Primitive.PreviousLocalToRelativeWorld);
+	PrimitiveData.PreviousWorldToLocal				= MakeDFInverseMatrix4x3(Primitive.PositionHigh, Primitive.PreviousRelativeWorldToLocal);
+	PrimitiveData.WorldToPreviousWorld				= Primitive.WorldToPreviousWorld;
+	PrimitiveData.InvNonUniformScale				= Primitive.InvNonUniformScale;
+	PrimitiveData.ObjectBoundsX						= Primitive.ObjectBoundsX;
+	PrimitiveData.ObjectRadius						= Primitive.ObjectWorldPositionHighAndRadius.w;
+	PrimitiveData.ObjectWorldPositionTO				= MakeLWCVector3(Primitive.ObjectWorldPositionHighAndRadius.xyz, Primitive.ObjectWorldPositionLow.xyz);
+	PrimitiveData.ActorWorldPositionTO				= MakeLWCVector3(Primitive.ActorWorldPositionHigh.xyz, Primitive.ActorWorldPositionLow.xyz);
+	PrimitiveData.ObjectWorldPosition				= DFFromTileOffset(PrimitiveData.ObjectWorldPositionTO);
+	PrimitiveData.ActorWorldPosition				= DFFromTileOffset(PrimitiveData.ActorWorldPositionTO);
+	PrimitiveData.LightmapUVIndex					= Primitive.LightmapUVIndex;
+	PrimitiveData.ObjectOrientation					= Primitive.ObjectOrientation;
+	PrimitiveData.LightmapDataIndex					= Primitive.LightmapDataIndex;
+	PrimitiveData.NonUniformScale					= Primitive.NonUniformScale;
+	PrimitiveData.PreSkinnedLocalBoundsMin			= Primitive.PreSkinnedLocalBoundsMin;
+	PrimitiveData.NaniteResourceID					= Primitive.NaniteResourceID;
+	PrimitiveData.PreSkinnedLocalBoundsMax			= Primitive.PreSkinnedLocalBoundsMax;
+	PrimitiveData.NaniteHierarchyOffset				= Primitive.NaniteHierarchyOffset;
+	PrimitiveData.LocalObjectBoundsMin				= Primitive.LocalObjectBoundsMin;
+	PrimitiveData.ObjectBoundsY						= Primitive.ObjectBoundsY;
+	PrimitiveData.LocalObjectBoundsMax				= Primitive.LocalObjectBoundsMax;
+	PrimitiveData.ObjectBoundsZ						= Primitive.ObjectBoundsZ;
+	PrimitiveData.InstancePayloadDataOffset			= Primitive.InstancePayloadDataOffset;
+	PrimitiveData.InstancePayloadDataStride			= Primitive.InstancePayloadDataStride;
+	PrimitiveData.InstancePayloadExtensionSize		= Primitive.InstancePayloadExtensionSize;
+	PrimitiveData.InstanceLocalBoundsCenter			= Primitive.InstanceLocalBoundsCenter;
+	PrimitiveData.InstanceLocalBoundsExtent			= Primitive.InstanceLocalBoundsExtent;
+	PrimitiveData.WireframeColor					= UnpackColorRGB24(Primitive.WireframeAndPrimitiveColor.x);
+	PrimitiveData.PrimitiveColor					= UnpackColorRGB24(Primitive.WireframeAndPrimitiveColor.y);
+	PrimitiveData.PackedNaniteFlags					= Primitive.PackedNaniteFlags;
+	PrimitiveData.InstanceDrawDistanceMinMaxSquared	= Primitive.InstanceDrawDistanceMinMaxSquared;
+	PrimitiveData.InstanceWPODisableDistanceSquared	= Primitive.InstanceWPODisableDistanceSquared;
+	PrimitiveData.PersistentPrimitiveIndex			= Primitive.PersistentPrimitiveIndex;
+	PrimitiveData.NaniteRayTracingDataOffset		= Primitive.NaniteRayTracingDataOffset;
+	PrimitiveData.MaxWPOExtent						= Primitive.MaxWPOExtent;
+	PrimitiveData.MinMaterialDisplacement			= Primitive.MinMaterialDisplacement;
+	PrimitiveData.MaxMaterialDisplacement			= Primitive.MaxMaterialDisplacement;
+	PrimitiveData.CustomStencilValueAndMask			= Primitive.CustomStencilValueAndMask;
+	[unroll]
+	for (int DataIndex = 0; DataIndex < 9u; ++DataIndex)
+	{
+		PrimitiveData.CustomPrimitiveData[DataIndex] = Primitive.CustomPrimitiveData[DataIndex];
+	}
+	return PrimitiveData;
+}
+struct FInstanceSceneEditorData
+{
+	float3 HitProxyId;
+	uint   HitProxyPacked;
+	bool bIsSelected;
+};
+struct FInstanceSceneData
+{
+	FDFMatrix LocalToWorld;
+	FDFMatrix PrevLocalToWorld;
+	FDFInverseMatrix WorldToLocal;
+	float4   NonUniformScale;
+	float3   InvNonUniformScale;
+	float    DeterminantSign;
+	float3   LocalBoundsCenter;
+	uint     PrimitiveId;
+	uint     RelativeId;
+	uint     PayloadDataOffset;
+	uint     PayloadExtensionOffset;
+	uint     PayloadExtensionSize;
+	float3   LocalBoundsExtent;
+	uint     LastUpdateSceneFrameNumber;
+	uint     NaniteRuntimeResourceID;
+	uint     NaniteHierarchyOffset;
+	float    RandomID;
+	float4   LightMapAndShadowMapUVBias;
+	bool     ValidInstance;
+	uint     Flags;
+	FInstanceSceneEditorData EditorData;
+};
+FPrimitiveSceneData GetPrimitiveData(uint PrimitiveId)
+{
+	return GetPrimitiveDataFromUniformBuffer();
+}
+struct FSceneDataIntermediates
+{
+	uint PrimitiveId;
+	uint InstanceId;
+	uint ViewIndex;
+	uint CullingFlags;
+	uint InstanceIdLoadIndex;
+	FInstanceSceneData InstanceData;
+	FPrimitiveSceneData Primitive;
+};
+float4 ProcessMaterialLinearColorTextureLookup(float4 TextureValue)
+{
+	return TextureValue;
+}
+struct FSubstrateData
+{
+	uint Dummy;
+};
+FSubstrateData GetInitialisedSubstrateData() { return (FSubstrateData)0; }
+struct FMaterialParticleParameters
+{
+	float RelativeTime;
+	float MotionBlurFade;
+	float Random;
+	float4 Velocity;
+	float4 Color;
+	float4 TranslatedWorldPositionAndSize;
+	float4 PrevTranslatedWorldPositionAndSize;
+	FLWCVector3 WorldPosition;
+	FLWCVector3 PrevWorldPosition;
+	float4 MacroUV;
+	float4 DynamicParameter;
+	FDFMatrix ParticleToWorld;
+	FDFInverseMatrix WorldToParticle;
+	float2 Size;
+	float SpriteRotation;
+};
+struct FMaterialAttributes
+{
+	float3 BaseColor;
+	float Metallic;
+	float Specular;
+	float Roughness;
+	float Anisotropy;
+	float3 EmissiveColor;
+	float Opacity;
+	float OpacityMask;
+	float3 Normal;
+	float3 Tangent;
+	float3 WorldPositionOffset;
+	float Displacement;
+	float3 SubsurfaceColor;
+	float ClearCoat;
+	float ClearCoatRoughness;
+	float AmbientOcclusion;
+	float3 Refraction;
+	float PixelDepthOffset;
+	uint ShadingModel;
+	float SurfaceThickness;
+	FSubstrateData FrontMaterial;
+	float2 CustomizedUV0;
+	float2 CustomizedUV1;
+	float2 CustomizedUV2;
+	float2 CustomizedUV3;
+	float2 CustomizedUV4;
+	float2 CustomizedUV5;
+	float2 CustomizedUV6;
+	float2 CustomizedUV7;
+	float3 BentNormal;
+	float3 ClearCoatBottomNormal;
+	float3 CustomEyeTangent;
+	float3 TransmittanceColor;
+};
+struct FPixelMaterialInputs
+{
+	float3 EmissiveColor;
+	float Opacity;
+	float OpacityMask;
+	float3 BaseColor;
+	float Metallic;
+	float Specular;
+	float Roughness;
+	float Anisotropy;
+	float3 Normal;
+	float3 Tangent;
+	float4 Subsurface;
+	float AmbientOcclusion;
+	float3 Refraction;
+	float PixelDepthOffset;
+	uint ShadingModel;
+	FSubstrateData FrontMaterial;
+	float SurfaceThickness;
+	float Displacement;
+};
+struct FMaterialLWCData
+{
+	FLWCVector3 AbsoluteWorldPosition;
+	FLWCVector3 WorldPosition_NoOffsets;
+	FLWCMatrix	LocalToWorld;
+	FLWCInverseMatrix WorldToLocal;
+	FLWCMatrix	PreviousLocalToWorld;
+	FLWCInverseMatrix PreviousWorldToLocal;
+	FLWCMatrix	InstanceToWorld;
+	FLWCInverseMatrix WorldToInstance;
+	FLWCMatrix	PreviousInstanceToWorld;
+	FLWCVector3	ObjectWorldPosition;
+	FLWCVector3	ActorWorldPosition;
+	FLWCMatrix ParticleToWorld;
+	FLWCInverseMatrix WorldToParticle;
+	FLWCVector3 ParticleWorldPosition;
+	FLWCVector3 PrevParticleWorldPosition;
+	FLWCVector3 PreViewTranslation;
+	FLWCVector3 PrevPreViewTranslation;
+	FLWCVector3 WorldViewOrigin;
+	FLWCVector3 PrevWorldViewOrigin;
+	FLWCVector3 WorldCameraOrigin;
+	FLWCVector3 PrevWorldCameraOrigin;
+};
+struct FMaterialPixelParameters
+{
+	float2 TexCoords[1];
+	float4 VertexColor;
+	float3 WorldNormal;
+	float3 WorldTangent;
+	float3 ReflectionVector;
+	float3 CameraVector;
+	float3 LightVector;
+	float4 SvPosition;
+	float4 ScreenPosition;
+	float2 ViewBufferUV;
+	float UnMirrored;
+	float TwoSidedSign;
+	float3x3 TangentToWorld;
+	FDFVector3 AbsoluteWorldPosition;
+	float3 WorldPosition_CamRelative;
+	FDFVector3 WorldPosition_NoOffsets;
+	float3 WorldPosition_NoOffsets_CamRelative;
+	float3 LightingPositionOffset;
+	float3 WorldPosition_DDX;
+	float3 WorldPosition_DDY;
+	float4 VertexColor_DDX;
+	float4 VertexColor_DDY;
+	float4 ScreenPosition_DDX;
+	float4 ScreenPosition_DDY;
+	float2 TexCoords_DDX[1];
+	float2 TexCoords_DDY[1];
+	float AOMaterialMask;
+	float PerInstanceRandom;
+	uint PrimitiveId;
+	FMaterialParticleParameters Particle;
+	uint Dummy;
+	FMaterialAttributes MaterialAttributes;
+	FMaterialLWCData LWCData;
+};
+FMaterialPixelParameters MakeInitializedMaterialPixelParameters()
+{
+	FMaterialPixelParameters MPP;
+	MPP = (FMaterialPixelParameters)0;
+	MPP.TangentToWorld = float3x3(1,0,0,0,1,0,0,0,1);
+	return MPP;
+}
+struct FMaterialVertexParameters
+{
+	float3 WorldPosition;
+	float3x3 TangentToWorld;
+	float PerInstanceRandom;
+	FDFMatrix PrevFrameLocalToWorld;
+	float3 PreSkinnedPosition;
+	float3 PreSkinnedNormal;
+	float4 VertexColor;
+	float2 TexCoords[1];
+	FMaterialParticleParameters Particle;
+	FMaterialAttributes MaterialAttributes;
+	FSceneDataIntermediates SceneData;
+	uint PrimitiveId;
+	bool bEvaluateWorldPositionOffset;
+	FMaterialLWCData LWCData;
+};
+FPrimitiveSceneData GetPrimitiveData(FMaterialVertexParameters Parameters)
+{
+	return Parameters.SceneData.Primitive;
+}
+FPrimitiveSceneData GetPrimitiveData(FMaterialPixelParameters Parameters)
+{
+	return GetPrimitiveData(Parameters.PrimitiveId);
+}
+FDFInverseMatrix GetWorldToInstanceDF(FMaterialVertexParameters Parameters)
+{
+		return GetPrimitiveData(Parameters).WorldToLocal;
+}
+FDFInverseMatrix GetWorldToInstanceDF(FMaterialPixelParameters Parameters)
+{
+		return GetPrimitiveData(Parameters).WorldToLocal;
+}
+FDFMatrix GetInstanceToWorldDF(FMaterialVertexParameters Parameters)
+{
+		return GetPrimitiveData(Parameters).LocalToWorld;
+}
+FDFMatrix GetPrevInstanceToWorldDF(FMaterialVertexParameters Parameters)
+{
+	return GetPrimitiveData(Parameters).PreviousLocalToWorld;
+}
+FDFMatrix GetInstanceToWorldDF(FMaterialPixelParameters Parameters)
+{
+		return GetPrimitiveData(Parameters).LocalToWorld;
+}
+FDFMatrix GetPrevInstanceToWorldDF(FMaterialPixelParameters Parameters)
+{
+	return GetPrimitiveData(Parameters).PreviousLocalToWorld;
+}
+float4 GetScreenPosition(FMaterialVertexParameters Parameters)
+{
+	return mul(float4(Parameters.WorldPosition, 1.0f), ResolvedView.TranslatedWorldToClip);
+}
+float4 GetScreenPosition(FMaterialPixelParameters Parameters)
+{
+	return Parameters.ScreenPosition;
+}
+float GetPixelDepth(FMaterialVertexParameters Parameters)
+{
+	[flatten]
+	if (View.ViewToClip[3][3] < 1.0f)
+	{
+		return GetScreenPosition(Parameters).w;
+	}
+	else
+	{
+		return ConvertFromDeviceZ(GetScreenPosition(Parameters).z);
+	}
+}
+float GetPixelDepth(FMaterialPixelParameters Parameters)
+{
+	[flatten]
+	if (View.ViewToClip[3][3] < 1.0f)
+	{
+		return GetScreenPosition(Parameters).w;
+	}
+	else
+	{
+		return ConvertFromDeviceZ(GetScreenPosition(Parameters).z);
+	}
+}
+FDFMatrix GetLocalToWorldDF(FMaterialVertexParameters Parameters)
+{
+	return GetPrimitiveData(Parameters).LocalToWorld;
+}
+FDFMatrix GetLocalToWorldDF(FMaterialPixelParameters Parameters)
+{
+	return GetPrimitiveData(Parameters).LocalToWorld;
+}
+FDFMatrix GetPrevLocalToWorldDF(FMaterialVertexParameters Parameters)
+{
+	return GetPrimitiveData(Parameters).PreviousLocalToWorld;
+}
+FDFMatrix GetPrevLocalToWorldDF(FMaterialPixelParameters Parameters)
+{
+	return GetPrimitiveData(Parameters).PreviousLocalToWorld;
+}
+FDFInverseMatrix GetWorldToLocalDF(FMaterialVertexParameters Parameters)
+{
+	return GetPrimitiveData(Parameters).WorldToLocal;
+}
+FDFInverseMatrix GetWorldToLocalDF(FMaterialPixelParameters Parameters)
+{
+	return GetPrimitiveData(Parameters).WorldToLocal;
+}
+FDFInverseMatrix GetPrevWorldToLocalDF(FMaterialVertexParameters Parameters)
+{
+	return GetPrimitiveData(Parameters).PreviousWorldToLocal;
+}
+FDFInverseMatrix GetPrevWorldToLocalDF(FMaterialPixelParameters Parameters)
+{
+	return GetPrimitiveData(Parameters).PreviousWorldToLocal;
+}
+FMaterialLWCData MakeMaterialLWCData(FMaterialVertexParameters Parameters)
+{
+	FMaterialLWCData Result = (FMaterialLWCData)0;
+	Result.PreViewTranslation = ResolvedView.TileOffset.PreViewTranslation;
+	Result.PrevPreViewTranslation = ResolvedView.TileOffset.PrevPreViewTranslation;
+	Result.WorldViewOrigin = ResolvedView.TileOffset.WorldViewOrigin;
+	Result.PrevWorldViewOrigin = ResolvedView.TileOffset.PrevWorldViewOrigin;
+	Result.WorldCameraOrigin = ResolvedView.TileOffset.WorldCameraOrigin;
+	Result.PrevWorldCameraOrigin = ResolvedView.TileOffset.PrevWorldCameraOrigin;
+	Result.AbsoluteWorldPosition = LWCSubtract(Parameters.WorldPosition, Result.PreViewTranslation);
+	Result.InstanceToWorld = DFToWS(GetInstanceToWorldDF(Parameters));
+	Result.WorldToInstance = DFFastToWS(GetWorldToInstanceDF(Parameters));
+	Result.PreviousInstanceToWorld = DFToWS(GetPrevInstanceToWorldDF(Parameters));
+	Result.LocalToWorld = DFToWS(GetLocalToWorldDF(Parameters));
+	Result.WorldToLocal = DFFastToWS(GetWorldToLocalDF(Parameters));
+	Result.PreviousLocalToWorld = DFToWS(GetPrevLocalToWorldDF(Parameters));
+	Result.PreviousWorldToLocal = DFFastToWS(GetPrevWorldToLocalDF(Parameters));
+	Result.ObjectWorldPosition = GetPrimitiveData(Parameters).ObjectWorldPositionTO;
+	Result.ActorWorldPosition = GetPrimitiveData(Parameters).ActorWorldPositionTO;
+	Result.ParticleToWorld = DFFastToWS(Parameters.Particle.ParticleToWorld);
+	Result.WorldToParticle = DFFastToWS(Parameters.Particle.WorldToParticle);
+	Result.ParticleWorldPosition = LWCSubtract(Parameters.Particle.TranslatedWorldPositionAndSize.xyz, Result.PreViewTranslation);
+	Result.PrevParticleWorldPosition = LWCSubtract(Parameters.Particle.PrevTranslatedWorldPositionAndSize.xyz, Result.PrevPreViewTranslation);
+	return Result;
+}
+FMaterialLWCData MakeMaterialLWCData(FMaterialPixelParameters Parameters)
+{
+	FMaterialLWCData Result = (FMaterialLWCData)0;
+	Result.PreViewTranslation = ResolvedView.TileOffset.PreViewTranslation;
+	Result.PrevPreViewTranslation = ResolvedView.TileOffset.PrevPreViewTranslation;
+	Result.WorldViewOrigin = ResolvedView.TileOffset.WorldViewOrigin;
+	Result.PrevWorldViewOrigin = ResolvedView.TileOffset.PrevWorldViewOrigin;
+	Result.WorldCameraOrigin = ResolvedView.TileOffset.WorldCameraOrigin;
+	Result.PrevWorldCameraOrigin = ResolvedView.TileOffset.PrevWorldCameraOrigin;
+	Result.AbsoluteWorldPosition = LWCSubtract(Parameters.WorldPosition_CamRelative, Result.PreViewTranslation);
+	Result.WorldPosition_NoOffsets = LWCSubtract(Parameters.WorldPosition_NoOffsets_CamRelative, Result.PreViewTranslation);
+	Result.InstanceToWorld = DFToWS(GetInstanceToWorldDF(Parameters));
+	Result.WorldToInstance = DFFastToWS(GetWorldToInstanceDF(Parameters));
+	Result.PreviousInstanceToWorld = DFToWS(GetPrevInstanceToWorldDF(Parameters));
+	Result.LocalToWorld = DFToWS(GetLocalToWorldDF(Parameters));
+	Result.WorldToLocal = DFFastToWS(GetWorldToLocalDF(Parameters));
+	Result.PreviousLocalToWorld = DFToWS(GetPrevLocalToWorldDF(Parameters));
+	Result.PreviousWorldToLocal = DFFastToWS(GetPrevWorldToLocalDF(Parameters));
+	Result.ObjectWorldPosition = GetPrimitiveData(Parameters).ObjectWorldPositionTO;
+	Result.ActorWorldPosition = GetPrimitiveData(Parameters).ActorWorldPositionTO;
+	Result.ParticleToWorld = DFFastToWS(Parameters.Particle.ParticleToWorld);
+	Result.WorldToParticle = DFFastToWS(Parameters.Particle.WorldToParticle);
+	Result.ParticleWorldPosition = LWCSubtract(Parameters.Particle.TranslatedWorldPositionAndSize.xyz, Result.PreViewTranslation);
+	Result.PrevParticleWorldPosition = LWCSubtract(Parameters.Particle.PrevTranslatedWorldPositionAndSize.xyz, Result.PrevPreViewTranslation);
+	return Result;
+}
+float3 ReflectionAboutCustomWorldNormal(FMaterialPixelParameters Parameters, float3 WorldNormal, bool bNormalizeInputNormal)
+{
+	if (bNormalizeInputNormal)
+	{
+		WorldNormal = normalize(WorldNormal);
+	}
+	return -Parameters.CameraVector + WorldNormal * dot(WorldNormal, Parameters.CameraVector) * 2.0;
+}
+float3 GetMaterialNormalRaw(FPixelMaterialInputs PixelMaterialInputs)
+{
+	return PixelMaterialInputs.Normal;
+}
+float3 GetMaterialNormal(FMaterialPixelParameters Parameters, FPixelMaterialInputs PixelMaterialInputs)
+{
+	float3 RetNormal;
+	RetNormal = GetMaterialNormalRaw(PixelMaterialInputs);
+	{
+		float3 OverrideNormal = ResolvedView.NormalOverrideParameter.xyz;
+		RetNormal = RetNormal * ResolvedView.NormalOverrideParameter.w + OverrideNormal;
+	}
+	return RetNormal;
+}
+float3 GetMaterialEmissiveRaw(FPixelMaterialInputs PixelMaterialInputs)
+{
+	return PixelMaterialInputs.EmissiveColor;
+}
+float3 GetMaterialEmissive(FPixelMaterialInputs PixelMaterialInputs)
+{
+	float3 EmissiveColor = GetMaterialEmissiveRaw(PixelMaterialInputs);
+	EmissiveColor = max(EmissiveColor, 0.0f);
+	return EmissiveColor;
+}
+float3 TransformTangentNormalToWorld(float3x3 TangentToWorld, float3 TangentNormal)
+{
+	return normalize(float3(TransformTangentVectorToWorld(TangentToWorld, TangentNormal)));
+}
+void CalcPixelMaterialInputs(in out FMaterialPixelParameters Parameters, in out FPixelMaterialInputs PixelMaterialInputs)
+{
+	float2 Local0 = Parameters.TexCoords[0].xy;
+	float2 Local1 = (  Local0  / ((float2)2.00000000));
+	float2 Local2 = (  Local1  / ((float2)0.05000000));
+	float Local3 =  1.0f;
+	float4 Local4 = UnpackNormalMap(Texture2DSampleBias(Material_Texture2D_0,Material_Texture2D_0Sampler,  Local2 ,View.MaterialTextureMipBias));
+	float Local5 =  1.0f;
+	float3 Local6 = (Local4.rgb * float3(0.30000001,0.30000001,1.00000000).rgb);
+	PixelMaterialInputs.Normal = Local6;
+	float3 MaterialNormal = GetMaterialNormal(Parameters, PixelMaterialInputs);
+	MaterialNormal = normalize(MaterialNormal);
+	Parameters.WorldNormal = TransformTangentNormalToWorld(Parameters.TangentToWorld, MaterialNormal);
+	Parameters.WorldNormal *= Parameters.TwoSidedSign;
+	Parameters.ReflectionVector = ReflectionAboutCustomWorldNormal(Parameters, Parameters.WorldNormal, false);
+	Parameters.Particle.MotionBlurFade = 1.0f;
+	float3 Local7 = lerp(float3(0.00000000,0.00000000,0.00000000),Material.PreshaderBuffer[0].yzw,Material.PreshaderBuffer[0].x);
+	float2 Local8 = (  Local0  * ((float2)20.00000000));
+	float Local9 =  1.0f;
+	float4 Local10 = ProcessMaterialLinearColorTextureLookup(Texture2DSampleBias(Material_Texture2D_1,Material_Texture2D_1Sampler,  Local8 ,View.MaterialTextureMipBias));
+	float Local11 =  1.0f;
+	float Local12 = lerp(0.40000001,1.00000000,Local10.r);
+	float Local13 = (1.00000000 - Local12);
+	float2 Local14 = (  Local1  / ((float2)0.10000000));
+	float Local15 =  1.0f;
+	float4 Local16 = ProcessMaterialLinearColorTextureLookup(Texture2DSampleBias(Material_Texture2D_1,Material_Texture2D_1Sampler,  Local14 ,View.MaterialTextureMipBias));
+	float Local17 =  1.0f;
+	float Local18 = GetPixelDepth(Parameters);
+	float Local19 =   Local18 .r;
+	float Local20 = (  Local19  - 24.00000000);
+	float Local21 = (  Local20  / 1500.00000000);
+	float Local22 = saturate(  Local21 );
+	float Local23 = lerp(Local16.g,1.00000000,  Local22 );
+	float Local24 = lerp(Local12,Local13,Local23);
+	float Local25 =  1.0f;
+	float4 Local26 = ProcessMaterialLinearColorTextureLookup(Texture2DSampleBias(Material_Texture2D_1,Material_Texture2D_1Sampler,  Local1 ,View.MaterialTextureMipBias));
+	float Local27 =  1.0f;
+	float Local28 = lerp(Local16.g,0.00000000,  Local22 );
+	float Local29 = (Local26.g + Local28);
+	float Local30 = lerp(Local29.r,0.50000000,0.50000000);
+	float Local31 = lerp(0.29499999,0.66000003,Local30);
+	float Local32 = (Local31 * 0.50000000);
+	float Local33 = (Local24 * Local32);
+	float Local34 = lerp(0.00000000,0.50000000,Local26.g);
+	float Local35 = lerp(0.69999999,1.00000000,Local16.g);
+	float Local36 = lerp(Local35,1.00000000,  Local22 );
+	float Local37 = (Local34 + Local36);
+	float Local38 = saturate(Local37);
+	PixelMaterialInputs.EmissiveColor = Local7;
+	PixelMaterialInputs.Opacity = 1.00000000;
+	PixelMaterialInputs.OpacityMask = 1.00000000;
+	PixelMaterialInputs.BaseColor = Local33;
+	PixelMaterialInputs.Metallic = 0.00000000;
+	PixelMaterialInputs.Specular = 0.50000000;
+	PixelMaterialInputs.Roughness = Local38;
+	PixelMaterialInputs.Anisotropy = 0.00000000;
+	PixelMaterialInputs.Normal = Local6;
+	PixelMaterialInputs.Tangent = float3(1.00000000,0.00000000,0.00000000);
+	PixelMaterialInputs.Subsurface = 0;
+	PixelMaterialInputs.AmbientOcclusion = 1.00000000;
+	PixelMaterialInputs.Refraction = 0;
+	PixelMaterialInputs.PixelDepthOffset = 0.00000000;
+	PixelMaterialInputs.ShadingModel = 1;
+	PixelMaterialInputs.FrontMaterial = GetInitialisedSubstrateData();
+	PixelMaterialInputs.SurfaceThickness = 0.01000000;
+	PixelMaterialInputs.Displacement = 0.50000000;
+	Parameters.WorldTangent = 0;
+}
+Texture2D ShadowDepthTexture;
+SamplerState ShadowDepthTextureSampler;
+float4 ShadowBufferSize;
+TextureCube ShadowDepthCubeTexture;
+SamplerComparisonState ShadowDepthCubeTextureSampler;
+float4x4 ShadowViewProjectionMatrices[6];
+float InvShadowmapResolution;
+float CubemapHardwarePCF(
+	TextureCube InShadowDepthCubeTexture, SamplerComparisonState InShadowDepthCubeTextureSampler, float4x4 InShadowViewProjectionMatrices[6], float InInvShadowmapResolution,
+	float3 WorldPosition, float3 LightPosition, float LightInvRadius, float DepthBias, float SlopeDepthBias, float MaxSlopeDepthBias)
+{
+	float Shadow = 1;
+	float3 WorldSampleToLightVec = LightPosition - WorldPosition.xyz;
+	float Distance = length(WorldSampleToLightVec);
+	[branch]
+	if (Distance * LightInvRadius < 1.0f)
+	{
+		float3 NormalizedLightVector = WorldSampleToLightVec / Distance;
+		float3 SideVector = normalize(cross(NormalizedLightVector, float3(0, 0, 1)));
+		float3 UpVector = cross(SideVector, NormalizedLightVector);
+		SideVector *= InvShadowmapResolution;
+		UpVector *= InvShadowmapResolution;
+		float3 AbsLightVector = abs(WorldSampleToLightVec);
+		float MaxCoordinate = max(AbsLightVector.x, max(AbsLightVector.y, AbsLightVector.z));
+		int CubeFaceIndex = 0;
+		if (MaxCoordinate == AbsLightVector.x)
+		{
+			CubeFaceIndex = AbsLightVector.x == WorldSampleToLightVec.x ? 0 : 1;
+		}
+		else if (MaxCoordinate == AbsLightVector.y)
+		{
+			CubeFaceIndex = AbsLightVector.y == WorldSampleToLightVec.y ? 2 : 3;
+		}
+		else
+		{
+			CubeFaceIndex = AbsLightVector.z == WorldSampleToLightVec.z ? 4 : 5;
+		}
+		float4 ShadowPosition = mul(float4(-WorldSampleToLightVec, 1), InShadowViewProjectionMatrices[CubeFaceIndex]);
+		float CompareDistance = ShadowPosition.z / ShadowPosition.w;
+		float ShadowDepthBias = - (DepthBias + SlopeDepthBias) / ShadowPosition.w;
+		Shadow = 0;
+		Shadow = InShadowDepthCubeTexture.SampleCmpLevelZero(InShadowDepthCubeTextureSampler, WorldSampleToLightVec, CompareDistance - ShadowDepthBias);
+	}
+	return 1.0f - Shadow;
+}
+float CubemapHardwarePCF(
+	float3 WorldPosition, float3 LightPosition, float LightInvRadius, float DepthBias, float SlopeDepthBias, float MaxSlopeDepthBias)
+{
+	return CubemapHardwarePCF(ShadowDepthCubeTexture, ShadowDepthCubeTextureSampler, ShadowViewProjectionMatrices, InvShadowmapResolution,
+		WorldPosition, LightPosition, LightInvRadius, DepthBias, SlopeDepthBias, MaxSlopeDepthBias);
+}
+float GetSubSurfaceTransmission( float OccluderDistance, float SubsurfaceDensity) { return saturate(FastExp(-OccluderDistance * SubsurfaceDensity)); }
+float4 GetSubSurfaceTransmission( float4 OccluderDistance, float SubsurfaceDensity) { return saturate(FastExp(-OccluderDistance * SubsurfaceDensity)); }
+struct FPCFSamplerSettings
+{
+	Texture2D		ShadowDepthTexture;
+	SamplerState	ShadowDepthTextureSampler;
+	float4			ShadowBufferSize;
+	float			SceneDepth;
+	float			TransitionScale;
+	bool			bSubsurface;
+	bool			bTreatMaxDepthUnshadowed;
+	float			DensityMulConstant;
+	float2			ProjectionDepthBiasParameters;
+};
+float PCF1x1(float2 Fraction, float4 Values00)
+{
+	float2 HorizontalLerp00 = lerp(Values00.wx, Values00.zy, Fraction.xx);
+	return lerp(HorizontalLerp00.x, HorizontalLerp00.y, Fraction.y);
+}
+float4 CalculateOcclusion(float4 ShadowmapDepth, FPCFSamplerSettings Settings)
+{
+	if (Settings.bSubsurface)
+	{
+		float4 OccluderDistance = max(Settings.SceneDepth - ShadowmapDepth, 0);
+		float4 Occlusion = GetSubSurfaceTransmission(OccluderDistance, Settings.DensityMulConstant);
+		return  select_internal( ShadowmapDepth > .99f , 1.0f , Occlusion );
+	}
+	else
+	{
+		float TransitionScale = Settings.TransitionScale;
+		float ConstantFactor = (Settings.SceneDepth * TransitionScale - 1);
+		float4 ShadowFactor = saturate(ShadowmapDepth * TransitionScale - ConstantFactor);
+		[flatten]
+		if (Settings.bTreatMaxDepthUnshadowed)
+		{
+			ShadowFactor = saturate(ShadowFactor + (ShadowmapDepth > .99f));
+		}
+		return ShadowFactor;
+	}
+}
+float3 CalculateOcclusion(float3 ShadowmapDepth, FPCFSamplerSettings Settings)
+{
+	if (Settings.bSubsurface)
+	{
+		float3 Thickness = max(Settings.SceneDepth - ShadowmapDepth, 0);
+		float3 Occlusion = saturate(FastExp(-Thickness * Settings.DensityMulConstant));
+		return  select_internal( ShadowmapDepth > .99f , 1.0 , Occlusion );
+	}
+	else
+	{
+		float TransitionScale = Settings.TransitionScale;
+		float ConstantFactor = (Settings.SceneDepth * TransitionScale - 1);
+		float3 ShadowFactor = saturate(ShadowmapDepth * TransitionScale - ConstantFactor);
+		[flatten]
+		if (Settings.bTreatMaxDepthUnshadowed)
+		{
+			ShadowFactor = saturate(ShadowFactor + (ShadowmapDepth > .99f));
+		}
+		return ShadowFactor;
+	}
+}
+float Manual1x1PCF(float2 ShadowPosition, FPCFSamplerSettings Settings)
+{
+	float2 TexelPos = ShadowPosition * Settings.ShadowBufferSize.xy - 0.5f;	
+	float2 Fraction = frac(TexelPos);
+	float4 Samples;
+	float2 QuadCenter = floor(TexelPos) + 1.0f;	
+	Samples = Settings.ShadowDepthTexture.Gather(Settings.ShadowDepthTextureSampler, QuadCenter * Settings.ShadowBufferSize.zw);
+	float4 Values00 = CalculateOcclusion(Samples, Settings);
+	return PCF1x1(Fraction, Values00);
+}
+float4x4 TranslatedWorldToShadowMatrix;
+float4 ShadowmapMinMax;
+float4 ShadowInjectParams;
+float4 DepthBiasParameters;
+uint bStaticallyShadowed;
+Texture2D StaticShadowDepthTexture;
+SamplerState StaticShadowDepthTextureSampler;
+float4x4 TranslatedWorldToStaticShadowMatrix;
+float4 StaticShadowBufferSize;
+float ComputeVolumeShadowing(
+	float3 TranslatedWorldPositionForLighting, bool bPointLight, bool bSpotLight, inout bool bShadowFactorValid)
+{
+	float ShadowFactor = 1;
+	bShadowFactorValid = false;
+	[branch]
+	if (  bStaticallyShadowed )
+	{
+		bool bUsePointLightShadowing = bPointLight;
+		[branch]
+		if (bUsePointLightShadowing)
+		{
+			float3 LightVector = TranslatedWorldPositionForLighting - DeferredLightUniforms.TranslatedWorldPosition;
+			float DistanceToLight = length(LightVector);
+			float3 NormalizedLightVector = LightVector / DistanceToLight;
+			float NormalizedTheta = atan2(NormalizedLightVector.y, NormalizedLightVector.x) / (2 * PI);
+			float U = NormalizedTheta > 0 ? NormalizedTheta : 1 + NormalizedTheta;
+			float V = acos(NormalizedLightVector.z) / PI;
+			float2 UnwrappedUVs = float2(U, V);
+			float ShadowDepth = Texture2DSampleLevel(  StaticShadowDepthTexture ,   StaticShadowDepthTextureSampler , UnwrappedUVs, 0).x;
+			ShadowFactor = DistanceToLight * DeferredLightUniforms.InvRadius < ShadowDepth;
+			bShadowFactorValid = true;
+		}
+		else
+		{
+			float4 HomogeneousShadowPosition = mul(float4(TranslatedWorldPositionForLighting, 1),   TranslatedWorldToStaticShadowMatrix );
+			float2 ShadowUVs = HomogeneousShadowPosition.xy / HomogeneousShadowPosition.w;
+			if (all( and_internal( ShadowUVs >= 0 , ShadowUVs <= 1 )))
+			{
+				FPCFSamplerSettings Settings;
+				Settings.ShadowDepthTexture =   StaticShadowDepthTexture ;
+				Settings.ShadowDepthTextureSampler =   StaticShadowDepthTextureSampler ;
+				Settings.ShadowBufferSize =   StaticShadowBufferSize ;
+				Settings.SceneDepth = HomogeneousShadowPosition.z;
+				Settings.TransitionScale = 40;
+				Settings.bSubsurface = false;
+				Settings.bTreatMaxDepthUnshadowed = true;
+				Settings.DensityMulConstant = 0;
+				Settings.ProjectionDepthBiasParameters = float2(0, 0);
+				ShadowFactor = Manual1x1PCF(ShadowUVs, Settings);
+				bShadowFactorValid = true;
+			}
+		}
+	}		
+	bool bUseCubemapShadowing = bPointLight;
+	float DynamicShadowFactor = 1;
+	if (bUseCubemapShadowing)
+	{
+		bShadowFactorValid = true;
+		const float DepthBias = 0.03f * 512 *   InvShadowmapResolution ;
+		const float SlopeDepthBias = 0;
+		const float MaxSlopeDepthBias = 0;
+		DynamicShadowFactor = CubemapHardwarePCF(
+			  ShadowDepthCubeTexture ,   ShadowDepthCubeTextureSampler ,   ShadowViewProjectionMatrices ,   InvShadowmapResolution ,
+			TranslatedWorldPositionForLighting, DeferredLightUniforms.TranslatedWorldPosition, DeferredLightUniforms.InvRadius, DepthBias, SlopeDepthBias, MaxSlopeDepthBias);
+	}
+	else
+	{
+		float4 HomogeneousShadowPosition = mul(float4(TranslatedWorldPositionForLighting, 1),   TranslatedWorldToShadowMatrix );
+		float2 ShadowUVs = HomogeneousShadowPosition.xy / HomogeneousShadowPosition.w;
+		float SceneDepth = 1.0f - HomogeneousShadowPosition.z;
+		if (all(ShadowUVs >=   ShadowmapMinMax .xy) && all(ShadowUVs <=   ShadowmapMinMax .zw))
+		{
+			bShadowFactorValid = true;
+			float ShadowDepth = Texture2DSampleLevel(  ShadowDepthTexture ,   ShadowDepthTextureSampler , ShadowUVs, 0).x;
+			DynamicShadowFactor = SceneDepth < ShadowDepth -   DepthBiasParameters .x;
+			DynamicShadowFactor = saturate(DynamicShadowFactor + (ShadowDepth == 1.0f));
+		}
+	}
+	if (!bPointLight && !bSpotLight)
+	{
+		float Depth = dot(TranslatedWorldPositionForLighting - GetPrimaryView().TranslatedWorldCameraOrigin, View.ViewForward);
+		float DistanceFade = saturate(Depth *   ShadowInjectParams .z +   ShadowInjectParams .w);
+		DynamicShadowFactor = lerp(DynamicShadowFactor, 1.0f, DistanceFade * DistanceFade);
+	}
+	ShadowFactor = min(ShadowFactor, DynamicShadowFactor);
+	return ShadowFactor;
+}
+float3 GetDeferredLightTranslatedWorldPosition()
+{
+	return DeferredLightUniforms.TranslatedWorldPosition;
+}
+float RadialAttenuationMask(float3 WorldLightVector)
+{
+	float NormalizeDistanceSquared = dot(WorldLightVector, WorldLightVector);
+	return 1.0f - saturate(NormalizeDistanceSquared);
+}
+float RadialAttenuation(float3 WorldLightVector, float FalloffExponent)
+{
+	return pow(RadialAttenuationMask(WorldLightVector), FalloffExponent);
+}
+float SpotAttenuationMask(float3 L, float3 SpotDirection, float2 SpotAngles)
+{
+	return saturate((dot(L, -SpotDirection) - SpotAngles.x) * SpotAngles.y);
+}
+float SpotAttenuation(float3 L, float3 SpotDirection, float2 SpotAngles)
+{
+	float ConeAngleFalloff = Square(SpotAttenuationMask(L, SpotDirection, SpotAngles));
+	return ConeAngleFalloff;
+}
+float CalcLightAttenuation(float3 TranslatedWorldPosition, out float3 WorldLightVector)
+{
+	WorldLightVector = DeferredLightUniforms.Direction;
+	float DistanceAttenuation = 1;
+	WorldLightVector = GetDeferredLightTranslatedWorldPosition() - TranslatedWorldPosition;
+	float DistanceSqr = dot( WorldLightVector, WorldLightVector );
+	DistanceAttenuation = 1 / ( DistanceSqr + 1 );
+	float LightRadiusMask = Square( saturate( 1 - Square( DistanceSqr * DeferredLightUniforms.InvRadius * DeferredLightUniforms.InvRadius ) ) );
+	DistanceAttenuation *= LightRadiusMask;
+	if (DeferredLightUniforms.FalloffExponent > 0.f)
+	{
+		DistanceAttenuation = RadialAttenuation(WorldLightVector * DeferredLightUniforms.InvRadius, DeferredLightUniforms.FalloffExponent);
+	}
+	float SpotFalloff = 1;
+		SpotFalloff = SpotAttenuation( normalize(WorldLightVector), -DeferredLightUniforms.Direction, DeferredLightUniforms.SpotAngles);
+	return SpotFalloff * DistanceAttenuation;
+}
+float3 GetNormalizedLightVector(float3 TranslatedWorldPosition)
+{
+	float3 Ret = DeferredLightUniforms.Direction;
+		Ret = normalize(GetDeferredLightTranslatedWorldPosition() - TranslatedWorldPosition);
+	return Ret;
+}
+uint VolumeCascadeIndex;
+bool IsSinglePageVirtualShadowMap(int VirtualShadowMapId)
+{
+	return VirtualShadowMapId < (1024U * 8U);
+}
+uint CalcLog2LevelDimsPages(uint Level)
+{
+	return 7 - Level;	
+}
+uint CalcLevelDimsTexels(uint Level)
+{
+	return uint(16384) >> Level;
+}
+uint CalcLevelOffsets(uint Level)
+{
+	uint NumBits = Level << 1;
+	uint StartBit = (2 * 7 + 2) - NumBits;
+	uint Mask = ((1u << NumBits) - 1u) << StartBit;
+	return 0x55555555u & Mask;
+}
+struct FVirtualSMLevelOffset
+{
+	bool bIsSinglePageSM;
+	uint LevelOffset;
+};
+uint CalcFullPageTableLevelOffset(uint VirtualShadowMapId, uint Level)
+{
+	 { };
+	return (1024U * 8U) + (VirtualShadowMapId - (1024U * 8U)) * 21845 + CalcLevelOffsets(Level);
+}
+uint CalcPageOffsetInFullLevel(uint Level, uint2 PageAddress)
+{
+	return PageAddress.x + (PageAddress.y << CalcLog2LevelDimsPages(Level));
+}
+uint CalcPageOffset(FVirtualSMLevelOffset LevelOffset, uint Level, uint2 PageAddress)
+{
+	 { };
+	uint Result = LevelOffset.LevelOffset;
+	if (!LevelOffset.bIsSinglePageSM)
+	{
+		Result += CalcPageOffsetInFullLevel(Level, PageAddress);
+	}
+	return Result;
+}
+uint CalcPageOffset(uint VirtualShadowMapId, uint Level, uint2 PageAddress)
+{
+	if (IsSinglePageVirtualShadowMap(VirtualShadowMapId))
+	{
+		return VirtualShadowMapId;
+	}
+	return CalcFullPageTableLevelOffset(VirtualShadowMapId, Level) + CalcPageOffsetInFullLevel(Level, PageAddress);
+}
+struct FShadowPhysicalPage
+{
+	uint2 PhysicalAddress;	
+	uint LODOffset;			
+	bool bAnyLODValid;		
+	bool bThisLODValid;		
+};
+FShadowPhysicalPage ShadowDecodePageTable(uint Value)
+{
+	FShadowPhysicalPage Result;
+	Result.PhysicalAddress = uint2(Value & 0x3FF, (Value >> 10) & 0x3FF);
+	Result.LODOffset = (Value >> 20) & 0x3F;
+	Result.bAnyLODValid = (Value & 0x80000000) != 0;
+	Result.bThisLODValid = Result.bAnyLODValid && Result.LODOffset == 0;
+	return Result;
+}
+FShadowPhysicalPage ShadowGetPhysicalPage(uint PageOffset)
+{
+	return ShadowDecodePageTable(VirtualShadowMap_PageTable[PageOffset]);
+}
+struct FShadowPageTranslationResult
+{
+	bool bValid;
+	uint LODOffset;
+	uint2 VirtualTexelAddress;
+	float2 VirtualTexelAddressFloat;
+	uint2 PhysicalTexelAddress;
+};
+FShadowPageTranslationResult ShadowVirtualToPhysicalUV(uint VirtualShadowMapID, float2 ShadowMapUV)
+{
+	uint2 vPage = uint2(ShadowMapUV * 128);
+	FShadowPhysicalPage PhysicalPageEntry = ShadowGetPhysicalPage(CalcPageOffset(VirtualShadowMapID, 0, vPage));
+	FShadowPageTranslationResult Result;
+	Result.bValid = PhysicalPageEntry.bAnyLODValid;
+	Result.LODOffset = IsSinglePageVirtualShadowMap(VirtualShadowMapID) ? (8 - 1U) : PhysicalPageEntry.LODOffset;
+	Result.VirtualTexelAddressFloat = ShadowMapUV * float(CalcLevelDimsTexels(Result.LODOffset));
+	Result.VirtualTexelAddress = uint2(Result.VirtualTexelAddressFloat);
+	Result.PhysicalTexelAddress = PhysicalPageEntry.PhysicalAddress * 128 + (Result.VirtualTexelAddress & 127);
+	return Result;
+}
+struct FVirtualShadowMapProjectionShaderData
+{
+	float4x4 ShadowViewToClipMatrix;
+	float4x4 TranslatedWorldToShadowUVMatrix;
+	float4x4 TranslatedWorldToShadowUVNormalMatrix;
+	float3 LightDirection;
+	uint LightType;		
+	FDFVector3 PreViewTranslation;
+	float LightRadius;
+	float ResolutionLodBias;
+	float3 ClipmapWorldOriginOffset; 
+	int2 ClipmapCornerRelativeOffset;
+	int ClipmapLevel;					
+	int ClipmapLevelCountRemaining;		
+	uint Flags;
+	float ClipmapLevelWPODistanceDisabledThresholdSquared;
+	float LightSourceRadius;
+	int VirtualShadowMapId;
+	bool bUnCached; 
+	bool bUnreferenced; 
+	float TexelDitherScale; 
+};
+FVirtualShadowMapProjectionShaderData DecodeVirtualShadowMapProjectionData(ByteAddressBuffer ProjectionData, int VirtualShadowMapId)
+{
+	FVirtualShadowMapProjectionShaderData Result;
+	Result.VirtualShadowMapId = VirtualShadowMapId;
+	const uint Stride = 16 * 18;
+	const uint Base = VirtualShadowMapId * Stride;
+	Result.ShadowViewToClipMatrix[0]				= asfloat(ProjectionData.Load4(Base + 16*0));
+	Result.ShadowViewToClipMatrix[1]				= asfloat(ProjectionData.Load4(Base + 16*1));
+	Result.ShadowViewToClipMatrix[2]				= asfloat(ProjectionData.Load4(Base + 16*2));
+	Result.ShadowViewToClipMatrix[3]				= asfloat(ProjectionData.Load4(Base + 16*3));
+	Result.TranslatedWorldToShadowUVMatrix[0]		= asfloat(ProjectionData.Load4(Base + 16*4));
+	Result.TranslatedWorldToShadowUVMatrix[1]		= asfloat(ProjectionData.Load4(Base + 16*5));
+	Result.TranslatedWorldToShadowUVMatrix[2]		= asfloat(ProjectionData.Load4(Base + 16*6));
+	Result.TranslatedWorldToShadowUVMatrix[3]		= asfloat(ProjectionData.Load4(Base + 16*7));
+	Result.TranslatedWorldToShadowUVNormalMatrix[0]	= asfloat(ProjectionData.Load4(Base + 16*8));
+	Result.TranslatedWorldToShadowUVNormalMatrix[1]	= asfloat(ProjectionData.Load4(Base + 16*9));
+	Result.TranslatedWorldToShadowUVNormalMatrix[2]	= asfloat(ProjectionData.Load4(Base + 16*10));
+	Result.TranslatedWorldToShadowUVNormalMatrix[3]	= asfloat(ProjectionData.Load4(Base + 16*11));
+	Result.LightDirection					= asfloat(ProjectionData.Load3(Base + (16*12 + 4*0)));
+	Result.LightType						=		 (ProjectionData.Load (Base + (16*12 + 4*3)));
+	float3 PreViewTranslationHigh			= asfloat(ProjectionData.Load3(Base + (16*13 + 4*0)));
+	Result.LightRadius						= asfloat(ProjectionData.Load (Base + (16*13 + 4*3)));
+	float3 PreViewTranslationLow			= asfloat(ProjectionData.Load3(Base + (16*14 + 4*0)));
+	Result.ResolutionLodBias				= asfloat(ProjectionData.Load (Base + (16*14 + 4*3)));
+	float3 NegativeClipmapWorldOriginOffset = asfloat(ProjectionData.Load3(Base + (16*15 + 4*0)));
+	Result.LightSourceRadius				= asfloat(ProjectionData.Load (Base + (16*15 + 4*3)));
+	Result.ClipmapCornerRelativeOffset		= asint  (ProjectionData.Load2(Base + (16*16 + 4*0)));
+	Result.ClipmapLevel						= asint  (ProjectionData.Load (Base + (16*16 + 4*2)));
+	Result.ClipmapLevelCountRemaining		= asint  (ProjectionData.Load (Base + (16*16 + 4*3)));
+	Result.Flags 							=		 (ProjectionData.Load (Base + (16*17 + 4*0)));
+	Result.ClipmapLevelWPODistanceDisabledThresholdSquared
+		                                    = asfloat(ProjectionData.Load (Base + (16*17 + 4*1)));
+	Result.TexelDitherScale					= asfloat(ProjectionData.Load (Base + (16*17 + 4*2)));
+	Result.PreViewTranslation				= MakeDFVector3(PreViewTranslationHigh, PreViewTranslationLow);
+	Result.ClipmapWorldOriginOffset			= -NegativeClipmapWorldOriginOffset;
+	Result.bUnCached = (Result.Flags & (1U << 1)) != 0U;
+	Result.bUnreferenced = (Result.Flags & (1U << 2)) != 0U;
+	return Result;
+}
+FVirtualShadowMapProjectionShaderData GetVirtualShadowMapProjectionData(int VirtualShadowMapId)
+{
+	return DecodeVirtualShadowMapProjectionData(VirtualShadowMap_ProjectionData, VirtualShadowMapId);
+}
+float CalcAbsoluteClipmapLevel(FVirtualShadowMapProjectionShaderData BaseProjectionData, float3 TranslatedWorldPosition)
+{
+	float3 ViewToShadowTranslation = DFFastLocalSubtractDemote(BaseProjectionData.PreViewTranslation, GetPrimaryView().PreViewTranslation);
+	float3 TranslatedWorldOrigin = -BaseProjectionData.ClipmapWorldOriginOffset + ViewToShadowTranslation;
+	float DistanceToClipmapOrigin = length(TranslatedWorldPosition + TranslatedWorldOrigin);
+	return log2(DistanceToClipmapOrigin);
+}
+float CalcBiasedAbsoluteClipmapLevelForSampling(FVirtualShadowMapProjectionShaderData BaseProjectionData, float3 TranslatedWorldPosition)
+{
+	float AbsoluteLevel = CalcAbsoluteClipmapLevel(BaseProjectionData, TranslatedWorldPosition);
+	AbsoluteLevel += VirtualShadowMap.bClipmapGreedyLevelSelection ? 0.0f : BaseProjectionData.ResolutionLodBias;
+	return AbsoluteLevel;
+}
+struct FVirtualShadowMapSample
+{
+	float Depth;
+	uint MipLevel;
+	int VirtualShadowMapId;		
+	bool bValid;
+	uint2 VirtualTexelAddress;
+	float2 VirtualTexelAddressFloat;
+	uint2 PhysicalTexelAddress;
+};
+FVirtualShadowMapSample InitVirtualShadowMapSample()
+{
+	FVirtualShadowMapSample Result;
+	Result.Depth = 0.0f;
+	Result.MipLevel = 0;
+	Result.VirtualShadowMapId = -1; 
+	Result.bValid = false;
+	Result.VirtualTexelAddress = Result.PhysicalTexelAddress = uint2(0U, 0U);
+	Result.VirtualTexelAddressFloat = float2(0.0f, 0.0f);
+	return Result;
+}
+float SampleVirtualShadowMapPhysicalDepth(uint2 PhysicalTexelAddress)
+{
+	return asfloat(VirtualShadowMap_PhysicalPagePool.Load(uint4(PhysicalTexelAddress, 0, 0)));
+}
+FVirtualShadowMapSample SampleVirtualShadowMap(int VirtualShadowMapId, float2 ShadowMapUV)
+{
+	FShadowPageTranslationResult Page = ShadowVirtualToPhysicalUV(VirtualShadowMapId, ShadowMapUV);
+	if (Page.bValid)
+	{
+		FVirtualShadowMapSample Result = InitVirtualShadowMapSample();
+		Result.bValid = true;
+		Result.MipLevel = Page.LODOffset;
+		Result.VirtualShadowMapId = VirtualShadowMapId;
+		Result.VirtualTexelAddress = Page.VirtualTexelAddress;
+		Result.VirtualTexelAddressFloat = Page.VirtualTexelAddressFloat;
+		Result.PhysicalTexelAddress = Page.PhysicalTexelAddress;
+		Result.Depth = SampleVirtualShadowMapPhysicalDepth(Result.PhysicalTexelAddress);
+		return Result;
+	}
+	return InitVirtualShadowMapSample();
+}
+struct FVirtualShadowMapClipmapRelativeTransform
+{
+	float Scale;
+	float3 Bias;
+};
+FVirtualShadowMapClipmapRelativeTransform CalcClipmapRelativeTransform(int ClipmapId, int LevelOffset)
+{
+	const FVirtualShadowMapProjectionShaderData ProjectionDataA = GetVirtualShadowMapProjectionData(ClipmapId);
+	const FVirtualShadowMapProjectionShaderData ProjectionDataB = GetVirtualShadowMapProjectionData(ClipmapId + LevelOffset);
+	float2 OffsetA = float2(ProjectionDataA.ClipmapCornerRelativeOffset);
+	float2 OffsetB = float2(ProjectionDataB.ClipmapCornerRelativeOffset);
+	FVirtualShadowMapClipmapRelativeTransform Result;
+	Result.Scale = LevelOffset >= 0 ? rcp(float(1U << LevelOffset)) : float(1U << (-LevelOffset));
+	Result.Bias.xy = 0.25f * (OffsetB - Result.Scale * OffsetA);
+	float OffsetZA = ProjectionDataA.ShadowViewToClipMatrix[3][2];
+	float OffsetZB = ProjectionDataB.ShadowViewToClipMatrix[3][2];
+	Result.Bias.z = OffsetZB - Result.Scale * OffsetZA;
+	return Result;
+}
+uint2 CalcClipmapOffsetLevelPage(uint2 BasePage, int ClipmapId, uint LevelOffset)
+{
+	const FVirtualShadowMapProjectionShaderData ProjectionDataA = GetVirtualShadowMapProjectionData(ClipmapId);
+	const FVirtualShadowMapProjectionShaderData ProjectionDataB = GetVirtualShadowMapProjectionData(ClipmapId + LevelOffset);
+	const int OffsetScale = (128 >> 2);
+	int2 BasePageOffset  = OffsetScale * ProjectionDataA.ClipmapCornerRelativeOffset;
+	int2 LevelPageOffset = OffsetScale * ProjectionDataB.ClipmapCornerRelativeOffset;
+	return (BasePage - BasePageOffset + (LevelPageOffset << LevelOffset)) >> LevelOffset;
+}
+FVirtualShadowMapSample SampleVirtualShadowMapClipmap(int VirtualShadowMapId, float2 ShadowMapUV)
+{
+	FVirtualShadowMapSample Result = InitVirtualShadowMapSample();
+	uint2 BasePage = uint2(ShadowMapUV * 128);
+	FShadowPhysicalPage PhysicalPageEntry = ShadowGetPhysicalPage(CalcPageOffset(VirtualShadowMapId, 0, BasePage));
+	if (PhysicalPageEntry.bAnyLODValid)
+	{	
+		uint ClipmapLevelOffset = PhysicalPageEntry.LODOffset;
+		int ClipmapLevelId = VirtualShadowMapId + ClipmapLevelOffset;
+		Result.VirtualTexelAddressFloat = ShadowMapUV * float(CalcLevelDimsTexels(0));
+		Result.VirtualTexelAddress = uint2(Result.VirtualTexelAddressFloat);
+		float DepthLevelScale = 1.0f;
+		float DepthLevelBias = 0.0f;
+		if (ClipmapLevelOffset > 0)
+		{
+			uint2 vPage = CalcClipmapOffsetLevelPage(BasePage, VirtualShadowMapId, ClipmapLevelOffset);
+			uint2 VirtualTexelAddressMin = vPage * 128;
+			uint2 VirtualTexelAddressMax = VirtualTexelAddressMin + (128 - 1);
+			FVirtualShadowMapClipmapRelativeTransform Transform = CalcClipmapRelativeTransform(VirtualShadowMapId, ClipmapLevelOffset);
+			float2 ClipmapUV = ShadowMapUV * Transform.Scale + Transform.Bias.xy;
+			DepthLevelScale = Transform.Scale;
+			DepthLevelBias = Transform.Bias.z;
+			Result.VirtualTexelAddressFloat = ClipmapUV * float(CalcLevelDimsTexels(0));
+			Result.VirtualTexelAddress = clamp(uint2(Result.VirtualTexelAddressFloat), VirtualTexelAddressMin, VirtualTexelAddressMax);
+			PhysicalPageEntry = ShadowGetPhysicalPage(CalcPageOffset(ClipmapLevelId, 0, vPage));
+		}
+		if (PhysicalPageEntry.bThisLODValid)
+		{
+			Result.PhysicalTexelAddress = 
+				PhysicalPageEntry.PhysicalAddress * 128 +
+				(Result.VirtualTexelAddress & 127);
+			Result.Depth = (SampleVirtualShadowMapPhysicalDepth(Result.PhysicalTexelAddress) - DepthLevelBias) / DepthLevelScale;
+			Result.MipLevel = 0;
+			Result.VirtualShadowMapId = ClipmapLevelId;
+			Result.bValid = true;
+		}
+	}
+	return Result;
+}
+float ComputeVirtualShadowMapOptimalSlopeBias(
+	int RequestedVirtualShadowMapId,
+	FVirtualShadowMapSample SmSample,
+	float3 TranslatedWorldPosition,
+	float3 EstimatedGeoWorldNormal,
+	bool bClamp = true)
+{
+	FVirtualShadowMapProjectionShaderData ProjectionData = GetVirtualShadowMapProjectionData(SmSample.VirtualShadowMapId);
+	float4 NormalPlaneTranslatedWorld = float4(EstimatedGeoWorldNormal, -dot(EstimatedGeoWorldNormal, TranslatedWorldPosition));
+	float4 NormalPlaneUV = mul(NormalPlaneTranslatedWorld, ProjectionData.TranslatedWorldToShadowUVNormalMatrix);
+	float2 DepthSlopeUV = -NormalPlaneUV.xy / NormalPlaneUV.z;
+	float MipLevelDim = float(CalcLevelDimsTexels(SmSample.MipLevel));
+	float2 TexelCenter = float2(SmSample.VirtualTexelAddress) + 0.5f;
+	float2 TexelCenterOffset = TexelCenter - SmSample.VirtualTexelAddressFloat;
+	float2 TexelCenterOffsetUV = TexelCenterOffset / MipLevelDim;
+	float OptimalSlopeBias = 2.0f * max(0.0f, dot(DepthSlopeUV, TexelCenterOffsetUV));
+	OptimalSlopeBias = bClamp ? min(OptimalSlopeBias, abs(100.0f * ProjectionData.ShadowViewToClipMatrix._33)) : OptimalSlopeBias;
+	OptimalSlopeBias *= float(1u << (SmSample.VirtualShadowMapId - RequestedVirtualShadowMapId));
+	return OptimalSlopeBias;
+}
+float ComputeOccluderDistanceOrtho(float4x4 ShadowViewToClip, float OccluderDepth, float ReceiverDepth)
+{
+	float OccluderViewZ = (OccluderDepth - ShadowViewToClip._43) / ShadowViewToClip._33;
+	float ReceiverViewZ = (ReceiverDepth - ShadowViewToClip._43) / ShadowViewToClip._33;
+	float Result = ReceiverViewZ - OccluderViewZ;
+	return max(1e-6f, Result);
+}
+float ComputeOccluderDistancePerspective(float4x4 ShadowViewToClip, float OccluderDepth, float ReceiverDepth, float ReceiverDistance)
+{
+	float OccluderViewZ = ShadowViewToClip._43 / (OccluderDepth - ShadowViewToClip._33);
+	float ReceiverViewZ = ShadowViewToClip._43 / (ReceiverDepth - ShadowViewToClip._33);
+	float OccluderDistance = (ReceiverDistance / ReceiverViewZ) * OccluderViewZ;
+	float Result = ReceiverDistance - OccluderDistance;	
+	return max(1e-6f, Result);
+}
+uint VirtualShadowMapGetCubeFace( float3 Dir )
+{
+	if( abs(Dir.x) >= abs(Dir.y) && abs(Dir.x) >= abs(Dir.z) )
+		return Dir.x > 0 ? 0 : 1;
+	else if( abs(Dir.y) > abs(Dir.z) )
+		return Dir.y > 0 ? 2 : 3;
+	else
+		return Dir.z > 0 ? 4 : 5;
+}
+struct FVirtualShadowMapSampleResult
+{
+	bool bValid;
+	float ShadowFactor;	
+	float OccluderDistance;
+	int ClipmapOrMipLevel;		
+	uint RayCount;
+	uint2 VirtualTexelAddress;
+	uint2 PhysicalTexelAddress;
+	float3 GeneralDebug;		
+};
+FVirtualShadowMapSampleResult InitVirtualShadowMapSampleResult()
+{
+	FVirtualShadowMapSampleResult Result;
+	Result.bValid = false;
+	Result.ShadowFactor = 1.0f;
+	Result.OccluderDistance = -1.0f;
+	Result.ClipmapOrMipLevel = 0;
+	Result.VirtualTexelAddress = uint2(0xFFFFFFFF, 0xFFFFFFFF);
+	Result.PhysicalTexelAddress = uint2(0xFFFFFFFF, 0xFFFFFFFF);
+	Result.RayCount = 0;
+	Result.GeneralDebug = float3(0, 0, 0);
+	return Result;
+}
+FVirtualShadowMapSampleResult SampleVirtualShadowMapDirectional(
+	int VirtualShadowMapId,
+	float3 TranslatedWorldPosition,
+	float RayStartDistance,
+	float3 EstimatedGeoWorldNormal,
+	bool bUseOptimalBias = true)
+{
+	RayStartDistance = max(RayStartDistance, 0.0f);
+	FVirtualShadowMapProjectionShaderData BaseProjectionData = GetVirtualShadowMapProjectionData(VirtualShadowMapId);
+	 { };
+	const int ClipmapLevel = int(floor(CalcBiasedAbsoluteClipmapLevelForSampling(BaseProjectionData, TranslatedWorldPosition)));
+	int ClipmapIndex = max(0, ClipmapLevel - BaseProjectionData.ClipmapLevel);
+	if (ClipmapIndex < BaseProjectionData.ClipmapLevelCountRemaining)
+	{
+		int ClipmapLevelVirtualShadowMapId = VirtualShadowMapId + ClipmapIndex;
+		FVirtualShadowMapProjectionShaderData ProjectionData = GetVirtualShadowMapProjectionData(ClipmapLevelVirtualShadowMapId);
+		float3 ViewToShadowTranslation = DFFastLocalSubtractDemote(ProjectionData.PreViewTranslation, GetPrimaryView().PreViewTranslation);
+		float3 ShadowTranslatedWorldPosition = TranslatedWorldPosition + ViewToShadowTranslation;
+		float4 ShadowUVz = mul(float4(ShadowTranslatedWorldPosition, 1.0f), ProjectionData.TranslatedWorldToShadowUVMatrix);
+		FVirtualShadowMapSample SmSample;
+		SmSample = SampleVirtualShadowMapClipmap(ClipmapLevelVirtualShadowMapId, ShadowUVz.xy);
+		if (SmSample.bValid)
+		{
+			int SampledClipmapIndex = SmSample.VirtualShadowMapId - VirtualShadowMapId;
+			FVirtualShadowMapSampleResult Result = InitVirtualShadowMapSampleResult();
+			Result.bValid = true;
+			Result.ShadowFactor = 1.0f;
+			Result.OccluderDistance = -1.0f;
+			Result.ClipmapOrMipLevel = GetVirtualShadowMapProjectionData(SmSample.VirtualShadowMapId).ClipmapLevel;
+			Result.VirtualTexelAddress = SmSample.VirtualTexelAddress;
+			Result.PhysicalTexelAddress = SmSample.PhysicalTexelAddress;
+			Result.RayCount = 1;
+			float OptimalSlopeBias = 0.0f;
+			[branch]
+			if (bUseOptimalBias)
+			{
+				OptimalSlopeBias = ComputeVirtualShadowMapOptimalSlopeBias(ClipmapLevelVirtualShadowMapId, SmSample, ShadowTranslatedWorldPosition, EstimatedGeoWorldNormal);
+			}
+			float RayStartBias = -RayStartDistance * ProjectionData.ShadowViewToClipMatrix._33;
+			float BiasedDepth = SmSample.Depth - OptimalSlopeBias - RayStartBias;
+			if (BiasedDepth > ShadowUVz.z)
+			{
+				Result.ShadowFactor = 0.0f;
+				Result.OccluderDistance = ComputeOccluderDistanceOrtho(
+					ProjectionData.ShadowViewToClipMatrix,
+					SmSample.Depth,
+					ShadowUVz.z);
+			}
+			return Result;
+		}
+	}
+	return InitVirtualShadowMapSampleResult();
+}
+FVirtualShadowMapSampleResult SampleVirtualShadowMapLocal(
+	int VirtualShadowMapId,
+	float3 TranslatedWorldPosition,
+	float RayStartDistance,
+	float3 EstimatedGeoWorldNormal,
+	bool bUseOptimalBias = true)
+{
+	RayStartDistance = max(RayStartDistance, 0.0f);
+	FVirtualShadowMapProjectionShaderData ProjectionData = GetVirtualShadowMapProjectionData(VirtualShadowMapId);
+	float3 ViewToShadowTranslation = DFFastLocalSubtractDemote(ProjectionData.PreViewTranslation, GetPrimaryView().PreViewTranslation);
+	float3 ShadowTranslatedWorldPosition = TranslatedWorldPosition + ViewToShadowTranslation;
+	if (ProjectionData.LightType != 2)
+	{
+		VirtualShadowMapId += VirtualShadowMapGetCubeFace(ShadowTranslatedWorldPosition);
+		ProjectionData = GetVirtualShadowMapProjectionData(VirtualShadowMapId);
+	}
+	float4 ShadowUVz = mul(float4(ShadowTranslatedWorldPosition, 1.0f), ProjectionData.TranslatedWorldToShadowUVMatrix);
+	ShadowUVz.xyz /= ShadowUVz.w;
+	FVirtualShadowMapSample SmSample = SampleVirtualShadowMap(VirtualShadowMapId, ShadowUVz.xy);
+	if (SmSample.bValid)
+	{
+		FVirtualShadowMapSampleResult Result = InitVirtualShadowMapSampleResult();
+		Result.bValid = true;
+		Result.ShadowFactor = 1.0f;
+		Result.OccluderDistance = -1.0f;
+		Result.ClipmapOrMipLevel = int(SmSample.MipLevel);
+		Result.VirtualTexelAddress = SmSample.VirtualTexelAddress;
+		Result.PhysicalTexelAddress = SmSample.PhysicalTexelAddress;
+		Result.RayCount = 1;
+		float OptimalSlopeBias = 0.0f;
+		[branch]
+		if (bUseOptimalBias)
+		{
+			OptimalSlopeBias = ComputeVirtualShadowMapOptimalSlopeBias(VirtualShadowMapId, SmSample, ShadowTranslatedWorldPosition, EstimatedGeoWorldNormal);
+		}
+		float RayStartBias = -RayStartDistance * ProjectionData.ShadowViewToClipMatrix._33 / ShadowUVz.w;
+		float BiasedDepth = SmSample.Depth - OptimalSlopeBias - RayStartBias;
+		if (BiasedDepth > ShadowUVz.z)
+		{
+			Result.ShadowFactor = 0.0f;
+			float ReceiverDistance = length(ShadowTranslatedWorldPosition);
+			Result.OccluderDistance = RayStartDistance + ComputeOccluderDistancePerspective(
+				ProjectionData.ShadowViewToClipMatrix,
+				SmSample.Depth,
+				ShadowUVz.z,
+				ReceiverDistance);
+		}
+		return Result;
+	}
+	return InitVirtualShadowMapSampleResult();
+}
+FVirtualShadowMapSampleResult SampleVirtualShadowMapDirectional(int VirtualShadowMapId, float3 TranslatedWorldPosition, float RayStartDistance = 0.0f)
+{
+	return SampleVirtualShadowMapDirectional(VirtualShadowMapId, TranslatedWorldPosition, RayStartDistance, float3(0, 0, 0), false);
+}
+FVirtualShadowMapSampleResult SampleVirtualShadowMapLocal(int VirtualShadowMapId, float3 TranslatedWorldPosition, float RayStartDistance = 0.0f)
+{
+	return SampleVirtualShadowMapLocal(VirtualShadowMapId, TranslatedWorldPosition, RayStartDistance, float3(0, 0, 0), false);
+}
+FVirtualShadowMapSampleResult SampleVirtualShadowMapTranslatedWorld(int VirtualShadowMapId, float3 TranslatedWorldPosition, float RayStartDistance = 0.0f)
+{
+	FVirtualShadowMapProjectionShaderData BaseProjectionData = GetVirtualShadowMapProjectionData(VirtualShadowMapId);
+	if (BaseProjectionData.LightType == 0)
+	{
+		return SampleVirtualShadowMapDirectional(VirtualShadowMapId, TranslatedWorldPosition, RayStartDistance);
+	}
+	else
+	{
+		return SampleVirtualShadowMapLocal(VirtualShadowMapId, TranslatedWorldPosition, RayStartDistance);
+	}
+}
+struct FAVSMSampleData
+{
+	float X;
+	float Tau;
+};
+FAVSMSampleData AVSM_CreateSampleData(float X, float Tau)
+{
+	FAVSMSampleData SampleData;
+	SampleData.X = X;
+	SampleData.Tau = Tau;
+	return SampleData;
+}
+FAVSMSampleData AVSM_UnpackSampleData(int PackedData)
+{
+	FAVSMSampleData SampleData;
+	SampleData.X = f16tof32(PackedData & 0xFFFF);
+	SampleData.Tau = f16tof32(PackedData >> 16);
+	return SampleData;
+}
+FAVSMSampleData AVSM_UnpackSampleData(int2 PackedData)
+{
+	return AVSM_UnpackSampleData(PackedData.x);
+}
+struct FAVSMIndirectionData
+{
+	uint PixelOffset;
+	int SampleCount;
+	float BeginX;
+	float EndX;
+};
+FAVSMIndirectionData ASVM_UnpackIndirectionData(uint2 PackedData)
+{
+	FAVSMIndirectionData IndirectionData;
+	IndirectionData.PixelOffset = (PackedData.x >> 6) & 0x3FFFFFF;
+	IndirectionData.SampleCount = PackedData.x & 0x3f;
+	IndirectionData.BeginX = f16tof32(PackedData.y >> 16);
+	IndirectionData.EndX = f16tof32(PackedData.y);
+	return IndirectionData;
+}
+uint GetMyLinearIndex(uint Face, uint2 PixelCoord)
+{
+	uint LinearIndex = Face * AVSM.Resolution.x * AVSM.Resolution.y + PixelCoord.y * AVSM.Resolution.x + PixelCoord.x;
+	return LinearIndex;
+}
+float AVSM_Sample(int Face, int2 Pixel, float WorldHitT)
+{
+	uint LinearIndex = GetMyLinearIndex(Face, Pixel);
+	FAVSMIndirectionData IndirectionData = ASVM_UnpackIndirectionData(AVSM_IndirectionBuffer[LinearIndex]);
+	FAVSMSampleData ShadowData[2] = {
+		AVSM_CreateSampleData(0.0, 1.0),
+		AVSM_CreateSampleData(0.0, 1.0)
+	};
+	if (IndirectionData.SampleCount > 0)
+	{
+		ShadowData[0] = AVSM_UnpackSampleData(AVSM_SampleBuffer[IndirectionData.PixelOffset]);
+		for (int ElementIndex = 1; ElementIndex < IndirectionData.SampleCount; ++ElementIndex)
+		{
+			ShadowData[1] = AVSM_UnpackSampleData(AVSM_SampleBuffer[IndirectionData.PixelOffset + ElementIndex]);
+			if (WorldHitT < ShadowData[1].X)
+			{
+				break;
+			}
+			ShadowData[0] = ShadowData[1];
+		}
+	}
+	float Transmittance = 1.0;
+	if (WorldHitT > ShadowData[0].X)
+	{
+		float BlendWeight = saturate((WorldHitT - ShadowData[0].X) * rcp(ShadowData[1].X - ShadowData[0].X));
+		Transmittance = lerp(ShadowData[0].Tau, ShadowData[1].Tau, BlendWeight);
+	}
+	return Transmittance;
+}
+float AVSM_SampleTransmittance(float3 TranslatedWorldPosition, float3 LightTranslatedWorldPosition)
+{
+	if (any(AVSM.Resolution == 0))
+	{
+		return 1.0;
+	}
+	float Transmittance = 1.0;
+	int Face = 0;
+	if (AVSM.NumShadowMatrices > 1)
+	{
+		float3 LightDir = TranslatedWorldPosition - AVSM.TranslatedWorldOrigin;
+		float3 LightDirAbs = abs(LightDir);
+		Face = LightDirAbs[1] > LightDirAbs[0] ? 1 : 0;
+		Face = LightDirAbs[2] > LightDirAbs[Face] ? 2 : Face;
+		int FaceOffset = (sign(LightDir[Face]) > 0) ? 1 : 0;
+		Face = Face * 2 + FaceOffset;
+	}
+	float4 ShadowPositionAsFloat4 = 0;
+	float3 ShadowPosition = 0;
+	{
+		ShadowPositionAsFloat4 = mul(float4(TranslatedWorldPosition, 1), AVSM.TranslatedWorldToShadow[Face]);
+		if (ShadowPositionAsFloat4.w > 0)
+		{
+			ShadowPosition = ShadowPositionAsFloat4.xyz / ShadowPositionAsFloat4.w;
+			if (all(ShadowPosition.xyz > 0) || all(ShadowPosition.xy < 1))
+			{
+				float2 ShadowMapCoord = clamp(ShadowPosition.xy * AVSM.Resolution, 0, AVSM.Resolution - 1);
+				float ShadowBias = 0.5;
+				float ShadowZ = length(TranslatedWorldPosition - AVSM.TranslatedWorldOrigin) - ShadowBias;
+				if (AVSM.bIsDirectionalLight)
+				{
+					ShadowZ = dot(AVSM.TranslatedWorldPlane.xyz, TranslatedWorldPosition) + AVSM.TranslatedWorldPlane.w;
+				}
+				int2 ShadowMapCoordX[4] =
+				{
+					clamp(ShadowMapCoord, 0, AVSM.Resolution - 1),
+					clamp(ShadowMapCoord + int2(0, 1), 0, AVSM.Resolution - 1),
+					clamp(ShadowMapCoord + int2(1, 0), 0, AVSM.Resolution - 1),
+					clamp(ShadowMapCoord + int2(1, 1), 0, AVSM.Resolution - 1)
+				};
+				float TransmittanceX[4] =
+				{
+					AVSM_Sample(Face, ShadowMapCoordX[0], ShadowZ),
+					AVSM_Sample(Face, ShadowMapCoordX[1], ShadowZ),
+					AVSM_Sample(Face, ShadowMapCoordX[2], ShadowZ),
+					AVSM_Sample(Face, ShadowMapCoordX[3], ShadowZ)
+				};
+				float2 Weight = frac(ShadowMapCoord);
+				float TransmittanceY0 = lerp(TransmittanceX[0], TransmittanceX[2], Weight.x);
+				float TransmittanceY1 = lerp(TransmittanceX[1], TransmittanceX[3], Weight.x);
+				Transmittance = lerp(TransmittanceY0, TransmittanceY1, Weight.y);
+			}
+		}
+	}
+	return Transmittance;
+}
+float4 LightFunctionParameters;
+float4x4 LightFunctionTranslatedWorldToLight;
+float3 GetLightFunctionColor(float3 LightVector, float3 TranslatedWorldSpace
+)
+{
+	LightVector.xyz = LightVector.zyx;
+	float2 LightFunctionUVs = LightVector.xy;
+	if (LightFunctionParameters.z > 0)
+	{
+		LightFunctionUVs = LightVector.xy / (LightVector.z * LightFunctionParameters.x) * .5f + .5f;
+	}
+	else if (LightFunctionParameters.w > 0)
+	{
+		float3 UnitLightVector = normalize(LightVector);
+		LightFunctionUVs = float2((atan2(UnitLightVector.y, UnitLightVector.x) + PI) / (2 * PI), acos(UnitLightVector.z) / PI);
+	}
+	FMaterialPixelParameters MaterialParameters = MakeInitializedMaterialPixelParameters();
+	for(int CoordinateIndex = 0;CoordinateIndex < 1;CoordinateIndex++)
+	{
+		MaterialParameters.TexCoords[CoordinateIndex] = LightFunctionUVs;
+	}
+	MaterialParameters.VertexColor = 1;
+	MaterialParameters.CameraVector = LightVector.xyz;
+	MaterialParameters.ReflectionVector = LightVector.xyz;
+	MaterialParameters.LightVector = LightVector.xyz;
+	MaterialParameters.AbsoluteWorldPosition = DFFastSubtract(TranslatedWorldSpace, GetPrimaryView().PreViewTranslation);
+	MaterialParameters.WorldPosition_CamRelative = MaterialParameters.WorldPosition_NoOffsets_CamRelative = TranslatedWorldSpace;
+	MaterialParameters.ScreenPosition = mul(float4(TranslatedWorldSpace, 1.0f), GetPrimaryView().TranslatedWorldToClip);
+	MaterialParameters.LWCData = MakeMaterialLWCData(MaterialParameters);
+	FPixelMaterialInputs PixelMaterialInputs;
+	CalcPixelMaterialInputs(MaterialParameters, PixelMaterialInputs);
+	return GetMaterialEmissive(PixelMaterialInputs);
+}
+float SpotlightMask;
+float GetLightFunctionShadowFactor(float3 TranslatedWorldPositionForLighting)
+{
+	float ShadowFactor = 1;
+		float4 LightVector = mul(float4(TranslatedWorldPositionForLighting, 1),LightFunctionTranslatedWorldToLight);
+		LightVector.xyz /= LightVector.w;
+		float3 LightFunction = GetLightFunctionColor(LightVector.xyz, TranslatedWorldPositionForLighting);
+		ShadowFactor = dot(LightFunction, .3333f).x;
+	return ShadowFactor;
+}
+int VirtualShadowMapId;
+void InjectMainPS(
+	FWriteToSliceGeometryOutput Input,
+	out float4 OutColor0 : SV_Target0,
+	out float4 OutColor1 : SV_Target1
+	)
+{
+	OutColor0 = 0;
+	OutColor1 = 0;
+	float3 TranslatedWorldPosition;
+	{
+		float ZPosition = View.TranslucencyLightingVolumeMin[VolumeCascadeIndex].z + (Input.LayerIndex + .5f) * View.TranslucencyLightingVolumeInvSize[VolumeCascadeIndex].w;
+		TranslatedWorldPosition = float3(View.TranslucencyLightingVolumeMin[VolumeCascadeIndex].xy + Input.Vertex.UV / View.TranslucencyLightingVolumeInvSize[VolumeCascadeIndex].xy - .5f * View.TranslucencyLightingVolumeInvSize[VolumeCascadeIndex].w, ZPosition);
+	}
+	float3 WorldPosition = TranslatedWorldPosition - DFDemote(GetPrimaryView().PreViewTranslation);
+	float3 VolumeUVs = float3(Input.Vertex.UV, (Input.LayerIndex + .5f) * View.TranslucencyLightingVolumeMin[VolumeCascadeIndex].w);
+	float Masking = 1.0f;
+	{
+		float3 LightVector = DeferredLightUniforms.TranslatedWorldPosition - TranslatedWorldPosition;
+		clip(1.0f / (DeferredLightUniforms.InvRadius * DeferredLightUniforms.InvRadius) - dot(LightVector, LightVector));
+	}
+	float3 NormalizedLightVector = GetNormalizedLightVector(TranslatedWorldPosition);
+	float3 TranslatedWorldPositionForLighting;
+	float3 WorldPositionForLighting;
+	{
+		float VoxelSize = View.TranslucencyLightingVolumeInvSize[VolumeCascadeIndex].w;
+		float3 LightingOffset = 1 * GetBoxPushout(NormalizedLightVector, .5f * VoxelSize);
+		WorldPositionForLighting = WorldPosition + LightingOffset;
+		TranslatedWorldPositionForLighting = TranslatedWorldPosition + LightingOffset;
+	}
+	{
+		float3 WorldLightVector;
+		float Attenuation = CalcLightAttenuation(TranslatedWorldPositionForLighting, WorldLightVector);
+		bool bPointLight = false;
+		bool bSpotLight = false;
+			bPointLight = SpotlightMask < 1;
+			bSpotLight = SpotlightMask >= 1;
+		bool bUnused = false;
+		float ShadowFactor = ComputeVolumeShadowing(TranslatedWorldPositionForLighting, bPointLight, bSpotLight, bUnused);
+		FVirtualShadowMapSampleResult VirtualShadowMapSample = SampleVirtualShadowMapTranslatedWorld(VirtualShadowMapId, TranslatedWorldPositionForLighting);
+		ShadowFactor *= VirtualShadowMapSample.ShadowFactor;
+		ShadowFactor *= AVSM_SampleTransmittance(TranslatedWorldPositionForLighting, DeferredLightUniforms.TranslatedWorldPosition);
+		ShadowFactor *= GetLightFunctionShadowFactor(TranslatedWorldPositionForLighting);
+		if (VolumeCascadeIndex == 1)
+		{
+			float TransitionScale = 10;
+			float3 FadeUVs = VolumeUVs * (1 + 4 * View.TranslucencyLightingVolumeMin[VolumeCascadeIndex].w) - 2 * View.TranslucencyLightingVolumeMin[VolumeCascadeIndex].w;
+			float3 LerpFactors = saturate((.5f - abs(FadeUVs - .5f)) * TransitionScale);
+			float FinalLerpFactor = LerpFactors.x * LerpFactors.y * LerpFactors.z;
+			Attenuation = lerp(0, Attenuation, FinalLerpFactor);
+			ShadowFactor = lerp(0.0f, ShadowFactor, FinalLerpFactor);
+		}
+		float3 Lighting = DeferredLightUniforms.Color / PI * Attenuation * ShadowFactor;
+		FTwoBandSHVectorRGB SHLighting = MulSH(SHBasisFunction(NormalizedLightVector), Lighting);
+		float DirectionalLightContribution = 0;
+		OutColor0 = float4(SHLighting.R.V.x, SHLighting.G.V.x, SHLighting.B.V.x, DirectionalLightContribution);
+		float3 LuminanceWeights = float3(.3, .59, .11);
+		float3 Coefficient0 = float3(SHLighting.R.V.y, SHLighting.G.V.y, SHLighting.B.V.y);
+		float3 Coefficient1 = float3(SHLighting.R.V.z, SHLighting.G.V.z, SHLighting.B.V.z);
+		float3 Coefficient2 = float3(SHLighting.R.V.w, SHLighting.G.V.w, SHLighting.B.V.w);
+		OutColor1 = float4(dot(Coefficient0, LuminanceWeights), dot(Coefficient1, LuminanceWeights), dot(Coefficient2, LuminanceWeights), 0);
+	}
+	OutColor0 *= Masking;
+	OutColor1 *= Masking;
+}
+
+/* BASE64_ENV
+CAAAABkAAABWSUVXX0hBU19USUxFT0ZGU0VUX0RBVEEAAAEAAAAeAAAAUFJJTUlUSVZFX0hBU19USUxFT0ZGU0VUX0RBVEEAAAEAAAARAAAASU5TVEFOQ0VEX1NURVJFTwAAAAAAAAsAAABNVUxUSV9WSUVXAAAAAAAAEgAAAE1PQklMRV9NVUxUSV9WSUVXAAAAAAAAGwAAAFVTRVNfV09STERfUE9TSVRJT05fT0ZGU0VUAAAAAAAAEgAAAFVTRVNfRElTUExBQ0VNRU5UAAAAAAAAHAAAAFVTSU5HX1ZBUklBQkxFX1JBVEVfU0hBRElORwAAAQAAAAAQEAAEAAAAAAAAAPwAAAAJCQAACQkBAAkJAgAJCQMACRAEAAkQBQAECAAABAgBAAQFAgAEBQMABAUEAAQFBQAEBQYABAUHAAQFCAAEBQkABAUKAAQFCwAECAwABAgNAAQIDgAECA8ABAgQAAQIEQAECBIABAgTAAQIFAAEBRUABAUWAAQFFwAEBRgABAgZAAQIGgAECBsABAUcAAQIHQAEBR4ABAgfAAQFIAAECCEABAUiAAQIIwAEBSQABAglAAQFJgAECCcABAgoAAQIKQAECCoABAgrAAQILAAECC0ABAUuAAQILwAEBjAABAUxAAQIMgAEBTMABAg0AAQFNQAECDYABAU3AAQIOAAEBTkABAg6AAQFOwAECDwABAU9AAQIPgAEBT8ABAhAAAQFQQAECEIABAVDAAQIRAAEBUUABAVGAAQFRwAEBUgABAhJAAQFSgAECEsABAVMAAQITQAEBU4ABAhPAAQFUAAECFEABAhSAAQFUwAECFQABAVVAAQIVgAEBlcABAZYAAQFWQAECFoABAVbAAQIXAAECF0ABAZeAAQGXwAEB2AABAZhAA0FAAAKBgAACgYBAAoGAgAKBgMAFwUAABcIAQAXBQIAFwgDABMJAAATCQEAEwkCABMJAwATCQQAEwkFABMJBgATCQcAEwkIABMJCQATCQoAEwkLABMMDAATCA0AEAkAABAIAQAQCQIAEAgDABAJBAAQDAUAEAgGABAJBwAQCAgAEAUJABAFCgATCQAAEwgBABMJAgATCQMAEwgEABMJBQATCAYAEwkHABMICAATDAkAEwkKABMICwATCQwAEwkNABMJDgATCQ8AEwkQABMJEQATCRIAEwkTABMIFAATCBUAEwgWABMIFwATCBgADxAAAA8QAQAFEAAABRABAAUQAgAFEAMABRAEAAUQBQAFEAYABQwHAAUMCAAFCAkAEBAAAAkFAAAJBQEACAkAAAgIAQAIBQIACAgDAAgQBAAIEAUACBAGAAgQBwAICQgACAgJAAgFCgAICAsACBAMAAgQDQAIEA4ACBAPAAgJEAAICBEACAUSAAgIEwAIBRQACAgVAAgFFgAICBcACAUYAAgIGQAIBRoACAgbAAgJHAAICB0ACAUeAAgIHwAICSAACAghAAgQIgAIDCMACAkkAAgQJQAICCYAFQUAABUFAQAVCAIAFQgDAAwJAAAMCAEADAkCAAwJAwAMCAQADAUFAAwIBgAMCQAADAgBAAwJAgAMCQMADAgEAAwFBQAMCAYAEBAAABAQAQAQEAIAEBADABAJBAAQEAUAEBAGABAQBwAEEAAABBABAAQQAgAIBQAACAgBAAgFAgAICAMACAgEAAgIBQAbAAAAGAAAAERyYXdSZWN0YW5nbGVQYXJhbWV0ZXJzAAAAAAAAATAAAQAAAAAAAAAACgAAAFN1YnN0cmF0ZQAAAAAAQRFwCQEAAAAAvAAAAFMAdQBiAHMAdAByAGEAdABlAF8ATQBhAHQAZQByAGkAYQBsAFQAZQB4AHQAdQByAGUAQQByAHIAYQB5AAAAUwB1AGIAcwB0AHIAYQB0AGUAXwBUAG8AcABMAGEAeQBlAHIAVABlAHgAdAB1AHIAZQAAAFMAdQBiAHMAdAByAGEAdABlAF8ATwBwAGEAcQB1AGUAUgBvAHUAZwBoAFIAZQBmAHIAYQBjAHQAaQBvAG4AVABlAHgAdAB1AHIAZQAAAFMAdQBiAHMAdAByAGEAdABlAF8AQwBsAG8AcwB1AHIAZQBPAGYAZgBzAGUAdABUAGUAeAB0AHUAcgBlAAAAUwB1AGIAcwB0AHIAYQB0AGUAXwBDAGwAbwBzAHUAcgBlAFQAaQBsAGUAQgB1AGYAZgBlAHIAAABTAHUAYgBzAHQAcgBhAHQAZQBfAEMAbABvAHMAdQByAGUAVABpAGwAZQBDAG8AdQBuAHQAQgB1AGYAZgBlAHIAAAAFAAAAVmlldwAFAAAAVmlldwAaAmgVAwAAAADwDAAAVgBpAGUAdwBfAE0AYQB0AGUAcgBpAGEAbABUAGUAeAB0AHUAcgBlAEIAaQBsAGkAbgBlAGEAcgBXAHIAYQBwAGUAZABTAGEAbQBwAGwAZQByAAAAVgBpAGUAdwBfAE0AYQB0AGUAcgBpAGEAbABUAGUAeAB0AHUAcgBlAEIAaQBsAGkAbgBlAGEAcgBDAGwAYQBtAHAAZQBkAFMAYQBtAHAAbABlAHIAAABWAGkAZQB3AF8AVgBvAGwAdQBtAGUAdAByAGkAYwBMAGkAZwBoAHQAbQBhAHAASQBuAGQAaQByAGUAYwB0AGkAbwBuAFQAZQB4AHQAdQByAGUAAABWAGkAZQB3AF8AVgBvAGwAdQBtAGUAdAByAGkAYwBMAGkAZwBoAHQAbQBhAHAAQgByAGkAYwBrAEEAbQBiAGkAZQBuAHQAVgBlAGMAdABvAHIAAABWAGkAZQB3AF8AVgBvAGwAdQBtAGUAdAByAGkAYwBMAGkAZwBoAHQAbQBhAHAAQgByAGkAYwBrAFMASABDAG8AZQBmAGYAaQBjAGkAZQBuAHQAcwAwAAAAVgBpAGUAdwBfAFYAbwBsAHUAbQBlAHQAcgBpAGMATABpAGcAaAB0AG0AYQBwAEIAcgBpAGMAawBTAEgAQwBvAGUAZgBmAGkAYwBpAGUAbgB0AHMAMQAAAFYAaQBlAHcAXwBWAG8AbAB1AG0AZQB0AHIAaQBjAEwAaQBnAGgAdABtAGEAcABCAHIAaQBjAGsAUwBIAEMAbwBlAGYAZgBpAGMAaQBlAG4AdABzADIAAABWAGkAZQB3AF8AVgBvAGwAdQBtAGUAdAByAGkAYwBMAGkAZwBoAHQAbQBhAHAAQgByAGkAYwBrAFMASABDAG8AZQBmAGYAaQBjAGkAZQBuAHQAcwAzAAAAVgBpAGUAdwBfAFYAbwBsAHUAbQBlAHQAcgBpAGMATABpAGcAaAB0AG0AYQBwAEIAcgBpAGMAawBTAEgAQwBvAGUAZgBmAGkAYwBpAGUAbgB0AHMANAAAAFYAaQBlAHcAXwBWAG8AbAB1AG0AZQB0AHIAaQBjAEwAaQBnAGgAdABtAGEAcABCAHIAaQBjAGsAUwBIAEMAbwBlAGYAZgBpAGMAaQBlAG4AdABzADUAAABWAGkAZQB3AF8AUwBrAHkAQgBlAG4AdABOAG8AcgBtAGEAbABCAHIAaQBjAGsAVABlAHgAdAB1AHIAZQAAAFYAaQBlAHcAXwBEAGkAcgBlAGMAdABpAG8AbgBhAGwATABpAGcAaAB0AFMAaABhAGQAbwB3AGkAbgBnAEIAcgBpAGMAawBUAGUAeAB0AHUAcgBlAAAAVgBpAGUAdwBfAFYAbwBsAHUAbQBlAHQAcgBpAGMATABpAGcAaAB0AG0AYQBwAEIAcgBpAGMAawBBAG0AYgBpAGUAbgB0AFYAZQBjAHQAbwByAFMAYQBtAHAAbABlAHIAAABWAGkAZQB3AF8AVgBvAGwAdQBtAGUAdAByAGkAYwBMAGkAZwBoAHQAbQBhAHAAVABlAHgAdAB1AHIAZQBTAGEAbQBwAGwAZQByADAAAABWAGkAZQB3AF8AVgBvAGwAdQBtAGUAdAByAGkAYwBMAGkAZwBoAHQAbQBhAHAAVABlAHgAdAB1AHIAZQBTAGEAbQBwAGwAZQByADEAAABWAGkAZQB3AF8AVgBvAGwAdQBtAGUAdAByAGkAYwBMAGkAZwBoAHQAbQBhAHAAVABlAHgAdAB1AHIAZQBTAGEAbQBwAGwAZQByADIAAABWAGkAZQB3AF8AVgBvAGwAdQBtAGUAdAByAGkAYwBMAGkAZwBoAHQAbQBhAHAAVABlAHgAdAB1AHIAZQBTAGEAbQBwAGwAZQByADMAAABWAGkAZQB3AF8AVgBvAGwAdQBtAGUAdAByAGkAYwBMAGkAZwBoAHQAbQBhAHAAVABlAHgAdAB1AHIAZQBTAGEAbQBwAGwAZQByADQAAABWAGkAZQB3AF8AVgBvAGwAdQBtAGUAdAByAGkAYwBMAGkAZwBoAHQAbQBhAHAAVABlAHgAdAB1AHIAZQBTAGEAbQBwAGwAZQByADUAAABWAGkAZQB3AF8AUwBrAHkAQgBlAG4AdABOAG8AcgBtAGEAbABUAGUAeAB0AHUAcgBlAFMAYQBtAHAAbABlAHIAAABWAGkAZQB3AF8ARABpAHIAZQBjAHQAaQBvAG4AYQBsAEwAaQBnAGgAdABTAGgAYQBkAG8AdwBpAG4AZwBUAGUAeAB0AHUAcgBlAFMAYQBtAHAAbABlAHIAAABWAGkAZQB3AF8ARwBsAG8AYgBhAGwARABpAHMAdABhAG4AYwBlAEYAaQBlAGwAZABQAGEAZwBlAEEAdABsAGEAcwBUAGUAeAB0AHUAcgBlAAAAVgBpAGUAdwBfAEcAbABvAGIAYQBsAEQAaQBzAHQAYQBuAGMAZQBGAGkAZQBsAGQAQwBvAHYAZQByAGEAZwBlAEEAdABsAGEAcwBUAGUAeAB0AHUAcgBlAAAAVgBpAGUAdwBfAEcAbABvAGIAYQBsAEQAaQBzAHQAYQBuAGMAZQBGAGkAZQBsAGQAUABhAGcAZQBUAGEAYgBsAGUAVABlAHgAdAB1AHIAZQAAAFYAaQBlAHcAXwBHAGwAbwBiAGEAbABEAGkAcwB0AGEAbgBjAGUARgBpAGUAbABkAE0AaQBwAFQAZQB4AHQAdQByAGUAAABWAGkAZQB3AF8ARwBsAG8AYgBhAGwARABpAHMAdABhAG4AYwBlAEYAaQBlAGwAZABQAGEAZwBlAEEAdABsAGEAcwBUAGUAeAB0AHUAcgBlAFMAYQBtAHAAbABlAHIAAABWAGkAZQB3AF8ARwBsAG8AYgBhAGwARABpAHMAdABhAG4AYwBlAEYAaQBlAGwAZABDAG8AdgBlAHIAYQBnAGUAQQB0AGwAYQBzAFQAZQB4AHQAdQByAGUAUwBhAG0AcABsAGUAcgAAAFYAaQBlAHcAXwBHAGwAbwBiAGEAbABEAGkAcwB0AGEAbgBjAGUARgBpAGUAbABkAE0AaQBwAFQAZQB4AHQAdQByAGUAUwBhAG0AcABsAGUAcgAAAFYAaQBlAHcAXwBBAHQAbQBvAHMAcABoAGUAcgBlAFQAcgBhAG4AcwBtAGkAdAB0AGEAbgBjAGUAVABlAHgAdAB1AHIAZQAAAFYAaQBlAHcAXwBBAHQAbQBvAHMAcABoAGUAcgBlAFQAcgBhAG4AcwBtAGkAdAB0AGEAbgBjAGUAVABlAHgAdAB1AHIAZQBTAGEAbQBwAGwAZQByAAAAVgBpAGUAdwBfAEEAdABtAG8AcwBwAGgAZQByAGUASQByAHIAYQBkAGkAYQBuAGMAZQBUAGUAeAB0AHUAcgBlAAAAVgBpAGUAdwBfAEEAdABtAG8AcwBwAGgAZQByAGUASQByAHIAYQBkAGkAYQBuAGMAZQBUAGUAeAB0AHUAcgBlAFMAYQBtAHAAbABlAHIAAABWAGkAZQB3AF8AQQB0AG0AbwBzAHAAaABlAHIAZQBJAG4AcwBjAGEAdAB0AGUAcgBUAGUAeAB0AHUAcgBlAAAAVgBpAGUAdwBfAEEAdABtAG8AcwBwAGgAZQByAGUASQBuAHMAYwBhAHQAdABlAHIAVABlAHgAdAB1AHIAZQBTAGEAbQBwAGwAZQByAAAAVgBpAGUAdwBfAFAAZQByAGwAaQBuAE4AbwBpAHMAZQBHAHIAYQBkAGkAZQBuAHQAVABlAHgAdAB1AHIAZQAAAFYAaQBlAHcAXwBQAGUAcgBsAGkAbgBOAG8AaQBzAGUARwByAGEAZABpAGUAbgB0AFQAZQB4AHQAdQByAGUAUwBhAG0AcABsAGUAcgAAAFYAaQBlAHcAXwBQAGUAcgBsAGkAbgBOAG8AaQBzAGUAMwBEAFQAZQB4AHQAdQByAGUAAABWAGkAZQB3AF8AUABlAHIAbABpAG4ATgBvAGkAcwBlADMARABUAGUAeAB0AHUAcgBlAFMAYQBtAHAAbABlAHIAAABWAGkAZQB3AF8AUwBvAGIAbwBsAFMAYQBtAHAAbABpAG4AZwBUAGUAeAB0AHUAcgBlAAAAVgBpAGUAdwBfAFMAaABhAHIAZQBkAFAAbwBpAG4AdABXAHIAYQBwAHAAZQBkAFMAYQBtAHAAbABlAHIAAABWAGkAZQB3AF8AUwBoAGEAcgBlAGQAUABvAGkAbgB0AEMAbABhAG0AcABlAGQAUwBhAG0AcABsAGUAcgAAAFYAaQBlAHcAXwBTAGgAYQByAGUAZABCAGkAbABpAG4AZQBhAHIAVwByAGEAcABwAGUAZABTAGEAbQBwAGwAZQByAAAAVgBpAGUAdwBfAFMAaABhAHIAZQBkAEIAaQBsAGkAbgBlAGEAcgBDAGwAYQBtAHAAZQBkAFMAYQBtAHAAbABlAHIAAABWAGkAZQB3AF8AUwBoAGEAcgBlAGQAQgBpAGwAaQBuAGUAYQByAEEAbgBpAHMAbwBDAGwAYQBtAHAAZQBkAFMAYQBtAHAAbABlAHIAAABWAGkAZQB3AF8AUwBoAGEAcgBlAGQAVAByAGkAbABpAG4AZQBhAHIAVwByAGEAcABwAGUAZABTAGEAbQBwAGwAZQByAAAAVgBpAGUAdwBfAFMAaABhAHIAZQBkAFQAcgBpAGwAaQBuAGUAYQByAEMAbABhAG0AcABlAGQAUwBhAG0AcABsAGUAcgAAAFYAaQBlAHcAXwBQAHIAZQBJAG4AdABlAGcAcgBhAHQAZQBkAEIAUgBEAEYAAABWAGkAZQB3AF8AUAByAGUASQBuAHQAZQBnAHIAYQB0AGUAZABCAFIARABGAFMAYQBtAHAAbABlAHIAAABWAGkAZQB3AF8AUwBrAHkASQByAHIAYQBkAGkAYQBuAGMAZQBFAG4AdgBpAHIAbwBuAG0AZQBuAHQATQBhAHAAAABWAGkAZQB3AF8AVAByAGEAbgBzAG0AaQB0AHQAYQBuAGMAZQBMAHUAdABUAGUAeAB0AHUAcgBlAAAAVgBpAGUAdwBfAFQAcgBhAG4AcwBtAGkAdAB0AGEAbgBjAGUATAB1AHQAVABlAHgAdAB1AHIAZQBTAGEAbQBwAGwAZQByAAAAVgBpAGUAdwBfAFMAawB5AFYAaQBlAHcATAB1AHQAVABlAHgAdAB1AHIAZQAAAFYAaQBlAHcAXwBTAGsAeQBWAGkAZQB3AEwAdQB0AFQAZQB4AHQAdQByAGUAUwBhAG0AcABsAGUAcgAAAFYAaQBlAHcAXwBEAGkAcwB0AGEAbgB0AFMAawB5AEwAaQBnAGgAdABMAHUAdABUAGUAeAB0AHUAcgBlAAAAVgBpAGUAdwBfAEQAaQBzAHQAYQBuAHQAUwBrAHkATABpAGcAaAB0AEwAdQB0AFQAZQB4AHQAdQByAGUAUwBhAG0AcABsAGUAcgAAAFYAaQBlAHcAXwBDAGEAbQBlAHIAYQBBAGUAcgBpAGEAbABQAGUAcgBzAHAAZQBjAHQAaQB2AGUAVgBvAGwAdQBtAGUAAABWAGkAZQB3AF8AQwBhAG0AZQByAGEAQQBlAHIAaQBhAGwAUABlAHIAcwBwAGUAYwB0AGkAdgBlAFYAbwBsAHUAbQBlAFMAYQBtAHAAbABlAHIAAABWAGkAZQB3AF8AQwBhAG0AZQByAGEAQQBlAHIAaQBhAGwAUABlAHIAcwBwAGUAYwB0AGkAdgBlAFYAbwBsAHUAbQBlAE0AaQBlAE8AbgBsAHkAAABWAGkAZQB3AF8AQwBhAG0AZQByAGEAQQBlAHIAaQBhAGwAUABlAHIAcwBwAGUAYwB0AGkAdgBlAFYAbwBsAHUAbQBlAE0AaQBlAE8AbgBsAHkAUwBhAG0AcABsAGUAcgAAAFYAaQBlAHcAXwBDAGEAbQBlAHIAYQBBAGUAcgBpAGEAbABQAGUAcgBzAHAAZQBjAHQAaQB2AGUAVgBvAGwAdQBtAGUAUgBhAHkATwBuAGwAeQAAAFYAaQBlAHcAXwBDAGEAbQBlAHIAYQBBAGUAcgBpAGEAbABQAGUAcgBzAHAAZQBjAHQAaQB2AGUAVgBvAGwAdQBtAGUAUgBhAHkATwBuAGwAeQBTAGEAbQBwAGwAZQByAAAAVgBpAGUAdwBfAEgAYQBpAHIAUwBjAGEAdAB0AGUAcgBpAG4AZwBMAFUAVABUAGUAeAB0AHUAcgBlAAAAVgBpAGUAdwBfAEgAYQBpAHIAUwBjAGEAdAB0AGUAcgBpAG4AZwBMAFUAVABTAGEAbQBwAGwAZQByAAAAVgBpAGUAdwBfAEcARwBYAEwAVABDAE0AYQB0AFQAZQB4AHQAdQByAGUAAABWAGkAZQB3AF8ARwBHAFgATABUAEMATQBhAHQAUwBhAG0AcABsAGUAcgAAAFYAaQBlAHcAXwBHAEcAWABMAFQAQwBBAG0AcABUAGUAeAB0AHUAcgBlAAAAVgBpAGUAdwBfAEcARwBYAEwAVABDAEEAbQBwAFMAYQBtAHAAbABlAHIAAABWAGkAZQB3AF8AUwBoAGUAZQBuAEwAVABDAFQAZQB4AHQAdQByAGUAAABWAGkAZQB3AF8AUwBoAGUAZQBuAEwAVABDAFMAYQBtAHAAbABlAHIAAABWAGkAZQB3AF8AUwBoAGEAZABpAG4AZwBFAG4AZQByAGcAeQBHAEcAWABTAHAAZQBjAFQAZQB4AHQAdQByAGUAAABWAGkAZQB3AF8AUwBoAGEAZABpAG4AZwBFAG4AZQByAGcAeQBHAEcAWABHAGwAYQBzAHMAVABlAHgAdAB1AHIAZQAAAFYAaQBlAHcAXwBTAGgAYQBkAGkAbgBnAEUAbgBlAHIAZwB5AEMAbABvAHQAaABTAHAAZQBjAFQAZQB4AHQAdQByAGUAAABWAGkAZQB3AF8AUwBoAGEAZABpAG4AZwBFAG4AZQByAGcAeQBEAGkAZgBmAHUAcwBlAFQAZQB4AHQAdQByAGUAAABWAGkAZQB3AF8AUwBoAGEAZABpAG4AZwBFAG4AZQByAGcAeQBTAGEAbQBwAGwAZQByAAAAVgBpAGUAdwBfAEcAbABpAG4AdABUAGUAeAB0AHUAcgBlAAAAVgBpAGUAdwBfAEcAbABpAG4AdABTAGEAbQBwAGwAZQByAAAAVgBpAGUAdwBfAFMAaQBtAHAAbABlAFYAbwBsAHUAbQBlAFQAZQB4AHQAdQByAGUAAABWAGkAZQB3AF8AUwBpAG0AcABsAGUAVgBvAGwAdQBtAGUAVABlAHgAdAB1AHIAZQBTAGEAbQBwAGwAZQByAAAAVgBpAGUAdwBfAFMAaQBtAHAAbABlAFYAbwBsAHUAbQBlAEUAbgB2AFQAZQB4AHQAdQByAGUAAABWAGkAZQB3AF8AUwBpAG0AcABsAGUAVgBvAGwAdQBtAGUARQBuAHYAVABlAHgAdAB1AHIAZQBTAGEAbQBwAGwAZQByAAAAVgBpAGUAdwBfAFMAUwBQAHIAbwBmAGkAbABlAHMAVABlAHgAdAB1AHIAZQAAAFYAaQBlAHcAXwBTAFMAUAByAG8AZgBpAGwAZQBzAFMAYQBtAHAAbABlAHIAAABWAGkAZQB3AF8AUwBTAFAAcgBvAGYAaQBsAGUAcwBUAHIAYQBuAHMAbQBpAHMAcwBpAG8AbgBTAGEAbQBwAGwAZQByAAAAVgBpAGUAdwBfAFMAUwBQAHIAbwBmAGkAbABlAHMAUAByAGUASQBuAHQAZQBnAHIAYQB0AGUAZABUAGUAeAB0AHUAcgBlAAAAVgBpAGUAdwBfAFMAUwBQAHIAbwBmAGkAbABlAHMAUAByAGUASQBuAHQAZQBnAHIAYQB0AGUAZABTAGEAbQBwAGwAZQByAAAAVgBpAGUAdwBfAFMAcABlAGMAdQBsAGEAcgBQAHIAbwBmAGkAbABlAFQAZQB4AHQAdQByAGUAAABWAGkAZQB3AF8AUwBwAGUAYwB1AGwAYQByAFAAcgBvAGYAaQBsAGUAUwBhAG0AcABsAGUAcgAAAFYAaQBlAHcAXwBXAGEAdABlAHIASQBuAGQAaQByAGUAYwB0AGkAbwBuAAAAVgBpAGUAdwBfAFcAYQB0AGUAcgBEAGEAdABhAAAAVgBpAGUAdwBfAFIAZQBjAHQATABpAGcAaAB0AEEAdABsAGEAcwBUAGUAeAB0AHUAcgBlAAAAVgBpAGUAdwBfAFIAZQBjAHQATABpAGcAaAB0AEEAdABsAGEAcwBTAGEAbQBwAGwAZQByAAAAVgBpAGUAdwBfAEkARQBTAEEAdABsAGEAcwBUAGUAeAB0AHUAcgBlAAAAVgBpAGUAdwBfAEkARQBTAEEAdABsAGEAcwBTAGEAbQBwAGwAZQByAAAAVgBpAGUAdwBfAEwAYQBuAGQAcwBjAGEAcABlAFcAZQBpAGcAaAB0AG0AYQBwAFMAYQBtAHAAbABlAHIAAABWAGkAZQB3AF8ATABhAG4AZABzAGMAYQBwAGUASQBuAGQAaQByAGUAYwB0AGkAbwBuAAAAVgBpAGUAdwBfAEwAYQBuAGQAcwBjAGEAcABlAFAAZQByAEMAbwBtAHAAbwBuAGUAbgB0AEQAYQB0AGEAAABWAGkAZQB3AF8AVgBUAEYAZQBlAGQAYgBhAGMAawBCAHUAZgBmAGUAcgAAAFYAaQBlAHcAXwBQAGgAeQBzAGkAYwBzAEYAaQBlAGwAZABDAGwAaQBwAG0AYQBwAEIAdQBmAGYAZQByAAAADgAAAEluc3RhbmNlZFZpZXcADgAAAEluc3RhbmNlZFZpZXcAAQOwHAMAAAAAAAAAAA4AAABEZWZlcnJlZERlY2FsAA8AAABEZWZlcnJlZERlY2FscwAEAiAAAgAAAAAiAAAARABlAGYAZQByAHIAZQBkAEQAZQBjAGEAbABfAFAAcgBlAHYAaQBvAHUAcwBGAHIAYQBtAGUATgBvAHIAbQBhAGwAAAALAAAASW5zdGFuY2VWRgAAAAAABgc2BgEAAAAArQAAAEkAbgBzAHQAYQBuAGMAZQBWAEYAXwBWAGUAcgB0AGUAeABGAGUAdABjAGgAXwBJAG4AcwB0AGEAbgBjAGUATwByAGkAZwBpAG4AQgB1AGYAZgBlAHIAAABJAG4AcwB0AGEAbgBjAGUAVgBGAF8AVgBlAHIAdABlAHgARgBlAHQAYwBoAF8ASQBuAHMAdABhAG4AYwBlAFQAcgBhAG4AcwBmAG8AcgBtAEIAdQBmAGYAZQByAAAASQBuAHMAdABhAG4AYwBlAFYARgBfAFYAZQByAHQAZQB4AEYAZQB0AGMAaABfAEkAbgBzAHQAYQBuAGMAZQBMAGkAZwBoAHQAbQBhAHAAQgB1AGYAZgBlAHIAAABJAG4AcwB0AGEAbgBjAGUAVgBGAF8ASQBuAHMAdABhAG4AYwBlAEMAdQBzAHQAbwBtAEQAYQB0AGEAQgB1AGYAZgBlAHIAAAAYAAAATW9iaWxlUmVmbGVjdGlvbkNhcHR1cmUAAAAAAAgEOAUBAAAAAJgAAABNAG8AYgBpAGwAZQBSAGUAZgBsAGUAYwB0AGkAbwBuAEMAYQBwAHQAdQByAGUAXwBUAGUAeAB0AHUAcgBlAAAATQBvAGIAaQBsAGUAUgBlAGYAbABlAGMAdABpAG8AbgBDAGEAcAB0AHUAcgBlAF8AVABlAHgAdAB1AHIAZQBTAGEAbQBwAGwAZQByAAAATQBvAGIAaQBsAGUAUgBlAGYAbABlAGMAdABpAG8AbgBDAGEAcAB0AHUAcgBlAF8AVABlAHgAdAB1AHIAZQBCAGwAZQBuAGQAAABNAG8AYgBpAGwAZQBSAGUAZgBsAGUAYwB0AGkAbwBuAEMAYQBwAHQAdQByAGUAXwBUAGUAeAB0AHUAcgBlAEIAbABlAG4AZABTAGEAbQBwAGwAZQByAAAAEAAAAFByaW1pdGl2ZURpdGhlcgAAAAAAAAEQAAEAAAAAAAAAAA4AAABQcmltaXRpdmVGYWRlAAAAAAAAARAAAQAAAAAAAAAAFAAAAFNjZW5lVGV4dHVyZXNTdHJ1Y3QADgAAAFNjZW5lVGV4dHVyZXMACA5wCQIAAAAAGwIAAFMAYwBlAG4AZQBUAGUAeAB0AHUAcgBlAHMAUwB0AHIAdQBjAHQAXwBTAGMAZQBuAGUAQwBvAGwAbwByAFQAZQB4AHQAdQByAGUAAABTAGMAZQBuAGUAVABlAHgAdAB1AHIAZQBzAFMAdAByAHUAYwB0AF8AUwBjAGUAbgBlAEQAZQBwAHQAaABUAGUAeAB0AHUAcgBlAAAAUwBjAGUAbgBlAFQAZQB4AHQAdQByAGUAcwBTAHQAcgB1AGMAdABfAFMAYwBlAG4AZQBQAGEAcgB0AGkAYQBsAEQAZQBwAHQAaABUAGUAeAB0AHUAcgBlAAAAUwBjAGUAbgBlAFQAZQB4AHQAdQByAGUAcwBTAHQAcgB1AGMAdABfAEcAQgB1AGYAZgBlAHIAQQBUAGUAeAB0AHUAcgBlAAAAUwBjAGUAbgBlAFQAZQB4AHQAdQByAGUAcwBTAHQAcgB1AGMAdABfAEcAQgB1AGYAZgBlAHIAQgBUAGUAeAB0AHUAcgBlAAAAUwBjAGUAbgBlAFQAZQB4AHQAdQByAGUAcwBTAHQAcgB1AGMAdABfAEcAQgB1AGYAZgBlAHIAQwBUAGUAeAB0AHUAcgBlAAAAUwBjAGUAbgBlAFQAZQB4AHQAdQByAGUAcwBTAHQAcgB1AGMAdABfAEcAQgB1AGYAZgBlAHIARABUAGUAeAB0AHUAcgBlAAAAUwBjAGUAbgBlAFQAZQB4AHQAdQByAGUAcwBTAHQAcgB1AGMAdABfAEcAQgB1AGYAZgBlAHIARQBUAGUAeAB0AHUAcgBlAAAAUwBjAGUAbgBlAFQAZQB4AHQAdQByAGUAcwBTAHQAcgB1AGMAdABfAEcAQgB1AGYAZgBlAHIARgBUAGUAeAB0AHUAcgBlAAAAUwBjAGUAbgBlAFQAZQB4AHQAdQByAGUAcwBTAHQAcgB1AGMAdABfAEcAQgB1AGYAZgBlAHIAVgBlAGwAbwBjAGkAdAB5AFQAZQB4AHQAdQByAGUAAABTAGMAZQBuAGUAVABlAHgAdAB1AHIAZQBzAFMAdAByAHUAYwB0AF8AUwBjAHIAZQBlAG4AUwBwAGEAYwBlAEEATwBUAGUAeAB0AHUAcgBlAAAAUwBjAGUAbgBlAFQAZQB4AHQAdQByAGUAcwBTAHQAcgB1AGMAdABfAEMAdQBzAHQAbwBtAEQAZQBwAHQAaABUAGUAeAB0AHUAcgBlAAAAUwBjAGUAbgBlAFQAZQB4AHQAdQByAGUAcwBTAHQAcgB1AGMAdABfAEMAdQBzAHQAbwBtAFMAdABlAG4AYwBpAGwAVABlAHgAdAB1AHIAZQAAAFMAYwBlAG4AZQBUAGUAeAB0AHUAcgBlAHMAUwB0AHIAdQBjAHQAXwBQAG8AaQBuAHQAQwBsAGEAbQBwAFMAYQBtAHAAbABlAHIAAAARAAAAU2luZ2xlTGF5ZXJXYXRlcgAPAAAARGVmZXJyZWREZWNhbHMAJAsZAAIAAAAAKgIAAFMAaQBuAGcAbABlAEwAYQB5AGUAcgBXAGEAdABlAHIAXwBTAGMAZQBuAGUAQwBvAGwAbwByAFcAaQB0AGgAbwB1AHQAUwBpAG4AZwBsAGUATABhAHkAZQByAFcAYQB0AGUAcgBUAGUAeAB0AHUAcgBlAAAAUwBpAG4AZwBsAGUATABhAHkAZQByAFcAYQB0AGUAcgBfAFMAYwBlAG4AZQBDAG8AbABvAHIAVwBpAHQAaABvAHUAdABTAGkAbgBnAGwAZQBMAGEAeQBlAHIAVwBhAHQAZQByAFMAYQBtAHAAbABlAHIAAABTAGkAbgBnAGwAZQBMAGEAeQBlAHIAVwBhAHQAZQByAF8AUwBjAGUAbgBlAEQAZQBwAHQAaABXAGkAdABoAG8AdQB0AFMAaQBuAGcAbABlAEwAYQB5AGUAcgBXAGEAdABlAHIAVABlAHgAdAB1AHIAZQAAAFMAaQBuAGcAbABlAEwAYQB5AGUAcgBXAGEAdABlAHIAXwBTAGMAZQBuAGUARABlAHAAdABoAFcAaQB0AGgAbwB1AHQAUwBpAG4AZwBsAGUATABhAHkAZQByAFcAYQB0AGUAcgBTAGEAbQBwAGwAZQByAAAAUwBpAG4AZwBsAGUATABhAHkAZQByAFcAYQB0AGUAcgBfAEMAdQBzAHQAbwBtAEQAZQBwAHQAaABUAGUAeAB0AHUAcgBlAAAAUwBpAG4AZwBsAGUATABhAHkAZQByAFcAYQB0AGUAcgBfAEMAdQBzAHQAbwBtAFMAdABlAG4AYwBpAGwAVABlAHgAdAB1AHIAZQAAAFMAaQBuAGcAbABlAEwAYQB5AGUAcgBXAGEAdABlAHIAXwBDAHUAcwB0AG8AbQBEAGUAcAB0AGgAUwBhAG0AcABsAGUAcgAAAFMAaQBuAGcAbABlAEwAYQB5AGUAcgBXAGEAdABlAHIAXwBGAG8AcgB3AGEAcgBkAEQAaQByAEwAaQBnAGgAdABDAGwAbwB1AGQAUwBoAGEAZABvAHcAXwBDAGwAbwB1AGQAUwBoAGEAZABvAHcAbQBhAHAAVABlAHgAdAB1AHIAZQAAAFMAaQBuAGcAbABlAEwAYQB5AGUAcgBXAGEAdABlAHIAXwBGAG8AcgB3AGEAcgBkAEQAaQByAEwAaQBnAGgAdABDAGwAbwB1AGQAUwBoAGEAZABvAHcAXwBDAGwAbwB1AGQAUwBoAGEAZABvAHcAbQBhAHAAUwBhAG0AcABsAGUAcgAAAFMAaQBuAGcAbABlAEwAYQB5AGUAcgBXAGEAdABlAHIAXwBCAGwAdQBlAE4AbwBpAHMAZQBfAFMAYwBhAGwAYQByAFQAZQB4AHQAdQByAGUAAABTAGkAbgBnAGwAZQBMAGEAeQBlAHIAVwBhAHQAZQByAF8AQgBsAHUAZQBOAG8AaQBzAGUAXwBWAGUAYwAyAFQAZQB4AHQAdQByAGUAAAAUAAAATW9iaWxlU2NlbmVUZXh0dXJlcwAOAAAAU2NlbmVUZXh0dXJlcwDIAtAFAgAAAAAaBAAATQBvAGIAaQBsAGUAUwBjAGUAbgBlAFQAZQB4AHQAdQByAGUAcwBfAFMAYwBlAG4AZQBDAG8AbABvAHIAVABlAHgAdAB1AHIAZQAAAE0AbwBiAGkAbABlAFMAYwBlAG4AZQBUAGUAeAB0AHUAcgBlAHMAXwBTAGMAZQBuAGUAQwBvAGwAbwByAFQAZQB4AHQAdQByAGUAUwBhAG0AcABsAGUAcgAAAE0AbwBiAGkAbABlAFMAYwBlAG4AZQBUAGUAeAB0AHUAcgBlAHMAXwBTAGMAZQBuAGUARABlAHAAdABoAFQAZQB4AHQAdQByAGUAAABNAG8AYgBpAGwAZQBTAGMAZQBuAGUAVABlAHgAdAB1AHIAZQBzAF8AUwBjAGUAbgBlAEQAZQBwAHQAaABUAGUAeAB0AHUAcgBlAEEAcgByAGEAeQAAAE0AbwBiAGkAbABlAFMAYwBlAG4AZQBUAGUAeAB0AHUAcgBlAHMAXwBTAGMAZQBuAGUARABlAHAAdABoAFQAZQB4AHQAdQByAGUAUwBhAG0AcABsAGUAcgAAAE0AbwBiAGkAbABlAFMAYwBlAG4AZQBUAGUAeAB0AHUAcgBlAHMAXwBTAGMAZQBuAGUAUABhAHIAdABpAGEAbABEAGUAcAB0AGgAVABlAHgAdAB1AHIAZQAAAE0AbwBiAGkAbABlAFMAYwBlAG4AZQBUAGUAeAB0AHUAcgBlAHMAXwBTAGMAZQBuAGUAUABhAHIAdABpAGEAbABEAGUAcAB0AGgAVABlAHgAdAB1AHIAZQBTAGEAbQBwAGwAZQByAAAATQBvAGIAaQBsAGUAUwBjAGUAbgBlAFQAZQB4AHQAdQByAGUAcwBfAEMAdQBzAHQAbwBtAEQAZQBwAHQAaABUAGUAeAB0AHUAcgBlAAAATQBvAGIAaQBsAGUAUwBjAGUAbgBlAFQAZQB4AHQAdQByAGUAcwBfAEMAdQBzAHQAbwBtAEQAZQBwAHQAaABUAGUAeAB0AHUAcgBlAFMAYQBtAHAAbABlAHIAAABNAG8AYgBpAGwAZQBTAGMAZQBuAGUAVABlAHgAdAB1AHIAZQBzAF8AQwB1AHMAdABvAG0AUwB0AGUAbgBjAGkAbABUAGUAeAB0AHUAcgBlAAAATQBvAGIAaQBsAGUAUwBjAGUAbgBlAFQAZQB4AHQAdQByAGUAcwBfAFMAYwBlAG4AZQBWAGUAbABvAGMAaQB0AHkAVABlAHgAdAB1AHIAZQAAAE0AbwBiAGkAbABlAFMAYwBlAG4AZQBUAGUAeAB0AHUAcgBlAHMAXwBTAGMAZQBuAGUAVgBlAGwAbwBjAGkAdAB5AFQAZQB4AHQAdQByAGUAUwBhAG0AcABsAGUAcgAAAE0AbwBiAGkAbABlAFMAYwBlAG4AZQBUAGUAeAB0AHUAcgBlAHMAXwBHAEIAdQBmAGYAZQByAEEAVABlAHgAdAB1AHIAZQAAAE0AbwBiAGkAbABlAFMAYwBlAG4AZQBUAGUAeAB0AHUAcgBlAHMAXwBHAEIAdQBmAGYAZQByAEIAVABlAHgAdAB1AHIAZQAAAE0AbwBiAGkAbABlAFMAYwBlAG4AZQBUAGUAeAB0AHUAcgBlAHMAXwBHAEIAdQBmAGYAZQByAEMAVABlAHgAdAB1AHIAZQAAAE0AbwBiAGkAbABlAFMAYwBlAG4AZQBUAGUAeAB0AHUAcgBlAHMAXwBHAEIAdQBmAGYAZQByAEQAVABlAHgAdAB1AHIAZQAAAE0AbwBiAGkAbABlAFMAYwBlAG4AZQBUAGUAeAB0AHUAcgBlAHMAXwBTAGMAZQBuAGUARABlAHAAdABoAEEAdQB4AFQAZQB4AHQAdQByAGUAAABNAG8AYgBpAGwAZQBTAGMAZQBuAGUAVABlAHgAdAB1AHIAZQBzAF8AUwBjAGUAbgBlAEQAZQBwAHQAaABBAHUAeABUAGUAeAB0AHUAcgBlAEEAcgByAGEAeQAAAE0AbwBiAGkAbABlAFMAYwBlAG4AZQBUAGUAeAB0AHUAcgBlAHMAXwBMAG8AYwBhAGwATABpAGcAaAB0AFQAZQB4AHQAdQByAGUAQQAAAE0AbwBiAGkAbABlAFMAYwBlAG4AZQBUAGUAeAB0AHUAcgBlAHMAXwBMAG8AYwBhAGwATABpAGcAaAB0AFQAZQB4AHQAdQByAGUAQgAAAE0AbwBiAGkAbABlAFMAYwBlAG4AZQBUAGUAeAB0AHUAcgBlAHMAXwBHAEIAdQBmAGYAZQByAEEAVABlAHgAdAB1AHIAZQBTAGEAbQBwAGwAZQByAAAATQBvAGIAaQBsAGUAUwBjAGUAbgBlAFQAZQB4AHQAdQByAGUAcwBfAEcAQgB1AGYAZgBlAHIAQgBUAGUAeAB0AHUAcgBlAFMAYQBtAHAAbABlAHIAAABNAG8AYgBpAGwAZQBTAGMAZQBuAGUAVABlAHgAdAB1AHIAZQBzAF8ARwBCAHUAZgBmAGUAcgBDAFQAZQB4AHQAdQByAGUAUwBhAG0AcABsAGUAcgAAAE0AbwBiAGkAbABlAFMAYwBlAG4AZQBUAGUAeAB0AHUAcgBlAHMAXwBHAEIAdQBmAGYAZQByAEQAVABlAHgAdAB1AHIAZQBTAGEAbQBwAGwAZQByAAAATQBvAGIAaQBsAGUAUwBjAGUAbgBlAFQAZQB4AHQAdQByAGUAcwBfAFMAYwBlAG4AZQBEAGUAcAB0AGgAQQB1AHgAVABlAHgAdAB1AHIAZQBTAGEAbQBwAGwAZQByAAAAEAAAAEluc3RhbmNlQ3VsbGluZwAWAAAASW5zdGFuY2VDdWxsaW5nVWJTbG90ABkCMAACAAAAAEEAAABJAG4AcwB0AGEAbgBjAGUAQwB1AGwAbABpAG4AZwBfAEkAbgBzAHQAYQBuAGMAZQBJAGQAcwBCAHUAZgBmAGUAcgAAAEkAbgBzAHQAYQBuAGMAZQBDAHUAbABsAGkAbgBnAF8AUABhAGcAZQBJAG4AZgBvAEIAdQBmAGYAZQByAAAACgAAAFByaW1pdGl2ZQAAAAAAAAEAAwEAAAAAAAAAAAYAAABTY2VuZQAGAAAAU2NlbmUAUR+MAAMAAAAAdQEAAFMAYwBlAG4AZQBfAEcAUABVAFMAYwBlAG4AZQBfAEcAUABVAFMAYwBlAG4AZQBJAG4AcwB0AGEAbgBjAGUAUwBjAGUAbgBlAEQAYQB0AGEAAABTAGMAZQBuAGUAXwBHAFAAVQBTAGMAZQBuAGUAXwBHAFAAVQBTAGMAZQBuAGUASQBuAHMAdABhAG4AYwBlAFAAYQB5AGwAbwBhAGQARABhAHQAYQAAAFMAYwBlAG4AZQBfAEcAUABVAFMAYwBlAG4AZQBfAEcAUABVAFMAYwBlAG4AZQBQAHIAaQBtAGkAdABpAHYAZQBTAGMAZQBuAGUARABhAHQAYQAAAFMAYwBlAG4AZQBfAEcAUABVAFMAYwBlAG4AZQBfAEcAUABVAFMAYwBlAG4AZQBMAGkAZwBoAHQAbQBhAHAARABhAHQAYQAAAFMAYwBlAG4AZQBfAEcAUABVAFMAYwBlAG4AZQBfAEcAUABVAFMAYwBlAG4AZQBMAGkAZwBoAHQARABhAHQAYQAAAFMAYwBlAG4AZQBfAE4AYQBuAGkAdABlAE0AYQB0AGUAcgBpAGEAbABzAF8AUAByAGkAbQBpAHQAaQB2AGUATQBhAHQAZQByAGkAYQBsAEQAYQB0AGEAAABTAGMAZQBuAGUAXwBOAGEAbgBpAHQAZQBNAGEAdABlAHIAaQBhAGwAcwBfAE0AYQB0AGUAcgBpAGEAbABEAGEAdABhAAAAUwBjAGUAbgBlAF8AUwBwAGwAaQBuAGUATQBlAHMAaABfAFMAcABsAGkAbgBlAFAAbwBzAFQAZQB4AHQAdQByAGUAAABTAGMAZQBuAGUAXwBTAHAAbABpAG4AZQBNAGUAcwBoAF8AUwBwAGwAaQBuAGUAUgBvAHQAVABlAHgAdAB1AHIAZQAAAFMAYwBlAG4AZQBfAFMAcABsAGkAbgBlAE0AZQBzAGgAXwBTAHAAbABpAG4AZQBTAGEAbQBwAGwAZQByAAAAEQAAAEJhdGNoZWRQcmltaXRpdmUAEQAAAEJhdGNoZWRQcmltaXRpdmUAEQMQAAMBAAAAFgAAAEIAYQB0AGMAaABlAGQAUAByAGkAbQBpAHQAaQB2AGUAXwBEAGEAdABhAAAADgAAAFNwZWVkVHJlZURhdGEAAAAAAAABYAIBAAAAAAAAAAALAAAAQXRtb3NwaGVyZQAAAAAAAAGwAAEAAAAAAAAAAAoAAABCbHVlTm9pc2UAAAAAAA0BNQABAAAAAC4AAABCAGwAdQBlAE4AbwBpAHMAZQBfAFMAYwBhAGwAYQByAFQAZQB4AHQAdQByAGUAAABCAGwAdQBlAE4AbwBpAHMAZQBfAFYAZQBjADIAVABlAHgAdAB1AHIAZQAAAAkAAABCYXNlUGFzcwAAAAAAURaBBQEAAAAAvAYAAEIAYQBzAGUAUABhAHMAcwBfAEYAbwByAHcAYQByAGQAXwBEAGkAcgBlAGMAdABpAG8AbgBhAGwATABpAGcAaAB0AFMAaABhAGQAbwB3AG0AYQBwAEEAdABsAGEAcwAAAEIAYQBzAGUAUABhAHMAcwBfAEYAbwByAHcAYQByAGQAXwBTAGgAYQBkAG8AdwBtAGEAcABTAGEAbQBwAGwAZQByAAAAQgBhAHMAZQBQAGEAcwBzAF8ARgBvAHIAdwBhAHIAZABfAEQAaQByAGUAYwB0AGkAbwBuAGEAbABMAGkAZwBoAHQAUwB0AGEAdABpAGMAUwBoAGEAZABvAHcAbQBhAHAAAABCAGEAcwBlAFAAYQBzAHMAXwBGAG8AcgB3AGEAcgBkAF8AUwB0AGEAdABpAGMAUwBoAGEAZABvAHcAbQBhAHAAUwBhAG0AcABsAGUAcgAAAEIAYQBzAGUAUABhAHMAcwBfAEYAbwByAHcAYQByAGQAXwBGAG8AcgB3AGEAcgBkAEwAbwBjAGEAbABMAGkAZwBoAHQAQgB1AGYAZgBlAHIAAABCAGEAcwBlAFAAYQBzAHMAXwBGAG8AcgB3AGEAcgBkAF8ATgB1AG0AQwB1AGwAbABlAGQATABpAGcAaAB0AHMARwByAGkAZAAAAEIAYQBzAGUAUABhAHMAcwBfAEYAbwByAHcAYQByAGQAXwBDAHUAbABsAGUAZABMAGkAZwBoAHQARABhAHQAYQBHAHIAaQBkADMAMgBCAGkAdAAAAEIAYQBzAGUAUABhAHMAcwBfAEYAbwByAHcAYQByAGQAXwBDAHUAbABsAGUAZABMAGkAZwBoAHQARABhAHQAYQBHAHIAaQBkADEANgBCAGkAdAAAAEIAYQBzAGUAUABhAHMAcwBfAEYAbwByAHcAYQByAGQASQBTAFIAXwBEAGkAcgBlAGMAdABpAG8AbgBhAGwATABpAGcAaAB0AFMAaABhAGQAbwB3AG0AYQBwAEEAdABsAGEAcwAAAEIAYQBzAGUAUABhAHMAcwBfAEYAbwByAHcAYQByAGQASQBTAFIAXwBTAGgAYQBkAG8AdwBtAGEAcABTAGEAbQBwAGwAZQByAAAAQgBhAHMAZQBQAGEAcwBzAF8ARgBvAHIAdwBhAHIAZABJAFMAUgBfAEQAaQByAGUAYwB0AGkAbwBuAGEAbABMAGkAZwBoAHQAUwB0AGEAdABpAGMAUwBoAGEAZABvAHcAbQBhAHAAAABCAGEAcwBlAFAAYQBzAHMAXwBGAG8AcgB3AGEAcgBkAEkAUwBSAF8AUwB0AGEAdABpAGMAUwBoAGEAZABvAHcAbQBhAHAAUwBhAG0AcABsAGUAcgAAAEIAYQBzAGUAUABhAHMAcwBfAEYAbwByAHcAYQByAGQASQBTAFIAXwBGAG8AcgB3AGEAcgBkAEwAbwBjAGEAbABMAGkAZwBoAHQAQgB1AGYAZgBlAHIAAABCAGEAcwBlAFAAYQBzAHMAXwBGAG8AcgB3AGEAcgBkAEkAUwBSAF8ATgB1AG0AQwB1AGwAbABlAGQATABpAGcAaAB0AHMARwByAGkAZAAAAEIAYQBzAGUAUABhAHMAcwBfAEYAbwByAHcAYQByAGQASQBTAFIAXwBDAHUAbABsAGUAZABMAGkAZwBoAHQARABhAHQAYQBHAHIAaQBkADMAMgBCAGkAdAAAAEIAYQBzAGUAUABhAHMAcwBfAEYAbwByAHcAYQByAGQASQBTAFIAXwBDAHUAbABsAGUAZABMAGkAZwBoAHQARABhAHQAYQBHAHIAaQBkADEANgBCAGkAdAAAAEIAYQBzAGUAUABhAHMAcwBfAFIAZQBmAGwAZQBjAHQAaQBvAG4AXwBTAGsAeQBMAGkAZwBoAHQAQwB1AGIAZQBtAGEAcAAAAEIAYQBzAGUAUABhAHMAcwBfAFIAZQBmAGwAZQBjAHQAaQBvAG4AXwBTAGsAeQBMAGkAZwBoAHQAQwB1AGIAZQBtAGEAcABTAGEAbQBwAGwAZQByAAAAQgBhAHMAZQBQAGEAcwBzAF8AUgBlAGYAbABlAGMAdABpAG8AbgBfAFMAawB5AEwAaQBnAGgAdABCAGwAZQBuAGQARABlAHMAdABpAG4AYQB0AGkAbwBuAEMAdQBiAGUAbQBhAHAAAABCAGEAcwBlAFAAYQBzAHMAXwBSAGUAZgBsAGUAYwB0AGkAbwBuAF8AUwBrAHkATABpAGcAaAB0AEIAbABlAG4AZABEAGUAcwB0AGkAbgBhAHQAaQBvAG4AQwB1AGIAZQBtAGEAcABTAGEAbQBwAGwAZQByAAAAQgBhAHMAZQBQAGEAcwBzAF8AUgBlAGYAbABlAGMAdABpAG8AbgBfAFIAZQBmAGwAZQBjAHQAaQBvAG4AQwB1AGIAZQBtAGEAcAAAAEIAYQBzAGUAUABhAHMAcwBfAFIAZQBmAGwAZQBjAHQAaQBvAG4AXwBSAGUAZgBsAGUAYwB0AGkAbwBuAEMAdQBiAGUAbQBhAHAAUwBhAG0AcABsAGUAcgAAAEIAYQBzAGUAUABhAHMAcwBfAFIAZQBmAGwAZQBjAHQAaQBvAG4AXwBQAHIAZQBJAG4AdABlAGcAcgBhAHQAZQBkAEcARgAAAEIAYQBzAGUAUABhAHMAcwBfAFIAZQBmAGwAZQBjAHQAaQBvAG4AXwBQAHIAZQBJAG4AdABlAGcAcgBhAHQAZQBkAEcARgBTAGEAbQBwAGwAZQByAAAAQgBhAHMAZQBQAGEAcwBzAF8AUABsAGEAbgBhAHIAUgBlAGYAbABlAGMAdABpAG8AbgBfAFAAbABhAG4AYQByAFIAZQBmAGwAZQBjAHQAaQBvAG4AVABlAHgAdAB1AHIAZQAAAEIAYQBzAGUAUABhAHMAcwBfAFAAbABhAG4AYQByAFIAZQBmAGwAZQBjAHQAaQBvAG4AXwBQAGwAYQBuAGEAcgBSAGUAZgBsAGUAYwB0AGkAbwBuAFMAYQBtAHAAbABlAHIAAABCAGEAcwBlAFAAYQBzAHMAXwBGAG8AZwBfAEYAbwBnAEkAbgBzAGMAYQB0AHQAZQByAGkAbgBnAEMAbwBsAG8AcgBDAHUAYgBlAG0AYQBwAAAAQgBhAHMAZQBQAGEAcwBzAF8ARgBvAGcAXwBGAG8AZwBJAG4AcwBjAGEAdAB0AGUAcgBpAG4AZwBDAG8AbABvAHIAUwBhAG0AcABsAGUAcgAAAEIAYQBzAGUAUABhAHMAcwBfAEYAbwBnAF8ASQBuAHQAZQBnAHIAYQB0AGUAZABMAGkAZwBoAHQAUwBjAGEAdAB0AGUAcgBpAG4AZwAAAEIAYQBzAGUAUABhAHMAcwBfAEYAbwBnAF8ASQBuAHQAZQBnAHIAYQB0AGUAZABMAGkAZwBoAHQAUwBjAGEAdAB0AGUAcgBpAG4AZwBTAGEAbQBwAGwAZQByAAAAQgBhAHMAZQBQAGEAcwBzAF8ARgBvAGcASQBTAFIAXwBGAG8AZwBJAG4AcwBjAGEAdAB0AGUAcgBpAG4AZwBDAG8AbABvAHIAQwB1AGIAZQBtAGEAcAAAAEIAYQBzAGUAUABhAHMAcwBfAEYAbwBnAEkAUwBSAF8ARgBvAGcASQBuAHMAYwBhAHQAdABlAHIAaQBuAGcAQwBvAGwAbwByAFMAYQBtAHAAbABlAHIAAABCAGEAcwBlAFAAYQBzAHMAXwBGAG8AZwBJAFMAUgBfAEkAbgB0AGUAZwByAGEAdABlAGQATABpAGcAaAB0AFMAYwBhAHQAdABlAHIAaQBuAGcAAABCAGEAcwBlAFAAYQBzAHMAXwBGAG8AZwBJAFMAUgBfAEkAbgB0AGUAZwByAGEAdABlAGQATABpAGcAaAB0AFMAYwBhAHQAdABlAHIAaQBuAGcAUwBhAG0AcABsAGUAcgAAAEIAYQBzAGUAUABhAHMAcwBfAEwARgBWAF8ATABvAGMAYQBsAEYAbwBnAFYAbwBsAHUAbQBlAEkAbgBzAHQAYQBuAGMAZQBzAAAAQgBhAHMAZQBQAGEAcwBzAF8ATABGAFYAXwBMAG8AYwBhAGwARgBvAGcAVgBvAGwAdQBtAGUAVABpAGwAZQBEAGEAdABhAFQAZQB4AHQAdQByAGUAAABCAGEAcwBlAFAAYQBzAHMAXwBMAGkAZwBoAHQARgB1AG4AYwB0AGkAbwBuAEEAdABsAGEAcwBfAEwAaQBnAGgAdABGAHUAbgBjAHQAaQBvAG4AQQB0AGwAYQBzAFQAZQB4AHQAdQByAGUAAABCAGEAcwBlAFAAYQBzAHMAXwBMAGkAZwBoAHQARgB1AG4AYwB0AGkAbwBuAEEAdABsAGEAcwBfAEwAaQBnAGgAdABJAG4AZgBvAEQAYQB0AGEAQgB1AGYAZgBlAHIAAABCAGEAcwBlAFAAYQBzAHMAXwBMAGkAZwBoAHQARgB1AG4AYwB0AGkAbwBuAEEAdABsAGEAcwBfAEwAaQBnAGgAdABGAHUAbgBjAHQAaQBvAG4AQQB0AGwAYQBzAFMAYQBtAHAAbABlAHIAAAAWAAAAVHJhbnNsdWNlbnRTZWxmU2hhZG93AAAAAAAICZUFAQAAAACeAAAAVAByAGEAbgBzAGwAdQBjAGUAbgB0AFMAZQBsAGYAUwBoAGEAZABvAHcAXwBUAHIAYQBuAHMAbQBpAHMAcwBpAG8AbgAwAAAAVAByAGEAbgBzAGwAdQBjAGUAbgB0AFMAZQBsAGYAUwBoAGEAZABvAHcAXwBUAHIAYQBuAHMAbQBpAHMAcwBpAG8AbgAxAAAAVAByAGEAbgBzAGwAdQBjAGUAbgB0AFMAZQBsAGYAUwBoAGEAZABvAHcAXwBUAHIAYQBuAHMAbQBpAHMAcwBpAG8AbgAwAFMAYQBtAHAAbABlAHIAAABUAHIAYQBuAHMAbAB1AGMAZQBuAHQAUwBlAGwAZgBTAGgAYQBkAG8AdwBfAFQAcgBhAG4AcwBtAGkAcwBzAGkAbwBuADEAUwBhAG0AcABsAGUAcgAAABYAAABEZWZlcnJlZExpZ2h0VW5pZm9ybXMAAAAAAAABsAABAAAAAAAAAAANAAAATGlnaHQwU2hhZG93AAAAAADQBNALAQAAAAAOAQAATABpAGcAaAB0ADAAUwBoAGEAZABvAHcAXwBTAGgAYQBkAG8AdwBEAGUAcAB0AGgAVABlAHgAdAB1AHIAZQAAAEwAaQBnAGgAdAAwAFMAaABhAGQAbwB3AF8AUwBoAGEAZABvAHcARABlAHAAdABoAFQAZQB4AHQAdQByAGUAUwBhAG0AcABsAGUAcgAAAEwAaQBnAGgAdAAwAFMAaABhAGQAbwB3AF8AUwBoAGEAZABvAHcARABlAHAAdABoAEMAdQBiAGUAVABlAHgAdAB1AHIAZQAAAEwAaQBnAGgAdAAwAFMAaABhAGQAbwB3AF8AUwBoAGEAZABvAHcARABlAHAAdABoAEMAdQBiAGUAVABlAHgAdAB1AHIAZQAyAAAATABpAGcAaAB0ADAAUwBoAGEAZABvAHcAXwBTAGgAYQBkAG8AdwBEAGUAcAB0AGgAQwB1AGIAZQBUAGUAeAB0AHUAcgBlAFMAYQBtAHAAbABlAHIAAABMAGkAZwBoAHQAMABTAGgAYQBkAG8AdwBfAFMAdABhAHQAaQBjAFMAaABhAGQAbwB3AEQAZQBwAHQAaABUAGUAeAB0AHUAcgBlAAAATABpAGcAaAB0ADAAUwBoAGEAZABvAHcAXwBTAHQAYQB0AGkAYwBTAGgAYQBkAG8AdwBEAGUAcAB0AGgAVABlAHgAdAB1AHIAZQBTAGEAbQBwAGwAZQByAAAADQAAAExpZ2h0MVNoYWRvdwAAAAAA0ATQCwEAAAAADgEAAEwAaQBnAGgAdAAxAFMAaABhAGQAbwB3AF8AUwBoAGEAZABvAHcARABlAHAAdABoAFQAZQB4AHQAdQByAGUAAABMAGkAZwBoAHQAMQBTAGgAYQBkAG8AdwBfAFMAaABhAGQAbwB3AEQAZQBwAHQAaABUAGUAeAB0AHUAcgBlAFMAYQBtAHAAbABlAHIAAABMAGkAZwBoAHQAMQBTAGgAYQBkAG8AdwBfAFMAaABhAGQAbwB3AEQAZQBwAHQAaABDAHUAYgBlAFQAZQB4AHQAdQByAGUAAABMAGkAZwBoAHQAMQBTAGgAYQBkAG8AdwBfAFMAaABhAGQAbwB3AEQAZQBwAHQAaABDAHUAYgBlAFQAZQB4AHQAdQByAGUAMgAAAEwAaQBnAGgAdAAxAFMAaABhAGQAbwB3AF8AUwBoAGEAZABvAHcARABlAHAAdABoAEMAdQBiAGUAVABlAHgAdAB1AHIAZQBTAGEAbQBwAGwAZQByAAAATABpAGcAaAB0ADEAUwBoAGEAZABvAHcAXwBTAHQAYQB0AGkAYwBTAGgAYQBkAG8AdwBEAGUAcAB0AGgAVABlAHgAdAB1AHIAZQAAAEwAaQBnAGgAdAAxAFMAaABhAGQAbwB3AF8AUwB0AGEAdABpAGMAUwBoAGEAZABvAHcARABlAHAAdABoAFQAZQB4AHQAdQByAGUAUwBhAG0AcABsAGUAcgAAABEAAABWaXJ0dWFsU2hhZG93TWFwABcAAABWaXJ0dWFsU2hhZG93TWFwVWJTbG90AAECoBkCAAAAAAUBAABWAGkAcgB0AHUAYQBsAFMAaABhAGQAbwB3AE0AYQBwAF8AUAByAG8AagBlAGMAdABpAG8AbgBEAGEAdABhAAAAVgBpAHIAdAB1AGEAbABTAGgAYQBkAG8AdwBNAGEAcABfAFAAYQBnAGUAVABhAGIAbABlAAAAVgBpAHIAdAB1AGEAbABTAGgAYQBkAG8AdwBNAGEAcABfAFAAYQBnAGUARgBsAGEAZwBzAAAAVgBpAHIAdAB1AGEAbABTAGgAYQBkAG8AdwBNAGEAcABfAFAAYQBnAGUAUgBlAGMAdABCAG8AdQBuAGQAcwAAAFYAaQByAHQAdQBhAGwAUwBoAGEAZABvAHcATQBhAHAAXwBQAGgAeQBzAGkAYwBhAGwAUABhAGcAZQBQAG8AbwBsAAAAVgBpAHIAdAB1AGEAbABTAGgAYQBkAG8AdwBNAGEAcABfAEMAYQBjAGgAZQBQAHIAaQBtAGkAdABpAHYAZQBBAHMARAB5AG4AYQBtAGkAYwAAAFYAaQByAHQAdQBhAGwAUwBoAGEAZABvAHcATQBhAHAAXwBMAGkAZwBoAHQARwByAGkAZABEAGEAdABhAAAAVgBpAHIAdAB1AGEAbABTAGgAYQBkAG8AdwBNAGEAcABfAE4AdQBtAEMAdQBsAGwAZQBkAEwAaQBnAGgAdABzAEcAcgBpAGQAAAAFAAAAQVZTTQAAAAAAsADAAQEAAAAAPwAAAEEAVgBTAE0AXwBMAGkAbgBrAGUAZABMAGkAcwB0AEIAdQBmAGYAZQByAAAAQQBWAFMATQBfAEkAbgBkAGkAcgBlAGMAdABpAG8AbgBCAHUAZgBmAGUAcgAAAEEAVgBTAE0AXwBTAGEAbQBwAGwAZQBCAHUAZgBmAGUAcgAAAAkAAABNYXRlcmlhbAAAAAAACAlNBQEAAAAApQAAAE0AYQB0AGUAcgBpAGEAbABfAFQAZQB4AHQAdQByAGUAMgBEAF8AMAAAAE0AYQB0AGUAcgBpAGEAbABfAFQAZQB4AHQAdQByAGUAMgBEAF8AMABTAGEAbQBwAGwAZQByAAAATQBhAHQAZQByAGkAYQBsAF8AVABlAHgAdAB1AHIAZQAyAEQAXwAxAAAATQBhAHQAZQByAGkAYQBsAF8AVABlAHgAdAB1AHIAZQAyAEQAXwAxAFMAYQBtAHAAbABlAHIAAABNAGEAdABlAHIAaQBhAGwAXwBXAHIAYQBwAF8AVwBvAHIAbABkAEcAcgBvAHUAcABTAGUAdAB0AGkAbgBnAHMAAABNAGEAdABlAHIAaQBhAGwAXwBDAGwAYQBtAHAAXwBXAG8AcgBsAGQARwByAG8AdQBwAFMAZQB0AHQAaQBuAGcAcwAAAAAAAAA=
+BASE64_ENV */
+/* DIRECT COMPILE
+-directcompile -format=PCD3D_SM6 -entry="InjectMainPS" -shaderPlatformName=PCD3D_SM6 -supportedHardwareMask=0 -ps C:/Users/Matteo/Documents/Unreal Projects/mf-livingroom/SpeedStormRiders/SpeedstormRiders/Saved/ShaderDebugInfo/PCD3D_SM6/WorldGridMaterial_ea5d70b5306083b5/Default/FTranslucentLightingInjectPS/31/TranslucentLightInjectionShaders.usf -nocrashreports
+DIRECT COMPILE */

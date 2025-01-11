@@ -1,0 +1,861 @@
+#line 1 "MoveShaderParametersToRootConstantBuffer"
+cbuffer _RootShaderParameters
+{
+uint StartClusterIndex : packoffset(c0);
+uint NumClusters : packoffset(c0.y);
+uint ZeroUniform : packoffset(c0.z);
+uint4 PageConstants : packoffset(c1);
+}
+
+#line 1 "__UE_FILENAME_SENTINEL__"
+uint BitFieldExtractU32(uint Data, uint Size, uint Offset)
+{
+	Size &= 31;
+	Offset &= 31;
+	return (Data >> Offset) & ((1u << Size) - 1u);
+}
+int BitFieldExtractI32(int Data, uint Size, uint Offset)
+{
+	Size &= 31u;
+	Offset &= 31u;
+	const uint Shift = (32u - Size) & 31u;
+	const int Value = (Data >> Offset) & int((1u << Size) - 1u);
+	return (Value << Shift) >> Shift;
+}
+uint BitFieldMaskU32(uint MaskWidth, uint MaskLocation)
+{
+	MaskWidth &= 31u;
+	MaskLocation &= 31u;
+	return ((1u << MaskWidth) - 1u) << MaskLocation;
+}
+uint BitAlignU32(uint High, uint Low, uint Shift)
+{
+	Shift &= 31u;
+	uint Result = Low >> Shift;
+	Result |= Shift > 0u ? (High << (32u - Shift)) : 0u;
+	return Result;
+}
+uint ByteAlignU32(uint High, uint Low, uint Shift)
+{
+	return BitAlignU32(High, Low, Shift * 8);
+}
+uint WaveGetActiveLaneIndexLast()
+{
+	uint2 ActiveMask = WaveActiveBallot( true ).xy;
+	return firstbithigh( ActiveMask.y ? ActiveMask.y : ActiveMask.x ) + ( ActiveMask.y ? 32 : 0 );
+}
+struct FDFMatrix
+{
+	float4x4 M;
+	float3 PostTranslation; 
+};
+struct FDFInverseMatrix
+{
+	float4x4 M;
+	float3 PreTranslation; 
+};
+FDFMatrix WaveReadLaneAt(FDFMatrix In, uint SrcIndex)
+{
+	FDFMatrix Result;
+	Result.M[0] = WaveReadLaneAt(In.M[0], SrcIndex);
+	Result.M[1] = WaveReadLaneAt(In.M[1], SrcIndex);
+	Result.M[2] = WaveReadLaneAt(In.M[2], SrcIndex);
+	Result.M[3] = WaveReadLaneAt(In.M[3], SrcIndex);
+	Result.PostTranslation = WaveReadLaneAt(In.PostTranslation, SrcIndex);
+	return Result;
+}
+FDFInverseMatrix WaveReadLaneAt(FDFInverseMatrix In, uint SrcIndex)
+{
+	FDFInverseMatrix Result;
+	Result.M[0] = WaveReadLaneAt(In.M[0], SrcIndex);
+	Result.M[1] = WaveReadLaneAt(In.M[1], SrcIndex);
+	Result.M[2] = WaveReadLaneAt(In.M[2], SrcIndex);
+	Result.M[3] = WaveReadLaneAt(In.M[3], SrcIndex);
+	Result.PreTranslation = WaveReadLaneAt(In.PreTranslation, SrcIndex);
+	return Result;
+}
+struct FLWCMatrix
+{
+	float4x4 M;
+	float3 Tile; 
+};
+struct FLWCInverseMatrix
+{
+	float4x4 M;
+	float3 Tile; 
+};
+FLWCMatrix WaveReadLaneAt(FLWCMatrix In, uint SrcIndex)
+{
+	FLWCMatrix Result;
+	Result.M[0] = WaveReadLaneAt(In.M[0], SrcIndex);
+	Result.M[1] = WaveReadLaneAt(In.M[1], SrcIndex);
+	Result.M[2] = WaveReadLaneAt(In.M[2], SrcIndex);
+	Result.M[3] = WaveReadLaneAt(In.M[3], SrcIndex);
+	Result.Tile = WaveReadLaneAt(In.Tile, SrcIndex);
+	return Result;
+}
+FLWCInverseMatrix WaveReadLaneAt(FLWCInverseMatrix In, uint SrcIndex)
+{
+	FLWCInverseMatrix Result;
+	Result.M[0] = WaveReadLaneAt(In.M[0], SrcIndex);
+	Result.M[1] = WaveReadLaneAt(In.M[1], SrcIndex);
+	Result.M[2] = WaveReadLaneAt(In.M[2], SrcIndex);
+	Result.M[3] = WaveReadLaneAt(In.M[3], SrcIndex);
+	Result.Tile = WaveReadLaneAt(In.Tile, SrcIndex);
+	return Result;
+}
+bool WaveReadLaneAt(bool In, uint SrcIndex)
+{
+	return (bool)WaveReadLaneAt((uint)In, SrcIndex);
+}
+float4x4 WaveReadLaneAtMatrix(float4x4 In, uint SrcIndex)
+{
+	float4x4 Result;
+	Result[0] = WaveReadLaneAt(In[0], SrcIndex);
+	Result[1] = WaveReadLaneAt(In[1], SrcIndex);
+	Result[2] = WaveReadLaneAt(In[2], SrcIndex);
+	Result[3] = WaveReadLaneAt(In[3], SrcIndex);
+	return Result;
+}
+float3x3 WaveReadLaneAtMatrix(float3x3 In, uint SrcIndex)
+{
+	float3x3 Result;
+	Result[0] = WaveReadLaneAt(In[0], SrcIndex);
+	Result[1] = WaveReadLaneAt(In[1], SrcIndex);
+	Result[2] = WaveReadLaneAt(In[2], SrcIndex);
+	return Result;
+}
+struct FInstanceSceneEditorData
+{
+	float3 HitProxyId;
+	uint   HitProxyPacked;
+	bool bIsSelected;
+};
+struct FInstanceSceneData
+{
+	FDFMatrix LocalToWorld;
+	FDFMatrix PrevLocalToWorld;
+	FDFInverseMatrix WorldToLocal;
+	float4   NonUniformScale;
+	float3   InvNonUniformScale;
+	float    DeterminantSign;
+	float3   LocalBoundsCenter;
+	uint     PrimitiveId;
+	uint     RelativeId;
+	uint     PayloadDataOffset;
+	uint     PayloadExtensionOffset;
+	uint     PayloadExtensionSize;
+	float3   LocalBoundsExtent;
+	uint     LastUpdateSceneFrameNumber;
+	uint     NaniteRuntimeResourceID;
+	uint     NaniteHierarchyOffset;
+	float    RandomID;
+	float4   LightMapAndShadowMapUVBias;
+	bool     ValidInstance;
+	uint     Flags;
+	FInstanceSceneEditorData EditorData;
+};
+FInstanceSceneData WaveReadLaneAt(FInstanceSceneData In, uint SrcIndex)
+{
+	FInstanceSceneData Result;
+	Result.LocalToWorld					= WaveReadLaneAt(In.LocalToWorld, SrcIndex);
+	Result.PrevLocalToWorld				= WaveReadLaneAt(In.PrevLocalToWorld, SrcIndex);
+	Result.WorldToLocal					= WaveReadLaneAt(In.WorldToLocal, SrcIndex);
+	Result.NonUniformScale				= WaveReadLaneAt(In.NonUniformScale, SrcIndex);
+	Result.InvNonUniformScale			= WaveReadLaneAt(In.InvNonUniformScale, SrcIndex);
+	Result.DeterminantSign				= WaveReadLaneAt(In.DeterminantSign, SrcIndex);
+	Result.LocalBoundsCenter			= WaveReadLaneAt(In.LocalBoundsCenter, SrcIndex);
+	Result.PrimitiveId					= WaveReadLaneAt(In.PrimitiveId, SrcIndex);
+	Result.RelativeId					= WaveReadLaneAt(In.RelativeId, SrcIndex);
+	Result.PayloadDataOffset			= WaveReadLaneAt(In.PayloadDataOffset, SrcIndex);
+	Result.PayloadExtensionOffset		= WaveReadLaneAt(In.PayloadExtensionOffset, SrcIndex);
+	Result.PayloadExtensionSize			= WaveReadLaneAt(In.PayloadExtensionSize, SrcIndex);
+	Result.LocalBoundsExtent			= WaveReadLaneAt(In.LocalBoundsExtent, SrcIndex);
+	Result.LocalBoundsCenter			= WaveReadLaneAt(In.LocalBoundsCenter, SrcIndex);
+	Result.PrimitiveId					= WaveReadLaneAt(In.PrimitiveId, SrcIndex);
+	Result.RelativeId					= WaveReadLaneAt(In.RelativeId, SrcIndex);
+	Result.PayloadDataOffset			= WaveReadLaneAt(In.PayloadDataOffset, SrcIndex);
+	Result.PayloadExtensionOffset		= WaveReadLaneAt(In.PayloadExtensionOffset, SrcIndex);
+	Result.PayloadExtensionSize			= WaveReadLaneAt(In.PayloadExtensionSize, SrcIndex);
+	Result.LocalBoundsExtent			= WaveReadLaneAt(In.LocalBoundsExtent, SrcIndex);
+	Result.LastUpdateSceneFrameNumber	= WaveReadLaneAt(In.LastUpdateSceneFrameNumber, SrcIndex);
+	Result.NaniteRuntimeResourceID		= WaveReadLaneAt(In.NaniteRuntimeResourceID, SrcIndex);
+	Result.NaniteHierarchyOffset		= WaveReadLaneAt(In.NaniteHierarchyOffset, SrcIndex);
+	Result.RandomID						= WaveReadLaneAt(In.RandomID, SrcIndex);
+	Result.LightMapAndShadowMapUVBias	= WaveReadLaneAt(In.LightMapAndShadowMapUVBias, SrcIndex);
+	Result.ValidInstance				= WaveReadLaneAt(In.ValidInstance, SrcIndex);
+	Result.Flags						= WaveReadLaneAt(In.Flags, SrcIndex);
+	return Result;
+}
+uint GetUnWrappedDispatchGroupId(uint3 GroupId )
+{
+	return GroupId.x + (GroupId.z * (128U) + GroupId.y) * (128U);
+}
+uint4 UnpackToUint4(uint Value, int4 NumComponentBits)
+{
+	return uint4(BitFieldExtractU32(Value, NumComponentBits.x, 0),
+				 BitFieldExtractU32(Value, NumComponentBits.y, NumComponentBits.x),
+				 BitFieldExtractU32(Value, NumComponentBits.z, NumComponentBits.x + NumComponentBits.y),
+				 BitFieldExtractU32(Value, NumComponentBits.w, NumComponentBits.x + NumComponentBits.y + NumComponentBits.z));
+}
+struct FBitStreamReaderState
+{
+	uint	AlignedByteAddress;
+	int		BitOffsetFromAddress;
+	uint4	BufferBits;
+	int		BufferOffset;
+	int		CompileTimeMinBufferBits;
+	int		CompileTimeMinDwordBits;
+	int		CompileTimeMaxRemainingBits;
+};
+FBitStreamReaderState BitStreamReader_Create_Aligned(uint AlignedByteAddress, uint BitOffset, uint CompileTimeMaxRemainingBits)
+{
+	FBitStreamReaderState State;
+	State.AlignedByteAddress = AlignedByteAddress;
+	State.BitOffsetFromAddress = BitOffset;
+	State.BufferBits = 0;
+	State.BufferOffset = 0;
+	State.CompileTimeMinBufferBits = 0;
+	State.CompileTimeMinDwordBits = 0;
+	State.CompileTimeMaxRemainingBits = CompileTimeMaxRemainingBits;
+	return State;
+}
+uint    BitStreamReader_Read_RW 
+	(RWByteAddressBuffer InputBuffer, inout FBitStreamReaderState State, int NumBits, int CompileTimeMaxBits)
+{
+	if (CompileTimeMaxBits > State.CompileTimeMinBufferBits)
+	{
+		State.BitOffsetFromAddress += State.BufferOffset;	
+		uint Address = State.AlignedByteAddress + ((State.BitOffsetFromAddress >> 5) << 2);
+		uint4 Data = InputBuffer.Load4(Address);
+		State.BufferBits.x												= BitAlignU32(Data.y,	Data.x,	State.BitOffsetFromAddress); 
+		if (State.CompileTimeMaxRemainingBits > 32) State.BufferBits.y	= BitAlignU32(Data.z,	Data.y,	State.BitOffsetFromAddress); 
+		if (State.CompileTimeMaxRemainingBits > 64) State.BufferBits.z	= BitAlignU32(Data.w,	Data.z,	State.BitOffsetFromAddress); 
+		if (State.CompileTimeMaxRemainingBits > 96) State.BufferBits.w	= BitAlignU32(0,		Data.w,	State.BitOffsetFromAddress); 
+		State.BufferOffset = 0;
+		State.CompileTimeMinDwordBits	= min(32, State.CompileTimeMaxRemainingBits);
+		State.CompileTimeMinBufferBits	= min(97, State.CompileTimeMaxRemainingBits);	
+	}
+	else if (CompileTimeMaxBits > State.CompileTimeMinDwordBits)
+	{
+		State.BitOffsetFromAddress += State.BufferOffset;
+		const bool bOffset32 = State.CompileTimeMinDwordBits == 0 && State.BufferOffset == 32;
+		State.BufferBits.x											= bOffset32 ? State.BufferBits.y :	BitAlignU32(State.BufferBits.y, State.BufferBits.x, State.BufferOffset);
+		if (State.CompileTimeMinBufferBits > 32) State.BufferBits.y	= bOffset32 ? State.BufferBits.z :	BitAlignU32(State.BufferBits.z, State.BufferBits.y, State.BufferOffset);
+		if (State.CompileTimeMinBufferBits > 64) State.BufferBits.z	= bOffset32 ? State.BufferBits.w :	BitAlignU32(State.BufferBits.w, State.BufferBits.z, State.BufferOffset);
+		if (State.CompileTimeMinBufferBits > 96) State.BufferBits.w	= bOffset32 ? 0u :					BitAlignU32(0,					State.BufferBits.w, State.BufferOffset);
+		State.BufferOffset = 0;
+		State.CompileTimeMinDwordBits = min(32, State.CompileTimeMaxRemainingBits);
+	}
+	const uint Result = BitFieldExtractU32(State.BufferBits.x, NumBits, State.BufferOffset); 
+	State.BufferOffset += NumBits;
+	State.CompileTimeMinBufferBits    -= CompileTimeMaxBits;
+	State.CompileTimeMinDwordBits     -= CompileTimeMaxBits;
+	State.CompileTimeMaxRemainingBits -= CompileTimeMaxBits;
+	return Result;
+}
+uint2    BitStreamReader_Read2_RW 
+	(RWByteAddressBuffer InputBuffer, inout FBitStreamReaderState State, int2 NumBits, int2 CompileTimeMaxBits)
+{
+	uint ResultX =    BitStreamReader_Read_RW (InputBuffer, State, NumBits.x, CompileTimeMaxBits.x);
+	uint ResultY =    BitStreamReader_Read_RW (InputBuffer, State, NumBits.y, CompileTimeMaxBits.y);
+	return uint2(ResultX, ResultY);
+}
+uint3    BitStreamReader_Read3_RW 
+	(RWByteAddressBuffer InputBuffer, inout FBitStreamReaderState State, int3 NumBits, int3 CompileTimeMaxBits)
+{
+	uint ResultX =    BitStreamReader_Read_RW (InputBuffer, State, NumBits.x, CompileTimeMaxBits.x);
+	uint ResultY =    BitStreamReader_Read_RW (InputBuffer, State, NumBits.y, CompileTimeMaxBits.y);
+	uint ResultZ =    BitStreamReader_Read_RW (InputBuffer, State, NumBits.z, CompileTimeMaxBits.z);
+	return uint3(ResultX, ResultY, ResultZ);
+}
+uint4    BitStreamReader_Read4_RW 
+	(RWByteAddressBuffer InputBuffer, inout FBitStreamReaderState State, int4 NumBits, int4 CompileTimeMaxBits)
+{
+	uint ResultX =    BitStreamReader_Read_RW (InputBuffer, State, NumBits.x, CompileTimeMaxBits.x);
+	uint ResultY =    BitStreamReader_Read_RW (InputBuffer, State, NumBits.y, CompileTimeMaxBits.y);
+	uint ResultZ =    BitStreamReader_Read_RW (InputBuffer, State, NumBits.z, CompileTimeMaxBits.z);
+	uint ResultW =    BitStreamReader_Read_RW (InputBuffer, State, NumBits.w, CompileTimeMaxBits.w);
+	return uint4(ResultX, ResultY, ResultZ, ResultW);
+}
+struct FBitStreamWriterState
+{
+	uint StartAlignedByteAddress;
+	uint StartBitOffset;   	
+	uint StartBufferBits;
+	uint NextAlignedByteAddress;
+	uint BitOffset;	
+	uint BufferBits;
+};
+FBitStreamWriterState BitStreamWriter_Create_Aligned(uint AlignedBaseAddressInBytes, uint BitOffset)
+{
+	FBitStreamWriterState State;
+	State.StartAlignedByteAddress = AlignedBaseAddressInBytes + ((BitOffset >> 5) << 2);
+	BitOffset &= 31u;
+	State.StartBitOffset = BitOffset;
+	State.StartBufferBits = 0;		
+	State.NextAlignedByteAddress = State.StartAlignedByteAddress + 4u;
+	State.BitOffset = BitOffset;	
+	State.BufferBits = 0;
+	return State;
+}
+void BitStreamWriter_Writer(RWByteAddressBuffer Output, inout FBitStreamWriterState State, uint Value, int NumBits, int CompileTimeMaxBits)
+{
+	const uint Tmp = Value << (State.BitOffset & 31u);	
+    if(State.BitOffset >= 32)
+        State.BufferBits |= Tmp;
+    else
+        State.StartBufferBits |= Tmp;
+    const uint NextBitOffset = State.BitOffset + NumBits;
+    if ((State.BitOffset ^ NextBitOffset) >= 32)
+    {
+        if(State.BitOffset >= 32)
+        {
+            Output.Store(State.NextAlignedByteAddress, State.BufferBits);
+            State.NextAlignedByteAddress += 4;
+        }
+        State.BufferBits = (CompileTimeMaxBits < 32 || (State.BitOffset & 31)) ? (Value >> ((32u - State.BitOffset) & 31u)) : 0u;
+    }
+	State.BitOffset = NextBitOffset;
+}
+void BitStreamWriter_Flush(RWByteAddressBuffer Output, inout FBitStreamWriterState State)
+{
+	const uint NumBits = State.BitOffset - State.StartBitOffset;
+	uint StartMask =	NumBits >= 32 ? 0xFFFFFFFFu :
+						BitFieldMaskU32(NumBits, 0);
+	StartMask <<= State.StartBitOffset;
+	Output.InterlockedAnd(State.StartAlignedByteAddress, ~StartMask);
+	Output.InterlockedOr(State.StartAlignedByteAddress, State.StartBufferBits);
+	if (State.BitOffset > 32)
+	{
+		const uint Mask = BitFieldMaskU32(State.BitOffset & 31u, 0);
+		Output.InterlockedAnd(State.NextAlignedByteAddress, ~Mask);
+		Output.InterlockedOr(State.NextAlignedByteAddress, State.BufferBits);
+	}
+}
+struct FPageHeader
+{
+	uint	NumClusters;
+};
+struct FCluster
+{
+	uint	PageBaseAddress;
+	uint	NumVerts;
+	uint	PositionOffset;
+	uint	NumTris;
+	uint	IndexOffset;
+	int3	PosStart;
+	uint	BitsPerIndex;
+	int		PosPrecision;
+	uint3	PosBits;
+	uint	NormalPrecision;
+	uint	TangentPrecision;
+	float4	LODBounds;
+	float3	BoxBoundsCenter;
+	float	LODError;
+	float	EdgeLength;
+	float3	BoxBoundsExtent;
+	uint	Flags;
+	uint	AttributeOffset;
+	uint	BitsPerAttribute;
+	uint	DecodeInfoOffset;
+	bool	bHasTangents;
+	uint	NumUVs;
+	uint	ColorMode;
+	uint	UVBitOffsets;
+	uint	ColorMin;
+	uint	ColorBits;
+	uint	GroupIndex;		
+	uint	MaterialTableOffset;
+	uint	MaterialTableLength;
+	uint	VertReuseBatchCountTableOffset;	
+	uint	VertReuseBatchCountTableSize;	
+	uint	Material0Length;
+	uint	Material0Index;
+	uint 	Material1Length;
+	uint	Material1Index;
+	uint	Material2Index;
+	uint4	VertReuseBatchInfo;
+};
+struct FInstanceDynamicData
+{
+	float4x4	LocalToTranslatedWorld;
+	float4x4	PrevLocalToTranslatedWorld;
+	bool		bHasMoved;
+};
+                           
+ByteAddressBuffer 				ClusterPageData;
+FInstanceDynamicData WaveReadLaneAt(FInstanceDynamicData In, uint SrcIndex)
+{
+	FInstanceDynamicData Result;
+	Result.LocalToTranslatedWorld		= WaveReadLaneAtMatrix(In.LocalToTranslatedWorld, SrcIndex);
+	Result.PrevLocalToTranslatedWorld	= WaveReadLaneAtMatrix(In.PrevLocalToTranslatedWorld, SrcIndex);
+	Result.bHasMoved					= WaveReadLaneAt(In.bHasMoved, SrcIndex);
+	return Result;
+}
+FCluster UnpackCluster(uint4 ClusterData[7])
+{
+	FCluster Cluster;
+	Cluster.PageBaseAddress		= 0;
+	Cluster.NumVerts			= BitFieldExtractU32(ClusterData[0].x, 9, 0);
+	Cluster.PositionOffset		= BitFieldExtractU32(ClusterData[0].x, 23, 9);
+	Cluster.NumTris				= BitFieldExtractU32(ClusterData[0].y, 8, 0);
+	Cluster.IndexOffset			= BitFieldExtractU32(ClusterData[0].y, 24, 8);
+	Cluster.ColorMin			= ClusterData[0].z;
+	Cluster.ColorBits			= BitFieldExtractU32(ClusterData[0].w, 16, 0);
+	Cluster.GroupIndex			= BitFieldExtractU32(ClusterData[0].w, 16, 16);			
+	Cluster.PosStart			= ClusterData[1].xyz;
+	Cluster.BitsPerIndex		= BitFieldExtractU32(ClusterData[1].w, 3, 0) + 1;
+	Cluster.PosPrecision		= (int)BitFieldExtractU32(ClusterData[1].w, 6, 3) + -20;
+	Cluster.PosBits.x			= BitFieldExtractU32(ClusterData[1].w, 5, 9);
+	Cluster.PosBits.y			= BitFieldExtractU32(ClusterData[1].w, 5, 14);
+	Cluster.PosBits.z			= BitFieldExtractU32(ClusterData[1].w, 5, 19);
+	Cluster.NormalPrecision		= BitFieldExtractU32(ClusterData[1].w, 4, 24);
+	Cluster.TangentPrecision	= BitFieldExtractU32(ClusterData[1].w, 4, 28);
+	Cluster.LODBounds			= asfloat(ClusterData[2]);
+	Cluster.BoxBoundsCenter		= asfloat(ClusterData[3].xyz);
+	Cluster.LODError			= f16tof32(ClusterData[3].w);
+	Cluster.EdgeLength			= f16tof32(ClusterData[3].w >> 16);
+	Cluster.BoxBoundsExtent		= asfloat(ClusterData[4].xyz);
+	Cluster.Flags				= ClusterData[4].w;
+	Cluster.AttributeOffset		= BitFieldExtractU32(ClusterData[5].x, 22,  0);
+	Cluster.BitsPerAttribute	= BitFieldExtractU32(ClusterData[5].x, 10, 22);
+	Cluster.DecodeInfoOffset	= BitFieldExtractU32(ClusterData[5].y, 22,  0);
+	Cluster.bHasTangents		= BitFieldExtractU32(ClusterData[5].y,  1, 22);
+	Cluster.NumUVs				= BitFieldExtractU32(ClusterData[5].y,  3, 23);
+	Cluster.ColorMode			= BitFieldExtractU32(ClusterData[5].y,  1, 26);
+	Cluster.UVBitOffsets		= ClusterData[5].z;
+	const uint MaterialEncoding = ClusterData[5].w;
+	[branch]
+	if (MaterialEncoding < 0xFE000000u)
+	{
+		Cluster.MaterialTableOffset	= 0;
+		Cluster.MaterialTableLength	= 0;		
+		Cluster.Material0Index		= BitFieldExtractU32(MaterialEncoding, 6, 0);
+		Cluster.Material1Index		= BitFieldExtractU32(MaterialEncoding, 6, 6);
+		Cluster.Material2Index		= BitFieldExtractU32(MaterialEncoding, 6, 12);
+		Cluster.Material0Length		= BitFieldExtractU32(MaterialEncoding, 7, 18) + 1;
+		Cluster.Material1Length		= BitFieldExtractU32(MaterialEncoding, 7, 25);
+		Cluster.VertReuseBatchCountTableOffset = 0;
+		Cluster.VertReuseBatchCountTableSize = 0;
+		Cluster.VertReuseBatchInfo	= ClusterData[6];
+	}
+	else
+	{
+		Cluster.MaterialTableOffset = BitFieldExtractU32(MaterialEncoding, 19, 0);
+		Cluster.MaterialTableLength	= BitFieldExtractU32(MaterialEncoding, 6, 19) + 1;
+		Cluster.Material0Index		= 0;
+		Cluster.Material1Index		= 0;
+		Cluster.Material2Index		= 0;
+		Cluster.Material0Length		= 0;
+		Cluster.Material1Length		= 0;
+		Cluster.VertReuseBatchCountTableOffset = ClusterData[6].x;
+		Cluster.VertReuseBatchCountTableSize = ClusterData[6].y;
+		Cluster.VertReuseBatchInfo = 0;
+	}
+	return Cluster;
+}
+uint GPUPageIndexToGPUOffset(uint PageIndex)
+{
+	const uint MaxStreamingPages = PageConstants.y;
+	return (min(PageIndex, MaxStreamingPages) << 17) + ((uint)max((int)PageIndex - (int)MaxStreamingPages, 0) << 15);
+}
+FPageHeader UnpackPageHeader(uint4 Data)
+{
+	FPageHeader Header;
+	Header.NumClusters = Data.x;
+	return Header;
+}
+FPageHeader GetPageHeader(ByteAddressBuffer InputBuffer, uint PageAddress)
+{
+	return UnpackPageHeader(InputBuffer.Load4(PageAddress));
+}
+FPageHeader GetPageHeader(RWByteAddressBuffer InputBuffer, uint PageAddress)
+{
+	return UnpackPageHeader(InputBuffer.Load4(PageAddress));
+}
+FCluster GetCluster(ByteAddressBuffer InputBuffer, uint SrcBaseOffset, uint ClusterIndex, uint NumPageClusters)
+{
+	const uint ClusterSOAStride = ( NumPageClusters << 4 );
+	const uint ClusterBaseAddress = SrcBaseOffset + ( ClusterIndex << 4 );
+	uint4 ClusterData[7];
+	[unroll]
+	for(int i = 0; i < 7; i++)
+	{
+		ClusterData[i] = InputBuffer.Load4( ClusterBaseAddress + i * ClusterSOAStride + 16 ); 
+	}
+	return UnpackCluster(ClusterData);
+}
+FCluster GetCluster(RWByteAddressBuffer InputBuffer, uint SrcBaseOffset, uint ClusterIndex, uint NumPageClusters)
+{
+	const uint ClusterSOAStride = (NumPageClusters << 4);
+	const uint ClusterBaseAddress = SrcBaseOffset + (ClusterIndex << 4);
+	uint4 ClusterData[7];
+	[unroll]
+	for (int i = 0; i < 7; i++)
+	{
+		ClusterData[i] = InputBuffer.Load4( ClusterBaseAddress + i * ClusterSOAStride + 16 );  
+	}
+	return UnpackCluster(ClusterData);
+}
+FCluster GetCluster(uint PageIndex, uint ClusterIndex)
+{
+	uint PageBaseAddress = GPUPageIndexToGPUOffset(PageIndex);
+	FPageHeader Header = GetPageHeader(ClusterPageData, PageBaseAddress);
+	FCluster Cluster = GetCluster(ClusterPageData, PageBaseAddress, ClusterIndex, Header.NumClusters);
+	Cluster.PageBaseAddress = PageBaseAddress;
+	return Cluster;
+}
+struct FNaniteRawAttributeData
+{
+	float4 TangentX_AndSign;
+	float3 TangentZ;
+	float4 Color;
+	float2 TexCoords[4];
+};
+FNaniteRawAttributeData WaveReadLaneAt(FNaniteRawAttributeData In, uint SrcIndex)
+{
+	FNaniteRawAttributeData Out;
+	Out.TangentX_AndSign = WaveReadLaneAt(In.TangentX_AndSign, SrcIndex);
+	Out.TangentZ = WaveReadLaneAt(In.TangentZ, SrcIndex);
+	Out.Color = WaveReadLaneAt(In.Color, SrcIndex);
+	[unroll]
+	for (uint i = 0; i < 4; ++i)
+	{
+		Out.TexCoords[i] = WaveReadLaneAt(In.TexCoords[i], SrcIndex);
+	}
+	return Out;
+}
+struct FUVRange
+{
+	uint2	Min;
+	uint2	NumBits;
+	uint	NumMantissaBits;
+};
+FUVRange UnpackUVRange(uint2 Data)
+{
+	FUVRange Range;
+	Range.NumBits.x			= BitFieldExtractU32(Data.x, 5, 0);
+	Range.Min.x				= Data.x >> 5;
+	Range.NumBits.y			= BitFieldExtractU32(Data.y, 5, 0);
+	Range.Min.y				= Data.y >> 5;
+	Range.NumMantissaBits	= 14;	
+	return Range;
+}
+FUVRange GetUVRange(ByteAddressBuffer InputBuffer, uint StartOffset, uint Index)
+{
+	uint2 Data = InputBuffer.Load2(StartOffset + Index * 8);
+	return UnpackUVRange(Data);
+}
+FUVRange GetUVRange(RWByteAddressBuffer InputBuffer, uint StartOffset, uint Index)
+{
+	uint2 Data = InputBuffer.Load2(StartOffset + Index * 8);
+	return UnpackUVRange(Data);
+}
+uint CalculateMaxAttributeBits(uint NumTexCoordInterpolators)
+{
+	uint Size = 0u;
+	Size += 2u * 15;
+	Size += 1u + 12;
+	Size += 4u * 8;
+	Size += NumTexCoordInterpolators * (2u * (1 + 5 + 14));
+	return Size;
+}
+struct FClusterInstallInfo
+{
+	uint LocalPageIndex;
+	uint LocalClusterIndex;
+	uint SrcPageOffset;
+	uint DstPageOffset;
+	uint PageDependenciesOffset;
+};
+struct FPackedClusterInstallInfo
+{
+	uint LocalPageIndex_LocalClusterIndex;
+	uint SrcPageOffset;
+	uint DstPageOffset;
+	uint PageDependenciesOffset;
+};
+struct FPageDiskHeader
+{
+	uint NumClusters;
+	uint NumRawFloat4s;
+	uint NumVertexRefs;
+	uint DecodeInfoOffset;
+	uint StripBitmaskOffset;
+	uint VertexRefBitmaskOffset;
+};
+struct FClusterDiskHeader
+{
+	uint IndexDataOffset;
+	uint PageClusterMapOffset;
+	uint VertexRefDataOffset;
+	uint LowBytesDataOffset;
+	uint MidBytesDataOffset;
+	uint HighBytesDataOffset;
+	uint NumVertexRefs;
+	uint NumPrevRefVerticesBeforeDwords;
+	uint NumPrevNewVerticesBeforeDwords;
+};
+                                
+                          
+                          
+StructuredBuffer<FPackedClusterInstallInfo>	ClusterInstallInfoBuffer;
+StructuredBuffer<uint>						PageDependenciesBuffer;
+ByteAddressBuffer							SrcPageBuffer;
+RWByteAddressBuffer							DstPageBuffer;
+FPageDiskHeader GetPageDiskHeader(uint PageBaseOffset)
+{
+	const uint4 Data0 = SrcPageBuffer.Load4(PageBaseOffset + 0);
+	const uint2 Data1 = SrcPageBuffer.Load2(PageBaseOffset + 16);
+	FPageDiskHeader DiskHeader;
+	DiskHeader.NumClusters				= Data0.x;
+	DiskHeader.NumRawFloat4s			= Data0.y;
+	DiskHeader.NumVertexRefs			= Data0.z;
+	DiskHeader.DecodeInfoOffset			= Data0.w;
+	DiskHeader.StripBitmaskOffset		= Data1.x;
+	DiskHeader.VertexRefBitmaskOffset	= Data1.y;
+	return DiskHeader;
+}
+FClusterDiskHeader GetClusterDiskHeader(uint PageBaseOffset, uint ClusterIndex)
+{
+	const uint ByteOffset = PageBaseOffset + (6*4) + ClusterIndex * (9*4);
+	const uint4 Data0 = SrcPageBuffer.Load4(ByteOffset);
+	const uint4 Data1 = SrcPageBuffer.Load4(ByteOffset + 16);
+	const uint  Data2 = SrcPageBuffer.Load(ByteOffset + 32);
+	FClusterDiskHeader Header;
+	Header.IndexDataOffset					= Data0.x;
+	Header.PageClusterMapOffset				= Data0.y;
+	Header.VertexRefDataOffset				= Data0.z;
+	Header.LowBytesDataOffset				= Data0.w;
+	Header.MidBytesDataOffset				= Data1.x;
+	Header.HighBytesDataOffset				= Data1.y;
+	Header.NumVertexRefs					= Data1.z;
+	Header.NumPrevRefVerticesBeforeDwords	= Data1.w;
+	Header.NumPrevNewVerticesBeforeDwords	= Data2;
+	return Header;
+}
+FClusterInstallInfo GetClusterInstallInfo(uint Index)
+{
+	const FPackedClusterInstallInfo PackedData = ClusterInstallInfoBuffer[Index];
+	FClusterInstallInfo Info;
+	Info.LocalPageIndex			= PackedData.LocalPageIndex_LocalClusterIndex >> ((17 - 9) > (15 - 9) ? (17 - 9) : (15 - 9));
+	Info.LocalClusterIndex		= BitFieldExtractU32(PackedData.LocalPageIndex_LocalClusterIndex, ((17 - 9) > (15 - 9) ? (17 - 9) : (15 - 9)), 0);
+	Info.LocalClusterIndex		+= ZeroUniform;		
+	Info.SrcPageOffset			= PackedData.SrcPageOffset;
+	Info.DstPageOffset			= PackedData.DstPageOffset;
+	Info.PageDependenciesOffset = PackedData.PageDependenciesOffset;
+	return Info;
+}
+template<uint NumComponents>
+uint4 ReadBytes(ByteAddressBuffer InputBuffer, uint BaseAddress, uint Index)
+{
+	const uint Address = BaseAddress + Index * NumComponents;
+	uint4 Result = 0;
+	if (NumComponents == 1)
+	{
+		const uint Data = InputBuffer.Load(Address & ~3u);
+		Result.x = ByteAlignU32(0, Data, Address) & 0xFF;
+	}
+	else
+	{
+		const uint2 Data = InputBuffer.Load2(Address & ~3u);
+		const uint AlignedData = ByteAlignU32(Data.y, Data.x, Address);
+		Result.x = AlignedData & 0xFFu;
+		Result.y = NumComponents >= 2 ? BitFieldExtractU32(AlignedData, 8, 8) : 0u;
+		Result.z = NumComponents >= 3 ? BitFieldExtractU32(AlignedData, 8, 16) : 0u;
+		Result.w = NumComponents >= 4 ? (AlignedData >> 24) : 0u;
+	}
+	return Result;
+}
+int DecodeZigZag(uint Data)
+{
+	return int(Data >> 1) ^ BitFieldExtractI32(Data, 1, 0);
+}
+template<uint NumComponents, uint MaxBytesPerDelta>
+int4 UnpackZigZagDeltas(ByteAddressBuffer InputBuffer, uint3 LowMidHighOffsets, uint BytesPerDelta, uint Index, inout int4 PrevLastValue)
+{
+	uint4 PackedValues = 0;
+	if (MaxBytesPerDelta >= 3 && BytesPerDelta >= 3)
+	{
+		PackedValues |= ReadBytes<NumComponents>(InputBuffer, LowMidHighOffsets.z, Index) << 16;
+	}
+	if (MaxBytesPerDelta >= 2 && BytesPerDelta >= 2)
+	{
+		PackedValues |= ReadBytes<NumComponents>(InputBuffer, LowMidHighOffsets.y, Index) << 8;
+	}
+	if (MaxBytesPerDelta >= 1 && BytesPerDelta >= 1)
+	{
+		PackedValues |= ReadBytes<NumComponents>(InputBuffer, LowMidHighOffsets.x, Index);
+	}
+	int4 Value = 0;
+	Value.x =  (WavePrefixSum( DecodeZigZag(PackedValues.x) ) + DecodeZigZag(PackedValues.x) );
+	if (NumComponents >= 2) Value.y =  (WavePrefixSum( DecodeZigZag(PackedValues.y) ) + DecodeZigZag(PackedValues.y) );
+	if (NumComponents >= 3) Value.z =  (WavePrefixSum( DecodeZigZag(PackedValues.z) ) + DecodeZigZag(PackedValues.z) );
+	if (NumComponents >= 4) Value.w =  (WavePrefixSum( DecodeZigZag(PackedValues.w) ) + DecodeZigZag(PackedValues.w) );
+	Value += PrevLastValue;
+	PrevLastValue =  WaveReadLaneAt( Value , WaveGetActiveLaneIndexLast() );
+	return Value;
+}
+template<uint NumTexCoords>
+void TranscodeVertexAttributes(FPageDiskHeader PageDiskHeader, FCluster Cluster, uint DstPageBaseOffset, uint LocalClusterIndex, uint VertexIndex,
+								FCluster RefCluster, uint RefPageBaseOffset, uint RefVertexIndex, uint SrcPageBaseOffset)
+{
+	const uint CompileTimeMaxAttributeBits = CalculateMaxAttributeBits(NumTexCoords);
+	FBitStreamWriterState OutputStream = BitStreamWriter_Create_Aligned(DstPageBaseOffset + Cluster.AttributeOffset, VertexIndex * Cluster.BitsPerAttribute);	
+	FBitStreamReaderState InputStream = BitStreamReader_Create_Aligned(RefPageBaseOffset + RefCluster.AttributeOffset, RefVertexIndex * RefCluster.BitsPerAttribute, CompileTimeMaxAttributeBits);
+    const uint PackedNormal = BitStreamReader_Read_RW(DstPageBuffer, InputStream, 2 * Cluster.NormalPrecision, 2 * 15);
+    BitStreamWriter_Writer(DstPageBuffer, OutputStream, PackedNormal, 2 * Cluster.NormalPrecision, 2 * 15);
+	const int NumTangentBits = (Cluster.bHasTangents ? (1 + Cluster.TangentPrecision) : 0);
+	const uint PackedTangent = BitStreamReader_Read_RW(DstPageBuffer, InputStream, NumTangentBits, 1 + 12);
+	BitStreamWriter_Writer(DstPageBuffer, OutputStream, PackedTangent, NumTangentBits, 1 + 12);
+    {
+		const uint4 SrcComponentBits = UnpackToUint4(RefCluster.ColorBits, 4);
+		const uint4 SrcColorDelta = BitStreamReader_Read4_RW(DstPageBuffer, InputStream, SrcComponentBits,  8);
+        if (Cluster.ColorMode == 1)
+        {
+			const uint SrcPackedColorDelta = SrcColorDelta.x | (SrcColorDelta.y << 8) | (SrcColorDelta.z << 16) | (SrcColorDelta.w << 24);
+			const uint PackedColor = RefCluster.ColorMin + SrcPackedColorDelta;
+			const uint4 DstComponentBits = UnpackToUint4(Cluster.ColorBits, 4);
+			const uint DstPackedColorDelta = PackedColor - Cluster.ColorMin;
+			const uint PackedDeltaColor =	 BitFieldExtractU32(DstPackedColorDelta, 8, 0) |
+											(BitFieldExtractU32(DstPackedColorDelta, 8, 8) << (DstComponentBits.x)) |
+											(BitFieldExtractU32(DstPackedColorDelta, 8, 16) << (DstComponentBits.x + DstComponentBits.y)) |
+											(BitFieldExtractU32(DstPackedColorDelta, 8, 24) << (DstComponentBits.x + DstComponentBits.y + DstComponentBits.z));
+            BitStreamWriter_Writer(DstPageBuffer, OutputStream, PackedDeltaColor, DstComponentBits.x + DstComponentBits.y + DstComponentBits.z + DstComponentBits.w, 4 * 8);
+        }
+    }
+	 [unroll( 4 )]
+	for (uint TexCoordIndex = 0; TexCoordIndex <  NumTexCoords ; TexCoordIndex++)
+	{
+		const FUVRange SrcUVRange	= GetUVRange(DstPageBuffer, RefPageBaseOffset + RefCluster.DecodeInfoOffset, TexCoordIndex);
+		const FUVRange DstUVRange	= GetUVRange(SrcPageBuffer, SrcPageBaseOffset + PageDiskHeader.DecodeInfoOffset + LocalClusterIndex * NumTexCoords * 8, TexCoordIndex);
+		const uint2 SrcLocalUV		= BitStreamReader_Read2_RW(DstPageBuffer, InputStream, SrcUVRange.NumBits, (1 + 5 + 14));
+		const uint2 DstLocalUV		= SrcLocalUV + SrcUVRange.Min - DstUVRange.Min;
+		BitStreamWriter_Writer(DstPageBuffer, OutputStream, DstLocalUV.x, DstUVRange.NumBits.x, (1 + 5 + 14));
+		BitStreamWriter_Writer(DstPageBuffer, OutputStream, DstLocalUV.y, DstUVRange.NumBits.y, (1 + 5 + 14));
+	}
+    BitStreamWriter_Flush(DstPageBuffer, OutputStream);
+}
+groupshared uint GroupRefToVertex[(1 << 8)];
+groupshared uint GroupNonRefToVertex[(1 << 8)];
+template<bool bRefToVertex, bool bNonRefToVertex>
+void BuildRefTable(uint AlignedBitmaskOffset, uint NumVerts, uint WaveNumActiveLanes, uint GroupIndex)
+{
+	uint NumPrevPassRefs = 0u;
+	uint ReadOffset = AlignedBitmaskOffset;
+	for (uint VertexIndex = GroupIndex; VertexIndex < NumVerts; VertexIndex += WaveNumActiveLanes)
+	{
+		const uint RefMask			= SrcPageBuffer.Load(AlignedBitmaskOffset + (VertexIndex >> 5) * 4);
+		const bool bRef				= BitFieldExtractU32(RefMask, 1, VertexIndex & 31u) != 0;
+		const uint NumMaskedRefs	= WavePrefixCountBits(bRef);
+		const uint RefIndex			= NumPrevPassRefs + NumMaskedRefs;
+		const uint NonRefIndex		= VertexIndex - RefIndex;
+		if (bRefToVertex && bRef)
+		{
+			GroupRefToVertex[RefIndex] = VertexIndex;
+		}
+		if (bNonRefToVertex && !bRef)
+		{
+			GroupNonRefToVertex[NonRefIndex] = VertexIndex;
+		}
+		NumPrevPassRefs += WaveActiveCountBits(bRef);
+	}
+}
+void TranscodePageParentDependent(uint ClusterInstallIndex, uint WaveNumActiveLanes, uint GroupIndex)
+{
+	const FClusterInstallInfo ClusterInstallInfo	= GetClusterInstallInfo(ClusterInstallIndex);
+	const uint SrcPageBaseOffset					= ClusterInstallInfo.SrcPageOffset;
+	const uint DstPageBaseOffset					= ClusterInstallInfo.DstPageOffset;
+	const FPageDiskHeader PageDiskHeader			= GetPageDiskHeader(SrcPageBaseOffset);
+	const uint SrcPackedClusterOffset				= SrcPageBaseOffset + (6*4) + PageDiskHeader.NumClusters * (9*4);
+	const uint LocalClusterIndex					= ClusterInstallInfo.LocalClusterIndex;
+	const FClusterDiskHeader ClusterDiskHeader		= GetClusterDiskHeader(SrcPageBaseOffset, LocalClusterIndex);
+	const FCluster Cluster							= GetCluster(SrcPageBuffer, SrcPackedClusterOffset, LocalClusterIndex, PageDiskHeader.NumClusters);
+	const uint AlignedBitmaskOffset = SrcPageBaseOffset + PageDiskHeader.VertexRefBitmaskOffset + LocalClusterIndex * ((1 << 8) / 8);
+	BuildRefTable<true, false>(AlignedBitmaskOffset, Cluster.NumVerts, WaveNumActiveLanes, GroupIndex);
+	GroupMemoryBarrierWithGroupSync();
+	int4 PrevRefVertexIndex = 0;
+	for (uint RefIndex = GroupIndex; RefIndex < ClusterDiskHeader.NumVertexRefs; RefIndex += WaveNumActiveLanes)
+	{
+		const uint VertexIndex			= GroupRefToVertex[RefIndex];
+		const uint PageClusterIndex		= ReadBytes<1>(SrcPageBuffer, SrcPageBaseOffset + ClusterDiskHeader.VertexRefDataOffset, RefIndex).x;
+		const uint PageClusterData		= SrcPageBuffer.Load(SrcPageBaseOffset + ClusterDiskHeader.PageClusterMapOffset + PageClusterIndex * 4);
+		const uint RefPageIndex			= PageClusterData >> ((17 - 9) > (15 - 9) ? (17 - 9) : (15 - 9));
+		const uint RefLocalClusterIndex = BitFieldExtractU32(PageClusterData, ((17 - 9) > (15 - 9) ? (17 - 9) : (15 - 9)), 0);
+		const uint RefVertexIndex		= UnpackZigZagDeltas<1, 1>(SrcPageBuffer, uint3(SrcPageBaseOffset + ClusterDiskHeader.VertexRefDataOffset + PageDiskHeader.NumVertexRefs, 0, 0), 1, RefIndex, PrevRefVertexIndex).x & 0xFF;
+		uint RefPageBaseOffset = 0;			
+		if (RefPageIndex != 0)
+		{
+			RefPageBaseOffset = GPUPageIndexToGPUOffset(PageDependenciesBuffer[ClusterInstallInfo.PageDependenciesOffset + (RefPageIndex - 1)]);
+		}
+		else
+		{
+			RefPageBaseOffset = DstPageBaseOffset;
+		}
+		const FPageHeader RefPageHeader = GetPageHeader(DstPageBuffer, RefPageBaseOffset);
+		const FCluster RefCluster = GetCluster(DstPageBuffer, RefPageBaseOffset, RefLocalClusterIndex, RefPageHeader.NumClusters);
+		{
+			const uint RefPositionBitsPerVertex = RefCluster.PosBits.x + RefCluster.PosBits.y + RefCluster.PosBits.z;
+			FBitStreamReaderState InputStream = BitStreamReader_Create_Aligned(RefPageBaseOffset + RefCluster.PositionOffset, RefVertexIndex * RefPositionBitsPerVertex, 3 * 21);
+			const int3 RefPosition = BitStreamReader_Read3_RW(DstPageBuffer, InputStream, RefCluster.PosBits, 21);
+			const int3 DstPosition = RefPosition + RefCluster.PosStart - Cluster.PosStart;
+			const uint PositionBitsPerVertex = Cluster.PosBits.x + Cluster.PosBits.y + Cluster.PosBits.z;
+			FBitStreamWriterState OutputStream = BitStreamWriter_Create_Aligned(DstPageBaseOffset + Cluster.PositionOffset, VertexIndex * PositionBitsPerVertex);
+			BitStreamWriter_Writer(DstPageBuffer, OutputStream, DstPosition.x, Cluster.PosBits.x, 21);
+			BitStreamWriter_Writer(DstPageBuffer, OutputStream, DstPosition.y, Cluster.PosBits.y, 21);
+			BitStreamWriter_Writer(DstPageBuffer, OutputStream, DstPosition.z, Cluster.PosBits.z, 21);
+			BitStreamWriter_Flush(DstPageBuffer, OutputStream);
+		}
+		const uint NumTexCoords = Cluster.NumUVs;
+		if (NumTexCoords == 0)
+		{
+			TranscodeVertexAttributes<0>(PageDiskHeader, Cluster, DstPageBaseOffset, LocalClusterIndex, VertexIndex,
+				RefCluster, RefPageBaseOffset, RefVertexIndex, SrcPageBaseOffset);
+		}
+		else if(NumTexCoords == 1)
+        {
+            TranscodeVertexAttributes<1>(PageDiskHeader, Cluster, DstPageBaseOffset, LocalClusterIndex, VertexIndex,
+				RefCluster, RefPageBaseOffset, RefVertexIndex, SrcPageBaseOffset);
+        }
+        else if(NumTexCoords == 2)
+        {
+            TranscodeVertexAttributes<2>(PageDiskHeader, Cluster, DstPageBaseOffset, LocalClusterIndex, VertexIndex,
+				RefCluster, RefPageBaseOffset, RefVertexIndex, SrcPageBaseOffset);
+        }
+        else if(NumTexCoords == 3)
+        {
+            TranscodeVertexAttributes<3>(PageDiskHeader, Cluster, DstPageBaseOffset, LocalClusterIndex, VertexIndex,
+				RefCluster, RefPageBaseOffset, RefVertexIndex, SrcPageBaseOffset);
+        }
+        else if(NumTexCoords == 4)
+        {
+            TranscodeVertexAttributes<4>(PageDiskHeader, Cluster, DstPageBaseOffset, LocalClusterIndex, VertexIndex,
+				RefCluster, RefPageBaseOffset, RefVertexIndex, SrcPageBaseOffset);
+        }
+	}
+}
+[WaveSize( 8 )]
+[numthreads(8, 1, 1)]
+void TranscodePageToGPU(uint3 GroupID : SV_GroupID, uint GroupIndex : SV_GroupIndex)
+{
+	const uint FlatGroupID = GetUnWrappedDispatchGroupId(GroupID);
+	if (FlatGroupID >= NumClusters)
+	{
+		return;
+	}
+	const uint ClusterInstallIndex = StartClusterIndex + FlatGroupID;
+	if (GroupIndex >= WaveGetLaneCount())
+	{
+		return;
+	}
+	const uint WaveNumActiveLanes = min(WaveGetLaneCount(), 8);
+	TranscodePageParentDependent(ClusterInstallIndex, WaveNumActiveLanes, GroupIndex);
+}
+
+/* BASE64_ENV
+BQAAABkAAABWSUVXX0hBU19USUxFT0ZGU0VUX0RBVEEAAAEAAAAeAAAAUFJJTUlUSVZFX0hBU19USUxFT0ZGU0VUX0RBVEEAAAEAAAARAAAASU5TVEFOQ0VEX1NURVJFTwAAAAAAAAsAAABNVUxUSV9WSUVXAAAAAAAAEgAAAE1PQklMRV9NVUxUSV9WSUVXAAAAAAAAABAQYAQAAAAAAAAAhgAAAAkJAAAJCQEACQkCAAkJAwAJEAQACRAFAAQIAAAECAEABAUCAAQFAwAEBQQABAUFAAQFBgAEBQcABAUIAAQFCQAEBQoABAULAAQIDAAECA0ABAgOAAQIDwAECBAABAgRAAQIEgAECBMABAgUAAQFFQAEBRYABAUXAAQFGAAECBkABAgaAAQIGwAEBRwABAgdAAQFHgAECB8ABAUgAAQIIQAEBSIABAgjAAQFJAAECCUABAUmAAQIJwAECCgABAgpAAQIKgAECCsABAgsAAQILQAEBS4ABAgvAAQGMAAEBTEABAgyAAQFMwAECDQABAU1AAQINgAEBTcABAg4AAQFOQAECDoABAU7AAQIPAAEBT0ABAg+AAQFPwAECEAABAVBAAQIQgAEBUMABAhEAAQFRQAEBUYABAVHAAQFSAAECEkABAVKAAQISwAEBUwABAhNAAQFTgAECE8ABAVQAAQIUQAECFIABAVTAAQIVAAEBVUABAhWAAQGVwAEBlgABAVZAAQIWgAEBVsABAhcAAQIXQAEBl4ABAZfAAQHYAAEBmEADxAAAA8QAQAFEAAABRABAAUQAgAFEAMABRAEAAUQBQAFEAYABQwHAAUMCAAFCAkAEBAAAAYQAAAGEAEABhACAAYQAwAGBgQABgkFAAYJBgAGCQcABgkIAAYQCQAGEAoABhALAAYQDAAGEA0AEAYAABAGAQAQBgIACgAAABgAAABEcmF3UmVjdGFuZ2xlUGFyYW1ldGVycwAAAAAAAAEwAAEAAAAAAAAAAAoAAABTdWJzdHJhdGUAAAAAAEERcAkBAAAAALwAAABTAHUAYgBzAHQAcgBhAHQAZQBfAE0AYQB0AGUAcgBpAGEAbABUAGUAeAB0AHUAcgBlAEEAcgByAGEAeQAAAFMAdQBiAHMAdAByAGEAdABlAF8AVABvAHAATABhAHkAZQByAFQAZQB4AHQAdQByAGUAAABTAHUAYgBzAHQAcgBhAHQAZQBfAE8AcABhAHEAdQBlAFIAbwB1AGcAaABSAGUAZgByAGEAYwB0AGkAbwBuAFQAZQB4AHQAdQByAGUAAABTAHUAYgBzAHQAcgBhAHQAZQBfAEMAbABvAHMAdQByAGUATwBmAGYAcwBlAHQAVABlAHgAdAB1AHIAZQAAAFMAdQBiAHMAdAByAGEAdABlAF8AQwBsAG8AcwB1AHIAZQBUAGkAbABlAEIAdQBmAGYAZQByAAAAUwB1AGIAcwB0AHIAYQB0AGUAXwBDAGwAbwBzAHUAcgBlAFQAaQBsAGUAQwBvAHUAbgB0AEIAdQBmAGYAZQByAAAABQAAAFZpZXcABQAAAFZpZXcAGgJoFQMAAAAA8AwAAFYAaQBlAHcAXwBNAGEAdABlAHIAaQBhAGwAVABlAHgAdAB1AHIAZQBCAGkAbABpAG4AZQBhAHIAVwByAGEAcABlAGQAUwBhAG0AcABsAGUAcgAAAFYAaQBlAHcAXwBNAGEAdABlAHIAaQBhAGwAVABlAHgAdAB1AHIAZQBCAGkAbABpAG4AZQBhAHIAQwBsAGEAbQBwAGUAZABTAGEAbQBwAGwAZQByAAAAVgBpAGUAdwBfAFYAbwBsAHUAbQBlAHQAcgBpAGMATABpAGcAaAB0AG0AYQBwAEkAbgBkAGkAcgBlAGMAdABpAG8AbgBUAGUAeAB0AHUAcgBlAAAAVgBpAGUAdwBfAFYAbwBsAHUAbQBlAHQAcgBpAGMATABpAGcAaAB0AG0AYQBwAEIAcgBpAGMAawBBAG0AYgBpAGUAbgB0AFYAZQBjAHQAbwByAAAAVgBpAGUAdwBfAFYAbwBsAHUAbQBlAHQAcgBpAGMATABpAGcAaAB0AG0AYQBwAEIAcgBpAGMAawBTAEgAQwBvAGUAZgBmAGkAYwBpAGUAbgB0AHMAMAAAAFYAaQBlAHcAXwBWAG8AbAB1AG0AZQB0AHIAaQBjAEwAaQBnAGgAdABtAGEAcABCAHIAaQBjAGsAUwBIAEMAbwBlAGYAZgBpAGMAaQBlAG4AdABzADEAAABWAGkAZQB3AF8AVgBvAGwAdQBtAGUAdAByAGkAYwBMAGkAZwBoAHQAbQBhAHAAQgByAGkAYwBrAFMASABDAG8AZQBmAGYAaQBjAGkAZQBuAHQAcwAyAAAAVgBpAGUAdwBfAFYAbwBsAHUAbQBlAHQAcgBpAGMATABpAGcAaAB0AG0AYQBwAEIAcgBpAGMAawBTAEgAQwBvAGUAZgBmAGkAYwBpAGUAbgB0AHMAMwAAAFYAaQBlAHcAXwBWAG8AbAB1AG0AZQB0AHIAaQBjAEwAaQBnAGgAdABtAGEAcABCAHIAaQBjAGsAUwBIAEMAbwBlAGYAZgBpAGMAaQBlAG4AdABzADQAAABWAGkAZQB3AF8AVgBvAGwAdQBtAGUAdAByAGkAYwBMAGkAZwBoAHQAbQBhAHAAQgByAGkAYwBrAFMASABDAG8AZQBmAGYAaQBjAGkAZQBuAHQAcwA1AAAAVgBpAGUAdwBfAFMAawB5AEIAZQBuAHQATgBvAHIAbQBhAGwAQgByAGkAYwBrAFQAZQB4AHQAdQByAGUAAABWAGkAZQB3AF8ARABpAHIAZQBjAHQAaQBvAG4AYQBsAEwAaQBnAGgAdABTAGgAYQBkAG8AdwBpAG4AZwBCAHIAaQBjAGsAVABlAHgAdAB1AHIAZQAAAFYAaQBlAHcAXwBWAG8AbAB1AG0AZQB0AHIAaQBjAEwAaQBnAGgAdABtAGEAcABCAHIAaQBjAGsAQQBtAGIAaQBlAG4AdABWAGUAYwB0AG8AcgBTAGEAbQBwAGwAZQByAAAAVgBpAGUAdwBfAFYAbwBsAHUAbQBlAHQAcgBpAGMATABpAGcAaAB0AG0AYQBwAFQAZQB4AHQAdQByAGUAUwBhAG0AcABsAGUAcgAwAAAAVgBpAGUAdwBfAFYAbwBsAHUAbQBlAHQAcgBpAGMATABpAGcAaAB0AG0AYQBwAFQAZQB4AHQAdQByAGUAUwBhAG0AcABsAGUAcgAxAAAAVgBpAGUAdwBfAFYAbwBsAHUAbQBlAHQAcgBpAGMATABpAGcAaAB0AG0AYQBwAFQAZQB4AHQAdQByAGUAUwBhAG0AcABsAGUAcgAyAAAAVgBpAGUAdwBfAFYAbwBsAHUAbQBlAHQAcgBpAGMATABpAGcAaAB0AG0AYQBwAFQAZQB4AHQAdQByAGUAUwBhAG0AcABsAGUAcgAzAAAAVgBpAGUAdwBfAFYAbwBsAHUAbQBlAHQAcgBpAGMATABpAGcAaAB0AG0AYQBwAFQAZQB4AHQAdQByAGUAUwBhAG0AcABsAGUAcgA0AAAAVgBpAGUAdwBfAFYAbwBsAHUAbQBlAHQAcgBpAGMATABpAGcAaAB0AG0AYQBwAFQAZQB4AHQAdQByAGUAUwBhAG0AcABsAGUAcgA1AAAAVgBpAGUAdwBfAFMAawB5AEIAZQBuAHQATgBvAHIAbQBhAGwAVABlAHgAdAB1AHIAZQBTAGEAbQBwAGwAZQByAAAAVgBpAGUAdwBfAEQAaQByAGUAYwB0AGkAbwBuAGEAbABMAGkAZwBoAHQAUwBoAGEAZABvAHcAaQBuAGcAVABlAHgAdAB1AHIAZQBTAGEAbQBwAGwAZQByAAAAVgBpAGUAdwBfAEcAbABvAGIAYQBsAEQAaQBzAHQAYQBuAGMAZQBGAGkAZQBsAGQAUABhAGcAZQBBAHQAbABhAHMAVABlAHgAdAB1AHIAZQAAAFYAaQBlAHcAXwBHAGwAbwBiAGEAbABEAGkAcwB0AGEAbgBjAGUARgBpAGUAbABkAEMAbwB2AGUAcgBhAGcAZQBBAHQAbABhAHMAVABlAHgAdAB1AHIAZQAAAFYAaQBlAHcAXwBHAGwAbwBiAGEAbABEAGkAcwB0AGEAbgBjAGUARgBpAGUAbABkAFAAYQBnAGUAVABhAGIAbABlAFQAZQB4AHQAdQByAGUAAABWAGkAZQB3AF8ARwBsAG8AYgBhAGwARABpAHMAdABhAG4AYwBlAEYAaQBlAGwAZABNAGkAcABUAGUAeAB0AHUAcgBlAAAAVgBpAGUAdwBfAEcAbABvAGIAYQBsAEQAaQBzAHQAYQBuAGMAZQBGAGkAZQBsAGQAUABhAGcAZQBBAHQAbABhAHMAVABlAHgAdAB1AHIAZQBTAGEAbQBwAGwAZQByAAAAVgBpAGUAdwBfAEcAbABvAGIAYQBsAEQAaQBzAHQAYQBuAGMAZQBGAGkAZQBsAGQAQwBvAHYAZQByAGEAZwBlAEEAdABsAGEAcwBUAGUAeAB0AHUAcgBlAFMAYQBtAHAAbABlAHIAAABWAGkAZQB3AF8ARwBsAG8AYgBhAGwARABpAHMAdABhAG4AYwBlAEYAaQBlAGwAZABNAGkAcABUAGUAeAB0AHUAcgBlAFMAYQBtAHAAbABlAHIAAABWAGkAZQB3AF8AQQB0AG0AbwBzAHAAaABlAHIAZQBUAHIAYQBuAHMAbQBpAHQAdABhAG4AYwBlAFQAZQB4AHQAdQByAGUAAABWAGkAZQB3AF8AQQB0AG0AbwBzAHAAaABlAHIAZQBUAHIAYQBuAHMAbQBpAHQAdABhAG4AYwBlAFQAZQB4AHQAdQByAGUAUwBhAG0AcABsAGUAcgAAAFYAaQBlAHcAXwBBAHQAbQBvAHMAcABoAGUAcgBlAEkAcgByAGEAZABpAGEAbgBjAGUAVABlAHgAdAB1AHIAZQAAAFYAaQBlAHcAXwBBAHQAbQBvAHMAcABoAGUAcgBlAEkAcgByAGEAZABpAGEAbgBjAGUAVABlAHgAdAB1AHIAZQBTAGEAbQBwAGwAZQByAAAAVgBpAGUAdwBfAEEAdABtAG8AcwBwAGgAZQByAGUASQBuAHMAYwBhAHQAdABlAHIAVABlAHgAdAB1AHIAZQAAAFYAaQBlAHcAXwBBAHQAbQBvAHMAcABoAGUAcgBlAEkAbgBzAGMAYQB0AHQAZQByAFQAZQB4AHQAdQByAGUAUwBhAG0AcABsAGUAcgAAAFYAaQBlAHcAXwBQAGUAcgBsAGkAbgBOAG8AaQBzAGUARwByAGEAZABpAGUAbgB0AFQAZQB4AHQAdQByAGUAAABWAGkAZQB3AF8AUABlAHIAbABpAG4ATgBvAGkAcwBlAEcAcgBhAGQAaQBlAG4AdABUAGUAeAB0AHUAcgBlAFMAYQBtAHAAbABlAHIAAABWAGkAZQB3AF8AUABlAHIAbABpAG4ATgBvAGkAcwBlADMARABUAGUAeAB0AHUAcgBlAAAAVgBpAGUAdwBfAFAAZQByAGwAaQBuAE4AbwBpAHMAZQAzAEQAVABlAHgAdAB1AHIAZQBTAGEAbQBwAGwAZQByAAAAVgBpAGUAdwBfAFMAbwBiAG8AbABTAGEAbQBwAGwAaQBuAGcAVABlAHgAdAB1AHIAZQAAAFYAaQBlAHcAXwBTAGgAYQByAGUAZABQAG8AaQBuAHQAVwByAGEAcABwAGUAZABTAGEAbQBwAGwAZQByAAAAVgBpAGUAdwBfAFMAaABhAHIAZQBkAFAAbwBpAG4AdABDAGwAYQBtAHAAZQBkAFMAYQBtAHAAbABlAHIAAABWAGkAZQB3AF8AUwBoAGEAcgBlAGQAQgBpAGwAaQBuAGUAYQByAFcAcgBhAHAAcABlAGQAUwBhAG0AcABsAGUAcgAAAFYAaQBlAHcAXwBTAGgAYQByAGUAZABCAGkAbABpAG4AZQBhAHIAQwBsAGEAbQBwAGUAZABTAGEAbQBwAGwAZQByAAAAVgBpAGUAdwBfAFMAaABhAHIAZQBkAEIAaQBsAGkAbgBlAGEAcgBBAG4AaQBzAG8AQwBsAGEAbQBwAGUAZABTAGEAbQBwAGwAZQByAAAAVgBpAGUAdwBfAFMAaABhAHIAZQBkAFQAcgBpAGwAaQBuAGUAYQByAFcAcgBhAHAAcABlAGQAUwBhAG0AcABsAGUAcgAAAFYAaQBlAHcAXwBTAGgAYQByAGUAZABUAHIAaQBsAGkAbgBlAGEAcgBDAGwAYQBtAHAAZQBkAFMAYQBtAHAAbABlAHIAAABWAGkAZQB3AF8AUAByAGUASQBuAHQAZQBnAHIAYQB0AGUAZABCAFIARABGAAAAVgBpAGUAdwBfAFAAcgBlAEkAbgB0AGUAZwByAGEAdABlAGQAQgBSAEQARgBTAGEAbQBwAGwAZQByAAAAVgBpAGUAdwBfAFMAawB5AEkAcgByAGEAZABpAGEAbgBjAGUARQBuAHYAaQByAG8AbgBtAGUAbgB0AE0AYQBwAAAAVgBpAGUAdwBfAFQAcgBhAG4AcwBtAGkAdAB0AGEAbgBjAGUATAB1AHQAVABlAHgAdAB1AHIAZQAAAFYAaQBlAHcAXwBUAHIAYQBuAHMAbQBpAHQAdABhAG4AYwBlAEwAdQB0AFQAZQB4AHQAdQByAGUAUwBhAG0AcABsAGUAcgAAAFYAaQBlAHcAXwBTAGsAeQBWAGkAZQB3AEwAdQB0AFQAZQB4AHQAdQByAGUAAABWAGkAZQB3AF8AUwBrAHkAVgBpAGUAdwBMAHUAdABUAGUAeAB0AHUAcgBlAFMAYQBtAHAAbABlAHIAAABWAGkAZQB3AF8ARABpAHMAdABhAG4AdABTAGsAeQBMAGkAZwBoAHQATAB1AHQAVABlAHgAdAB1AHIAZQAAAFYAaQBlAHcAXwBEAGkAcwB0AGEAbgB0AFMAawB5AEwAaQBnAGgAdABMAHUAdABUAGUAeAB0AHUAcgBlAFMAYQBtAHAAbABlAHIAAABWAGkAZQB3AF8AQwBhAG0AZQByAGEAQQBlAHIAaQBhAGwAUABlAHIAcwBwAGUAYwB0AGkAdgBlAFYAbwBsAHUAbQBlAAAAVgBpAGUAdwBfAEMAYQBtAGUAcgBhAEEAZQByAGkAYQBsAFAAZQByAHMAcABlAGMAdABpAHYAZQBWAG8AbAB1AG0AZQBTAGEAbQBwAGwAZQByAAAAVgBpAGUAdwBfAEMAYQBtAGUAcgBhAEEAZQByAGkAYQBsAFAAZQByAHMAcABlAGMAdABpAHYAZQBWAG8AbAB1AG0AZQBNAGkAZQBPAG4AbAB5AAAAVgBpAGUAdwBfAEMAYQBtAGUAcgBhAEEAZQByAGkAYQBsAFAAZQByAHMAcABlAGMAdABpAHYAZQBWAG8AbAB1AG0AZQBNAGkAZQBPAG4AbAB5AFMAYQBtAHAAbABlAHIAAABWAGkAZQB3AF8AQwBhAG0AZQByAGEAQQBlAHIAaQBhAGwAUABlAHIAcwBwAGUAYwB0AGkAdgBlAFYAbwBsAHUAbQBlAFIAYQB5AE8AbgBsAHkAAABWAGkAZQB3AF8AQwBhAG0AZQByAGEAQQBlAHIAaQBhAGwAUABlAHIAcwBwAGUAYwB0AGkAdgBlAFYAbwBsAHUAbQBlAFIAYQB5AE8AbgBsAHkAUwBhAG0AcABsAGUAcgAAAFYAaQBlAHcAXwBIAGEAaQByAFMAYwBhAHQAdABlAHIAaQBuAGcATABVAFQAVABlAHgAdAB1AHIAZQAAAFYAaQBlAHcAXwBIAGEAaQByAFMAYwBhAHQAdABlAHIAaQBuAGcATABVAFQAUwBhAG0AcABsAGUAcgAAAFYAaQBlAHcAXwBHAEcAWABMAFQAQwBNAGEAdABUAGUAeAB0AHUAcgBlAAAAVgBpAGUAdwBfAEcARwBYAEwAVABDAE0AYQB0AFMAYQBtAHAAbABlAHIAAABWAGkAZQB3AF8ARwBHAFgATABUAEMAQQBtAHAAVABlAHgAdAB1AHIAZQAAAFYAaQBlAHcAXwBHAEcAWABMAFQAQwBBAG0AcABTAGEAbQBwAGwAZQByAAAAVgBpAGUAdwBfAFMAaABlAGUAbgBMAFQAQwBUAGUAeAB0AHUAcgBlAAAAVgBpAGUAdwBfAFMAaABlAGUAbgBMAFQAQwBTAGEAbQBwAGwAZQByAAAAVgBpAGUAdwBfAFMAaABhAGQAaQBuAGcARQBuAGUAcgBnAHkARwBHAFgAUwBwAGUAYwBUAGUAeAB0AHUAcgBlAAAAVgBpAGUAdwBfAFMAaABhAGQAaQBuAGcARQBuAGUAcgBnAHkARwBHAFgARwBsAGEAcwBzAFQAZQB4AHQAdQByAGUAAABWAGkAZQB3AF8AUwBoAGEAZABpAG4AZwBFAG4AZQByAGcAeQBDAGwAbwB0AGgAUwBwAGUAYwBUAGUAeAB0AHUAcgBlAAAAVgBpAGUAdwBfAFMAaABhAGQAaQBuAGcARQBuAGUAcgBnAHkARABpAGYAZgB1AHMAZQBUAGUAeAB0AHUAcgBlAAAAVgBpAGUAdwBfAFMAaABhAGQAaQBuAGcARQBuAGUAcgBnAHkAUwBhAG0AcABsAGUAcgAAAFYAaQBlAHcAXwBHAGwAaQBuAHQAVABlAHgAdAB1AHIAZQAAAFYAaQBlAHcAXwBHAGwAaQBuAHQAUwBhAG0AcABsAGUAcgAAAFYAaQBlAHcAXwBTAGkAbQBwAGwAZQBWAG8AbAB1AG0AZQBUAGUAeAB0AHUAcgBlAAAAVgBpAGUAdwBfAFMAaQBtAHAAbABlAFYAbwBsAHUAbQBlAFQAZQB4AHQAdQByAGUAUwBhAG0AcABsAGUAcgAAAFYAaQBlAHcAXwBTAGkAbQBwAGwAZQBWAG8AbAB1AG0AZQBFAG4AdgBUAGUAeAB0AHUAcgBlAAAAVgBpAGUAdwBfAFMAaQBtAHAAbABlAFYAbwBsAHUAbQBlAEUAbgB2AFQAZQB4AHQAdQByAGUAUwBhAG0AcABsAGUAcgAAAFYAaQBlAHcAXwBTAFMAUAByAG8AZgBpAGwAZQBzAFQAZQB4AHQAdQByAGUAAABWAGkAZQB3AF8AUwBTAFAAcgBvAGYAaQBsAGUAcwBTAGEAbQBwAGwAZQByAAAAVgBpAGUAdwBfAFMAUwBQAHIAbwBmAGkAbABlAHMAVAByAGEAbgBzAG0AaQBzAHMAaQBvAG4AUwBhAG0AcABsAGUAcgAAAFYAaQBlAHcAXwBTAFMAUAByAG8AZgBpAGwAZQBzAFAAcgBlAEkAbgB0AGUAZwByAGEAdABlAGQAVABlAHgAdAB1AHIAZQAAAFYAaQBlAHcAXwBTAFMAUAByAG8AZgBpAGwAZQBzAFAAcgBlAEkAbgB0AGUAZwByAGEAdABlAGQAUwBhAG0AcABsAGUAcgAAAFYAaQBlAHcAXwBTAHAAZQBjAHUAbABhAHIAUAByAG8AZgBpAGwAZQBUAGUAeAB0AHUAcgBlAAAAVgBpAGUAdwBfAFMAcABlAGMAdQBsAGEAcgBQAHIAbwBmAGkAbABlAFMAYQBtAHAAbABlAHIAAABWAGkAZQB3AF8AVwBhAHQAZQByAEkAbgBkAGkAcgBlAGMAdABpAG8AbgAAAFYAaQBlAHcAXwBXAGEAdABlAHIARABhAHQAYQAAAFYAaQBlAHcAXwBSAGUAYwB0AEwAaQBnAGgAdABBAHQAbABhAHMAVABlAHgAdAB1AHIAZQAAAFYAaQBlAHcAXwBSAGUAYwB0AEwAaQBnAGgAdABBAHQAbABhAHMAUwBhAG0AcABsAGUAcgAAAFYAaQBlAHcAXwBJAEUAUwBBAHQAbABhAHMAVABlAHgAdAB1AHIAZQAAAFYAaQBlAHcAXwBJAEUAUwBBAHQAbABhAHMAUwBhAG0AcABsAGUAcgAAAFYAaQBlAHcAXwBMAGEAbgBkAHMAYwBhAHAAZQBXAGUAaQBnAGgAdABtAGEAcABTAGEAbQBwAGwAZQByAAAAVgBpAGUAdwBfAEwAYQBuAGQAcwBjAGEAcABlAEkAbgBkAGkAcgBlAGMAdABpAG8AbgAAAFYAaQBlAHcAXwBMAGEAbgBkAHMAYwBhAHAAZQBQAGUAcgBDAG8AbQBwAG8AbgBlAG4AdABEAGEAdABhAAAAVgBpAGUAdwBfAFYAVABGAGUAZQBkAGIAYQBjAGsAQgB1AGYAZgBlAHIAAABWAGkAZQB3AF8AUABoAHkAcwBpAGMAcwBGAGkAZQBsAGQAQwBsAGkAcABtAGEAcABCAHUAZgBmAGUAcgAAAA4AAABJbnN0YW5jZWRWaWV3AA4AAABJbnN0YW5jZWRWaWV3AAEDsBwDAAAAAAAAAAAQAAAASW5zdGFuY2VDdWxsaW5nABYAAABJbnN0YW5jZUN1bGxpbmdVYlNsb3QAGQIwAAIAAAAAQQAAAEkAbgBzAHQAYQBuAGMAZQBDAHUAbABsAGkAbgBnAF8ASQBuAHMAdABhAG4AYwBlAEkAZABzAEIAdQBmAGYAZQByAAAASQBuAHMAdABhAG4AYwBlAEMAdQBsAGwAaQBuAGcAXwBQAGEAZwBlAEkAbgBmAG8AQgB1AGYAZgBlAHIAAAAKAAAAUHJpbWl0aXZlAAAAAAAAAQADAQAAAAAAAAAABgAAAFNjZW5lAAYAAABTY2VuZQBRH4wAAwAAAAB1AQAAUwBjAGUAbgBlAF8ARwBQAFUAUwBjAGUAbgBlAF8ARwBQAFUAUwBjAGUAbgBlAEkAbgBzAHQAYQBuAGMAZQBTAGMAZQBuAGUARABhAHQAYQAAAFMAYwBlAG4AZQBfAEcAUABVAFMAYwBlAG4AZQBfAEcAUABVAFMAYwBlAG4AZQBJAG4AcwB0AGEAbgBjAGUAUABhAHkAbABvAGEAZABEAGEAdABhAAAAUwBjAGUAbgBlAF8ARwBQAFUAUwBjAGUAbgBlAF8ARwBQAFUAUwBjAGUAbgBlAFAAcgBpAG0AaQB0AGkAdgBlAFMAYwBlAG4AZQBEAGEAdABhAAAAUwBjAGUAbgBlAF8ARwBQAFUAUwBjAGUAbgBlAF8ARwBQAFUAUwBjAGUAbgBlAEwAaQBnAGgAdABtAGEAcABEAGEAdABhAAAAUwBjAGUAbgBlAF8ARwBQAFUAUwBjAGUAbgBlAF8ARwBQAFUAUwBjAGUAbgBlAEwAaQBnAGgAdABEAGEAdABhAAAAUwBjAGUAbgBlAF8ATgBhAG4AaQB0AGUATQBhAHQAZQByAGkAYQBsAHMAXwBQAHIAaQBtAGkAdABpAHYAZQBNAGEAdABlAHIAaQBhAGwARABhAHQAYQAAAFMAYwBlAG4AZQBfAE4AYQBuAGkAdABlAE0AYQB0AGUAcgBpAGEAbABzAF8ATQBhAHQAZQByAGkAYQBsAEQAYQB0AGEAAABTAGMAZQBuAGUAXwBTAHAAbABpAG4AZQBNAGUAcwBoAF8AUwBwAGwAaQBuAGUAUABvAHMAVABlAHgAdAB1AHIAZQAAAFMAYwBlAG4AZQBfAFMAcABsAGkAbgBlAE0AZQBzAGgAXwBTAHAAbABpAG4AZQBSAG8AdABUAGUAeAB0AHUAcgBlAAAAUwBjAGUAbgBlAF8AUwBwAGwAaQBuAGUATQBlAHMAaABfAFMAcABsAGkAbgBlAFMAYQBtAHAAbABlAHIAAAARAAAAQmF0Y2hlZFByaW1pdGl2ZQARAAAAQmF0Y2hlZFByaW1pdGl2ZQARAxAAAwEAAAAWAAAAQgBhAHQAYwBoAGUAZABQAHIAaQBtAGkAdABpAHYAZQBfAEQAYQB0AGEAAAAHAAAATmFuaXRlAAcAAABOYW5pdGUAOB3ZCQIAAAAAQgEAAE4AYQBuAGkAdABlAF8AQwBsAHUAcwB0AGUAcgBQAGEAZwBlAEQAYQB0AGEAAABOAGEAbgBpAHQAZQBfAFYAaQBzAGkAYgBsAGUAQwBsAHUAcwB0AGUAcgBzAFMAVwBIAFcAAABOAGEAbgBpAHQAZQBfAEgAaQBlAHIAYQByAGMAaAB5AEIAdQBmAGYAZQByAAAATgBhAG4AaQB0AGUAXwBNAGEAdABlAHIAaQBhAGwAVABpAGwAZQBSAGUAbQBhAHAAAABOAGEAbgBpAHQAZQBfAE0AYQB0AGUAcgBpAGEAbABEAGUAcAB0AGgAVABhAGIAbABlAAAATgBhAG4AaQB0AGUAXwBTAGgAYQBkAGkAbgBnAE0AYQBzAGsAAABOAGEAbgBpAHQAZQBfAFYAaQBzAEIAdQBmAGYAZQByADYANAAAAE4AYQBuAGkAdABlAF8ARABiAGcAQgB1AGYAZgBlAHIANgA0AAAATgBhAG4AaQB0AGUAXwBEAGIAZwBCAHUAZgBmAGUAcgAzADIAAABOAGEAbgBpAHQAZQBfAFIAYQB5AFQAcgBhAGMAaQBuAGcARABhAHQAYQBCAHUAZgBmAGUAcgAAAE4AYQBuAGkAdABlAF8AUwBoAGEAZABpAG4AZwBCAGkAbgBEAGEAdABhAAAATgBhAG4AaQB0AGUAXwBNAHUAbAB0AGkAVgBpAGUAdwBJAG4AZABpAGMAZQBzAAAATgBhAG4AaQB0AGUAXwBNAHUAbAB0AGkAVgBpAGUAdwBSAGUAYwB0AFMAYwBhAGwAZQBPAGYAZgBzAGUAdABzAAAATgBhAG4AaQB0AGUAXwBJAG4AVgBpAGUAdwBzAAAAEQAAAE5hbml0ZVJheVRyYWNpbmcAEQAAAE5hbml0ZVJheVRyYWNpbmcAOQNGAAMAAAAAaAAAAE4AYQBuAGkAdABlAFIAYQB5AFQAcgBhAGMAaQBuAGcAXwBDAGwAdQBzAHQAZQByAFAAYQBnAGUARABhAHQAYQAAAE4AYQBuAGkAdABlAFIAYQB5AFQAcgBhAGMAaQBuAGcAXwBIAGkAZQByAGEAcgBjAGgAeQBCAHUAZgBmAGUAcgAAAE4AYQBuAGkAdABlAFIAYQB5AFQAcgBhAGMAaQBuAGcAXwBSAGEAeQBUAHIAYQBjAGkAbgBnAEQAYQB0AGEAQgB1AGYAZgBlAHIAAAAAAAAA
+BASE64_ENV */
+/* DIRECT COMPILE
+-directcompile -format=PCD3D_SM6 -entry="TranscodePageToGPU" -shaderPlatformName=PCD3D_SM6 -supportedHardwareMask=0 -cs C:/Users/Matteo/Documents/Unreal Projects/mf-livingroom/SpeedStormRiders/SpeedstormRiders/Saved/ShaderDebugInfo/PCD3D_SM6/Global/FTranscodePageToGPU_CS/8/NaniteTranscode.usf -nocrashreports
+DIRECT COMPILE */
